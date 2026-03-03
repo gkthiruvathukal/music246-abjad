@@ -49,7 +49,10 @@ if [ ! -f "$SOUNDFONT_SF2" ]; then
     ARCHIVE="${SOUNDFONT_DIR}/salamander.tar.xz"
     curl -L -o "$ARCHIVE" "$SOUNDFONT_URL"
     echo "Extracting..."
-    tar -xf "$ARCHIVE" -C "$SOUNDFONT_DIR" --strip-components=1 --include='*.sf2'
+    tar -xf "$ARCHIVE" -C "$SOUNDFONT_DIR" --strip-components=1
+    # Remove everything except the .sf2 file
+    find "$SOUNDFONT_DIR" -type f ! -name '*.sf2' -delete
+    find "$SOUNDFONT_DIR" -type d -empty -delete
     rm -f "$ARCHIVE"
     if [ ! -f "$SOUNDFONT_SF2" ]; then
         echo "Error: expected $SOUNDFONT_SF2 after extraction" >&2
