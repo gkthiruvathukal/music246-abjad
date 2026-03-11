@@ -44,6 +44,14 @@ python -m jazz_rhythm -o build --pdf
 python -m jazz_rhythm -o build --midi
 ```
 
+## CI/CD
+
+Jazz Rhythmic Patterns is built by the repository's shared GitHub Actions workflow. Tagged releases attach:
+
+- `jazz-rhythms.ly`
+- `jazz-rhythms.pdf`
+- `jazz-rhythms.midi`
+
 ## Usage in Code
 
 You can import these rhythms to build larger structures:

@@ -129,7 +129,7 @@ lilypond modus-operandi-abjad.ly
 
 ## CI/CD
 
-Every push to `main` and every pull request builds the score via GitHub Actions. When a version tag (`v*`) is pushed, a GitHub Release is created automatically with the PDF, MIDI, and LilyPond source attached.
+Every push to `main` and every pull request builds the score via GitHub Actions. The repository uses one shared workflow to build both compositions. When a version tag (`v*`) is pushed, a GitHub Release is created automatically with the PDF, MIDI, LilyPond source, and WAV for Modus Operandi attached.
 
 ```bash
 git tag v0.2

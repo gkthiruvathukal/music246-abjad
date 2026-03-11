@@ -66,3 +66,11 @@ If you want a wheel or source distribution, use the standard Python build tool:
 ```bash
 python -m build
 ```
+
+## CI/CD
+
+GitHub Actions uses a single workflow file, [build.yml](.github/workflows/build.yml), to build both projects.
+
+- `modus_operandi_abjad` produces `.ly`, `.pdf`, `.midi`, and `.wav`
+- `jazz_rhythm` produces `.ly`, `.pdf`, and `.midi`
+- pushing a version tag creates one GitHub release containing assets from both projects
