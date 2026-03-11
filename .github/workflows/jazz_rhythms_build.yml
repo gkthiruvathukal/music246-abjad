@@ -1,0 +1,54 @@
+name: Build (Jazz Rhythms)
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install LilyPond
+        uses: codello/setup-lilypond@v0.1.0
+        with:
+          lilypond-version: "2.24"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package
+        run: pip install -e .
+
+      - name: Build jazz rhythms (LilyPond + PDF)
+        run: make jazz-rhythms
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: jazz-rhythms
+          path: |
+            build/jazz-rhythms.ly
+            build/jazz-rhythms.pdf
+
+      - name: Create release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ github.ref_name }}" \
+            --title "${{ github.ref_name }}" \
+            --generate-notes \
+            build/jazz-rhythms.pdf \
+            build/jazz-rhythms.ly
