@@ -1,6 +1,6 @@
 # Jazz Rhythmic Patterns
 
-This module provides a collection of reusable jazz comping rhythms generated programmatically using [Abjad](https://abjad.github.io/).
+This project provides a collection of reusable jazz comping rhythms generated programmatically using [Abjad](https://abjad.github.io/).
 
 ## Available Patterns
 
@@ -16,20 +16,40 @@ The rhythms are defined in `src/jazz_rhythm/rhythms.py`. Each function returns a
 
 ## Rendering the Score
 
-You can generate a PDF score showing these patterns by running the included script:
+Install the project in editable mode:
 
 ```bash
-python3 render_rhythms.py
+pip install -e .
 ```
 
-This will produce `build/jazz-rhythms.pdf`.
+Then generate output with the package CLI:
+
+```bash
+python -m jazz_rhythm -o build
+# or
+jazz-rhythms -o build
+```
+
+By default this produces:
+
+- `build/jazz-rhythms.ly`
+- `build/jazz-rhythms.pdf`
+- `build/jazz-rhythms.midi`
+
+You can also request specific outputs:
+
+```bash
+python -m jazz_rhythm -o build --ly
+python -m jazz_rhythm -o build --pdf
+python -m jazz_rhythm -o build --midi
+```
 
 ## Usage in Code
 
 You can import these rhythms to build larger structures:
 
 ```python
-from src.jazz_rhythm import rhythms
+from jazz_rhythm import rhythms
 import abjad
 
 # Create a staff with 4 measures of Charleston rhythm

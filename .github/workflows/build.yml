@@ -1,4 +1,4 @@
-name: Build (Abjad)
+name: Build And Release
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   contents: write
 
 jobs:
-  build:
+  build-modus-operandi:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,16 +31,16 @@ jobs:
       - name: Install package
         run: pip install -e .
 
-      - name: Build score (LilyPond + PDF + MIDI)
-        run: make abjad
+      - name: Build Modus Operandi outputs
+        run: python -m modus_operandi_abjad -o build
 
       - name: Install FluidSynth
         run: sudo apt-get update && sudo apt-get install -y fluidsynth
 
-      - name: Render MIDI to WAV
+      - name: Render Modus Operandi WAV
         run: ./midi2wav.sh build/modus-operandi-abjad.midi build/modus-operandi-abjad.wav
 
-      - name: Upload build artifacts
+      - name: Upload Modus Operandi artifacts
         uses: actions/upload-artifact@v4
         with:
           name: modus-operandi-abjad
@@ -50,15 +50,69 @@ jobs:
             build/modus-operandi-abjad.midi
             build/modus-operandi-abjad.wav
 
+  build-jazz-rhythms:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install LilyPond
+        uses: codello/setup-lilypond@v0.1.0
+        with:
+          lilypond-version: "2.24"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package
+        run: pip install -e .
+
+      - name: Build Jazz Rhythms outputs
+        run: python -m jazz_rhythm -o build
+
+      - name: Upload Jazz Rhythms artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: jazz-rhythms
+          path: |
+            build/jazz-rhythms.ly
+            build/jazz-rhythms.pdf
+            build/jazz-rhythms.midi
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs:
+      - build-modus-operandi
+      - build-jazz-rhythms
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Modus Operandi artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: modus-operandi-abjad
+          path: release/modus-operandi-abjad
+
+      - name: Download Jazz Rhythms artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: jazz-rhythms
+          path: release/jazz-rhythms
+
       - name: Create release
-        if: startsWith(github.ref, 'refs/tags/v')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create "${{ github.ref_name }}" \
             --title "${{ github.ref_name }}" \
             --generate-notes \
-            build/modus-operandi-abjad.pdf \
-            build/modus-operandi-abjad.midi \
-            build/modus-operandi-abjad.ly \
-            build/modus-operandi-abjad.wav
+            release/modus-operandi-abjad/modus-operandi-abjad.pdf \
+            release/modus-operandi-abjad/modus-operandi-abjad.midi \
+            release/modus-operandi-abjad/modus-operandi-abjad.ly \
+            release/modus-operandi-abjad/modus-operandi-abjad.wav \
+            release/jazz-rhythms/jazz-rhythms.pdf \
+            release/jazz-rhythms/jazz-rhythms.midi \
+            release/jazz-rhythms/jazz-rhythms.ly

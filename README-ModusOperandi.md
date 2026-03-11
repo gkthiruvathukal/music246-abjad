@@ -37,11 +37,11 @@ The score is generated programmatically using [Abjad](https://abjad.github.io/),
 
 ```bash
 pip install -e .
-make abjad
-make abjad-wav
+python -m modus_operandi_abjad -o build
+./midi2wav.sh build/modus-operandi-abjad.midi
 ```
 
-This produces three files in `build/`:
+This produces the LilyPond source, engraved score, and combined MIDI in `build/`. Running `midi2wav.sh` adds the WAV render:
 
 | File | Description |
 |------|-------------|
@@ -53,9 +53,9 @@ This produces three files in `build/`:
 You can also build individual outputs:
 
 ```bash
-make abjad-ly    # .ly only
-make abjad-pdf   # .ly + PDF
-make abjad-midi  # .ly + MIDI
+python -m modus_operandi_abjad -o build --ly
+python -m modus_operandi_abjad -o build --pdf
+python -m modus_operandi_abjad -o build --midi
 ```
 
 ### Rendering audio from MIDI
@@ -63,12 +63,6 @@ make abjad-midi  # .ly + MIDI
 The MIDI file can be rendered to WAV using [FluidSynth](https://www.fluidsynth.org/) and the [Salamander Grand Piano](https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html) soundfont (Yamaha C5, 16 velocity layers). The included `midi2wav.sh` script handles downloading the soundfont (~296 MB) on first use and caching it in `~/.soundfonts/`.
 
 **Requirements:** FluidSynth must be installed on your system (`brew install fluidsynth` on macOS, `apt install fluidsynth` on Ubuntu).
-
-If you already ran `make abjad` (or `make abjad-midi`), you can render the WAV via Make:
-
-```bash
-make abjad-wav
-```
 
 You can also run the script directly on any MIDI file:
 
@@ -141,4 +135,3 @@ Every push to `main` and every pull request builds the score via GitHub Actions.
 git tag v0.2
 git push --tags
 ```
-

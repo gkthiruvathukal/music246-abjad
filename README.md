@@ -2,6 +2,8 @@
 
 This repository contains programmatic music composition experiments and finished works using [Abjad](https://abjad.github.io/) and [LilyPond](https://lilypond.org/).
 
+The repository uses normal Python entry points instead of relying on a `Makefile`. Both projects expose module entry points (`python -m ...`) and console scripts after installation.
+
 ## Projects
 
 ### 1. [Modus Operandi for Piano](README-ModusOperandi.md)
@@ -9,14 +11,14 @@ This repository contains programmatic music composition experiments and finished
 A monody for solo piano in three movements (F Dorian, F Phrygian, F Lydian). This is a complete composition with a CI/CD pipeline for generating PDF scores and MIDI/WAV audio.
 
 - **Source:** `src/modus_operandi_abjad/`
-- **Build:** `make abjad`
+- **CLI:** `python -m modus_operandi_abjad -o build`
 
 ### 2. [Jazz Rhythmic Patterns](README-JazzRhythms.md)
 
-A collection of generated jazz comping rhythms (Charleston, anticipation, syncopated figures) rendered as rhythmic notation.
+A collection of generated jazz comping rhythms (Charleston, anticipation, syncopated figures) rendered as rhythmic notation, LilyPond source, and MIDI.
 
 - **Source:** `src/jazz_rhythm/`
-- **Render:** `python3 render_rhythms.py`
+- **CLI:** `python -m jazz_rhythm -o build`
 
 ## Setup
 
@@ -28,6 +30,13 @@ Both projects require Python 3.10+ and LilyPond 2.24+.
     pip install -e .
     ```
 
+    This installs two console scripts:
+
+    ```bash
+    modus-operandi-abjad
+    jazz-rhythms
+    ```
+
 2.  **Install LilyPond:**
     -   macOS: `brew install lilypond`
     -   Ubuntu: `sudo apt install lilypond`
@@ -35,3 +44,25 @@ Both projects require Python 3.10+ and LilyPond 2.24+.
 3.  **Install FluidSynth (optional, for audio rendering):**
     -   macOS: `brew install fluidsynth`
     -   Ubuntu: `sudo apt install fluidsynth`
+
+## Standard Python Workflows
+
+Run the CLIs directly as modules:
+
+```bash
+python -m modus_operandi_abjad -o build
+python -m jazz_rhythm -o build
+```
+
+Or use the installed console scripts:
+
+```bash
+modus-operandi-abjad -o build
+jazz-rhythms -o build
+```
+
+If you want a wheel or source distribution, use the standard Python build tool:
+
+```bash
+python -m build
+```

@@ -1,122 +1,64 @@
+"""Score construction for jazz rhythm studies."""
+
 import abjad
 
+from . import rhythms
 
-def make_rhythm_staff(rhythm_name, rhythm_container):
-    voice = abjad.Voice(rhythm_container, name=f"{rhythm_name.replace(' ', '')}Voice")
-    staff = abjad.Staff([voice], name=f"{rhythm_name.replace(' ', '')}Staff")
-    abjad.attach(abjad.Clef("percussion"), staff)
-    abjad.attach(abjad.TimeSignature((4, 4)), staff)
-    abjad.attach(
-        abjad.MetronomeMark(
-            reference_duration=abjad.Duration(1, 4),
-            units_per_minute=120,
-            textual_indication=rhythm_name,
-        ),
-        staff,
-    )
-    abjad.override(staff).Staff.explicitClefVisibility = True
+TITLE = "Jazz Rhythmic Patterns using Abjad Python"
+COMPOSER = "George K. Thiruvathukal"
+
+def _make_staff(name, markup, rhythm_maker, measures=4):
+    """Build one rhythmic staff showing repeated instances of a pattern."""
+    staff = abjad.Staff(lilypond_type="RhythmicStaff", name=name)
+    leaves = []
+    for _ in range(measures):
+        leaves.extend(rhythm_maker())
+    staff.extend(leaves)
+    if leaves:
+        abjad.attach(abjad.TimeSignature((4, 4)), leaves[0])
+        abjad.attach(abjad.Markup(rf'\markup "{markup}"'), leaves[0], direction=abjad.UP)
     return staff
 
 
-def charleston():
-    """
-    Returns a one-measure Charleston rhythm (dotted quarter + eighth).
-    """
-    return abjad.Container(
-        [
-            abjad.Note("c'4."),
-            abjad.Note("c'8"),
-            abjad.Rest("r2"),
-        ]
-    )
-
-
-def charleston_extended():
-    """
-    Returns a one-measure Charleston rhythm (dotted quarter + eighth) plus a push on the 'and' of 4.
-    """
-    return abjad.Container(
-        [
-            abjad.Note("c'4."),  # Beat 1 + 2 (start)
-            abjad.Note("c'8"),  # Beat 2 'and'
-            abjad.Rest("r4"),  # Beat 3
-            abjad.Rest("r8"),  # Beat 4
-            abjad.Note("c'8"),  # Beat 4 'and'
-        ]
-    )
-
-
-def anticipation():
-    """
-    Returns a one-measure rhythm with an anticipation on the 'and' of beat 4.
-    """
-    return abjad.Container(
-        [
-            abjad.Rest("r2."),
-            abjad.Rest("r8"),
-            abjad.Note("c'8"),
-        ]
-    )
-
-
-def two_beat():
-    """
-    Returns a one-measure rhythm with quarter notes on beats 2 and 4.
-    """
-    return abjad.Container(
-        [
-            abjad.Rest("r4"),
-            abjad.Note("c'4"),
-            abjad.Rest("r4"),
-            abjad.Note("c'4"),
-        ]
-    )
-
-
-def syncopated():
-    """
-    Returns a one-measure syncopated rhythm (off-beats on 1 and 2).
-    """
-    return abjad.Container(
-        [
-            abjad.Rest("r8"),
-            abjad.Note("c'8"),
-            abjad.Rest("r8"),
-            abjad.Note("c'8"),
-            abjad.Rest("r2"),
-        ]
-    )
-
-
 def build_lilypond_file():
-    """Assemble the full LilyPondFile from all jazz rhythms."""
-    header = abjad.Block("header")
-    header.items.append(r'title = "Jazz Rhythm Patterns"')
-    header.items.append(r'composer = "Various"')
-    header.items.append(r'subtitle = "Common Jazz Rhythms"')
-    header.items.append(r"tagline = ##f")
-
-    # Create individual rhythm staves
-    charleston_staff = make_rhythm_staff("Charleston", charleston())
-    charleston_extended_staff = make_rhythm_staff(
-        "Charleston Extended", charleston_extended()
+    """Build the LilyPond file for the jazz rhythm score."""
+    score = abjad.Score([], name="Score")
+    score.append(_make_staff("Charleston Staff", "Charleston", rhythms.charleston))
+    score.append(
+        _make_staff(
+            "Charleston Extended Staff",
+            "Charleston Extended (and of 4)",
+            rhythms.charleston_extended,
+        )
     )
-    anticipation_staff = make_rhythm_staff("Anticipation", anticipation())
-    two_beat_staff = make_rhythm_staff("Two Beat", two_beat())
-    syncopated_staff = make_rhythm_staff("Syncopated", syncopated())
-
-    return abjad.LilyPondFile(
-        items=[
-            header,
-            # abjad.GlobalContext(),  # Ensure global context for page breaks and other settings
-            charleston_staff,
-            r"\pageBreak",
-            charleston_extended_staff,
-            r"\pageBreak",
-            anticipation_staff,
-            r"\pageBreak",
-            two_beat_staff,
-            r"\pageBreak",
-            syncopated_staff,
-        ],
+    score.append(
+        _make_staff(
+            "Anticipation Staff",
+            "Anticipation (push to 1)",
+            rhythms.anticipation,
+        )
     )
+    score.append(_make_staff("Two Beat Staff", "Two Beat Comping", rhythms.two_beat))
+    score.append(
+        _make_staff(
+            "Syncopated Staff",
+            "Syncopated (off-beats)",
+            rhythms.syncopated,
+        )
+    )
+
+    header_block = abjad.Block(name="header")
+    header_block.items.append(rf'title = "{TITLE}"')
+    header_block.items.append(rf'composer = "{COMPOSER}"')
+
+    layout_block = abjad.Block(name="layout")
+    layout_block.items.append(r"indent = 2.0\cm")
+
+    midi_block = abjad.Block(name="midi")
+
+    score_block = abjad.Block(name="score")
+    score_block.items.append(score)
+    score_block.items.append(layout_block)
+    score_block.items.append(midi_block)
+
+    return abjad.LilyPondFile(items=[header_block, score_block])
