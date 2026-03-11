@@ -50,6 +50,7 @@ def build_lilypond_file():
     header_block = abjad.Block(name="header")
     header_block.items.append(rf'title = "{TITLE}"')
     header_block.items.append(rf'composer = "{COMPOSER}"')
+    header_block.items.append(r"tagline = ##f")
 
     layout_block = abjad.Block(name="layout")
     layout_block.items.append(r"indent = 2.0\cm")
