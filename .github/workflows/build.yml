@@ -82,11 +82,54 @@ jobs:
             build/jazz-rhythms.pdf
             build/jazz-rhythms.midi
 
+  build-piano-quartet-study:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install LilyPond
+        uses: codello/setup-lilypond@v0.1.0
+        with:
+          lilypond-version: "2.24"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package
+        run: pip install -e .
+
+      - name: Install FluidSynth
+        run: sudo apt-get update && sudo apt-get install -y fluidsynth
+
+      - name: Build Piano Quartet Study outputs
+        run: python -m atonal_piano_quartet -c piano-quartet.toml -o build --pdf --midi
+
+      - name: Render Piano Quartet Study WAV
+        run: |
+          midi_file=$(find build -maxdepth 1 -type f -name 'atonal-piano-quartet*.midi' | head -n 1)
+          wav_file="${midi_file%.midi}.wav"
+          ./midi2wav.sh "$midi_file" "$wav_file"
+
+      - name: Upload Piano Quartet Study artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: piano-quartet-study
+          path: |
+            build/atonal-piano-quartet*.ly
+            build/atonal-piano-quartet*.pdf
+            build/atonal-piano-quartet*.midi
+            build/atonal-piano-quartet*.wav
+
   release:
     if: startsWith(github.ref, 'refs/tags/v')
     needs:
       - build-modus-operandi
       - build-jazz-rhythms
+      - build-piano-quartet-study
     runs-on: ubuntu-latest
 
     steps:
@@ -102,6 +145,12 @@ jobs:
           name: jazz-rhythms
           path: release/jazz-rhythms
 
+      - name: Download Piano Quartet Study artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: piano-quartet-study
+          path: release/piano-quartet-study
+
       - name: Create release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -116,4 +165,8 @@ jobs:
             release/modus-operandi-abjad/modus-operandi-abjad.wav \
             release/jazz-rhythms/jazz-rhythms.pdf \
             release/jazz-rhythms/jazz-rhythms.midi \
-            release/jazz-rhythms/jazz-rhythms.ly
+            release/jazz-rhythms/jazz-rhythms.ly \
+            release/piano-quartet-study/atonal-piano-quartet*.pdf \
+            release/piano-quartet-study/atonal-piano-quartet*.midi \
+            release/piano-quartet-study/atonal-piano-quartet*.ly \
+            release/piano-quartet-study/atonal-piano-quartet*.wav

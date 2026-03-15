@@ -20,6 +20,13 @@ A collection of generated jazz comping rhythms (Charleston, anticipation, syncop
 - **Source:** `src/jazz_rhythm/`
 - **CLI:** `python -m jazz_rhythm -o build`
 
+### 3. [Piano Quartet Study](README-PianoQuartetStudy.md)
+
+A generated **tonal** chamber study for piano, violin, viola, and cello. This is an exploratory step toward a future atonal composition system, but this study itself is tonal and should be described that way.
+
+- **Source:** `src/atonal_piano_quartet/`
+- **CLI:** `python -m atonal_piano_quartet -c piano-quartet.toml -o build`
+
 ## Setup
 
 Both projects require Python 3.10+ and LilyPond 2.24+.

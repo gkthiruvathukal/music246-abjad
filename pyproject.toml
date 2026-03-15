@@ -10,11 +10,13 @@ requires-python = ">= 3.10"
 dependencies = [
     "abjad >= 3.19",
     "mido >= 1.3",
+    'tomli >= 2.0; python_version < "3.11"',
 ]
 
 [project.scripts]
 modus-operandi-abjad = "modus_operandi_abjad.cli:main"
 jazz-rhythms = "jazz_rhythm.cli:main"
+atonal-piano-quartet = "atonal_piano_quartet.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -29,7 +29,7 @@ fi
 source "${VENV_DIR}/bin/activate"
 
 echo "Installing project dependencies into ${VENV_DIR}"
-python -m pip install "abjad>=3.19" "mido>=1.3"
+python -m pip install "abjad>=3.19" "mido>=1.3" "tomli>=2.0"
 
 if ! command -v lilypond >/dev/null 2>&1; then
     echo "Error: lilypond is required to build scores." >&2
