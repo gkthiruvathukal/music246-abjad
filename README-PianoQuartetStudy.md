@@ -55,6 +55,75 @@ Although this study belongs to a larger atonal project, the present material is 
 - **Source:** `src/algorithmic_piano_quartet/`
 - **CLI:** `python -m algorithmic_piano_quartet`
 
+## Configuration Settings
+
+The quartet is configured with `piano-quartet.toml`. The available sections are:
+
+### Top-Level Fields
+
+- `title`: score title
+- `composer`: composer name shown in the score
+
+### `[output]`
+
+- `basename`: base filename for generated output
+- `label`: optional extra text added to the filename stem
+- `include_measures`: add the measure count to the filename
+- `include_tempo`: add the tempo to the filename
+- `include_seed`: add the random seed to the filename
+- `include_timestamp`: add a timestamp to the filename
+- `timestamp_format`: Python `strftime` format used for the timestamp
+
+### `[render]`
+
+- `piano_soundfont`: soundfont used for the piano render layer
+- `strings_soundfont`: soundfont used for violin, viola, and cello
+- `sample_rate`: output WAV sample rate
+
+The config loader also accepts a legacy `soundfont` field, but the current production setup uses the split `piano_soundfont` and `strings_soundfont` fields.
+
+### `[generation]`
+
+- `measures`: number of measures to generate
+- `time_signature`: bar structure as `[numerator, denominator]`
+- `min_note_duration`: smallest note value allowed
+- `max_note_duration`: largest note value allowed
+- `min_rest_duration`: smallest rest value allowed
+- `max_rest_duration`: largest rest value allowed
+- `max_simultaneous_tones_per_quantum`: density cap for notes sounding at the same time
+- `max_pitch_leap`: largest melodic leap allowed between adjacent notes
+- `tempo_bpm`: tempo in quarter-notes per minute
+- `seed`: random seed for reproducible output
+
+Duration values such as `1/16` and `1/4` must align with the minimum note duration grid.
+
+### `[materials]`
+
+- `pitch_classes`: pitch-class collection used by the generator
+
+### `[[parts]]`
+
+Each part entry defines one instrument. The available fields are:
+
+- `id`: stable internal part identifier
+- `name`: full instrument name
+- `short_name`: abbreviated name for the score
+- `family`: instrument family such as `strings` or `keyboard`
+- `clef`: staff clef
+- `role`: broad musical role such as `melodic`, `bass`, or `keyboard`
+- `midi_channel`: MIDI channel used for export
+- `midi_program`: MIDI program number
+- `midi_instrument`: LilyPond / MIDI instrument name
+- `range`: playable range as `["LOW", "HIGH"]`
+- `staff_type`: optional staff layout; use `grand` for piano
+
+The current quartet uses four `[[parts]]` blocks:
+
+- violin
+- viola
+- cello
+- piano
+
 ## Building
 
 From the repository root:
