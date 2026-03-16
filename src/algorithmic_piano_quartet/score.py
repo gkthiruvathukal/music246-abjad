@@ -60,6 +60,8 @@ def _ottava_state_for_pitch(staff_id: str, pitch: int | None) -> int:
     thresholds = OTTAVA_THRESHOLDS.get(staff_id)
     if not thresholds:
         return 0
+    if thresholds["up"] is not None and pitch >= thresholds["up"] + 12:
+        return 2
     if thresholds["up"] is not None and pitch >= thresholds["up"]:
         return 1
     if thresholds["down"] is not None and pitch <= thresholds["down"]:
