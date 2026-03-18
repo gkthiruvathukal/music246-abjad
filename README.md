@@ -121,6 +121,6 @@ GitHub Actions uses a single workflow file, [build.yml](.github/workflows/build.
 - `modus_operandi_abjad` produces `.ly`, `.pdf`, `.midi`, and `.wav`
 - `jazz_rhythm` produces `.ly`, `.pdf`, and `.midi`
 - `algorithmic_piano_quartet` produces uniquely named `.ly`, `.pdf`, `.midi`, and `.wav` when FluidSynth is available
-- `algorithmic_piano_quartet_no2` is available locally but is not part of the default build or release workflow yet
+- `algorithmic_piano_quartet_no2` produces uniquely named `.ly`, `.pdf`, `.midi`, and `.wav` when FluidSynth is available
 - `algorithmic` currently produces placeholder `.ly`, `.pdf`, and `.midi`
 - pushing a version tag creates one GitHub release containing assets from the built projects

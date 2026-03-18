@@ -118,12 +118,49 @@ jobs:
             build/algo-rhythms-quartet-no-1*.midi
             build/algo-rhythms-quartet-no-1*.wav
 
+  build-piano-quartet-no2:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install LilyPond
+        uses: codello/setup-lilypond@v0.1.0
+        with:
+          lilypond-version: "2.24"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package
+        run: pip install -e .
+
+      - name: Install audio tools
+        run: sudo apt-get update && sudo apt-get install -y fluidsynth ffmpeg
+
+      - name: Build Piano Quartet No. 2 outputs
+        run: python -m algorithmic_piano_quartet_no2 -c configs/algorithmic-piano-quartet-no2.toml -o build --pdf --wav
+
+      - name: Upload Piano Quartet No. 2 artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: piano-quartet-no2
+          path: |
+            build/algorithmic-piano-quartet-no-2*.ly
+            build/algorithmic-piano-quartet-no-2*.pdf
+            build/algorithmic-piano-quartet-no-2*.midi
+            build/algorithmic-piano-quartet-no-2*.wav
+
   release:
     if: startsWith(github.ref, 'refs/tags/v')
     needs:
       - build-modus-operandi
       - build-jazz-rhythms
       - build-piano-quartet-study
+      - build-piano-quartet-no2
     runs-on: ubuntu-latest
 
     steps:
@@ -145,6 +182,12 @@ jobs:
           name: piano-quartet-study
           path: release/piano-quartet-study
 
+      - name: Download Piano Quartet No. 2 artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: piano-quartet-no2
+          path: release/piano-quartet-no2
+
       - name: Create release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -163,4 +206,8 @@ jobs:
             release/piano-quartet-study/algo-rhythms-quartet-no-1*.pdf \
             release/piano-quartet-study/algo-rhythms-quartet-no-1*.midi \
             release/piano-quartet-study/algo-rhythms-quartet-no-1*.ly \
-            release/piano-quartet-study/algo-rhythms-quartet-no-1*.wav
+            release/piano-quartet-study/algo-rhythms-quartet-no-1*.wav \
+            release/piano-quartet-no2/algorithmic-piano-quartet-no-2*.pdf \
+            release/piano-quartet-no2/algorithmic-piano-quartet-no-2*.midi \
+            release/piano-quartet-no2/algorithmic-piano-quartet-no-2*.ly \
+            release/piano-quartet-no2/algorithmic-piano-quartet-no-2*.wav
