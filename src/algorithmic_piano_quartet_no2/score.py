@@ -43,10 +43,10 @@ def _midi_to_pitch_name(midi_note: int) -> str:
 
 
 def _make_leaf(event: Event):
-    if event.pitch is None:
+    if event.pitches is None:
         pitch_lists = [[]]
     else:
-        pitch_lists = [[abjad.NamedPitch(_midi_to_pitch_name(event.pitch))]]
+        pitch_lists = [[abjad.NamedPitch(_midi_to_pitch_name(pitch)) for pitch in event.pitches]]
     leaves = abjad.makers.make_leaves(
         pitch_lists,
         [abjad.Duration(event.duration_quanta, 16)],
@@ -54,17 +54,19 @@ def _make_leaf(event: Event):
     return leaves
 
 
-def _ottava_state_for_pitch(staff_id: str, pitch: int | None) -> int:
-    if pitch is None:
+def _ottava_state_for_pitch(staff_id: str, pitches: tuple[int, ...] | None) -> int:
+    if pitches is None:
         return 0
     thresholds = OTTAVA_THRESHOLDS.get(staff_id)
     if not thresholds:
         return 0
-    if thresholds["up"] is not None and pitch >= thresholds["up"] + 12:
+    highest_pitch = max(pitches)
+    lowest_pitch = min(pitches)
+    if thresholds["up"] is not None and highest_pitch >= thresholds["up"] + 12:
         return 2
-    if thresholds["up"] is not None and pitch >= thresholds["up"]:
+    if thresholds["up"] is not None and highest_pitch >= thresholds["up"]:
         return 1
-    if thresholds["down"] is not None and pitch <= thresholds["down"]:
+    if thresholds["down"] is not None and lowest_pitch <= thresholds["down"]:
         return -1
     return 0
 
@@ -77,7 +79,7 @@ def _apply_ottava(staff: abjad.Staff, voice_material: VoiceMaterial) -> None:
     active_stop = None
 
     for leaf, event in zip(leaves, events):
-        state = _ottava_state_for_pitch(voice_material.staff_id, event.pitch)
+        state = _ottava_state_for_pitch(voice_material.staff_id, event.pitches)
         if state == active_state:
             if state != 0:
                 active_stop = leaf

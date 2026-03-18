@@ -41,6 +41,16 @@ class GenerationConfig:
     seed: int
     tempo_bpm: int
     measure_quanta: int
+    piano_chord_probability: float
+    piano_min_chord_tones: int
+    piano_max_chord_tones: int
+    piano_rh_max_chord_tones: int
+    piano_lh_max_chord_tones: int
+    piano_chord_span: int
+    piano_rh_chord_span: int
+    piano_lh_chord_span: int
+    piano_preferred_chord_steps: tuple[int, ...]
+    piano_min_chord_separation: int
 
 
 @dataclass(frozen=True)
@@ -176,6 +186,21 @@ def load_config(path: str | Path) -> ProjectConfig:
         seed=generation_data.get("seed", 17),
         tempo_bpm=generation_data.get("tempo_bpm", 72),
         measure_quanta=measure_quanta,
+        piano_chord_probability=generation_data.get("piano_chord_probability", 0.35),
+        piano_min_chord_tones=generation_data.get("piano_min_chord_tones", 2),
+        piano_max_chord_tones=generation_data.get("piano_max_chord_tones", 4),
+        piano_rh_max_chord_tones=generation_data.get("piano_rh_max_chord_tones", 3),
+        piano_lh_max_chord_tones=generation_data.get("piano_lh_max_chord_tones", 2),
+        piano_chord_span=generation_data.get("piano_chord_span", 12),
+        piano_rh_chord_span=generation_data.get(
+            "piano_rh_chord_span",
+            generation_data.get("piano_chord_span", 12),
+        ),
+        piano_lh_chord_span=generation_data.get("piano_lh_chord_span", 16),
+        piano_preferred_chord_steps=tuple(
+            generation_data.get("piano_preferred_chord_steps", [3, 4, 5, 7])
+        ),
+        piano_min_chord_separation=generation_data.get("piano_min_chord_separation", 3),
     )
 
     materials = data.get("materials", {})

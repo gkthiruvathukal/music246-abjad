@@ -11,6 +11,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VENV_DIR="${ROOT_DIR}/.venv"
 OUTPUT_DIR="${1:-build}"
 QUARTET_CONFIG="${ROOT_DIR}/configs/algorithmic-piano-quartet.toml"
+QUARTET_NO2_CONFIG="${ROOT_DIR}/configs/algorithmic-piano-quartet-no2.toml"
 HAS_FLUIDSYNTH=0
 HAS_FFMPEG=0
 HAS_ALGORITHMIC=0
@@ -119,6 +120,27 @@ build_piano_quartet() {
     fi
 }
 
+build_piano_quartet_no2() {
+    if [ -f "${QUARTET_NO2_CONFIG}" ]; then
+        echo "Building Algorithmic Piano Quartet No. 2 outputs into ${OUTPUT_DIR}"
+        if [ "${HAS_FLUIDSYNTH}" -eq 1 ] && [ "${HAS_FFMPEG}" -eq 1 ]; then
+            python -m algorithmic_piano_quartet_no2 -c "${QUARTET_NO2_CONFIG}" -o "${OUTPUT_DIR}" --pdf --wav
+        else
+            python -m algorithmic_piano_quartet_no2 -c "${QUARTET_NO2_CONFIG}" -o "${OUTPUT_DIR}"
+            if [ "${HAS_FLUIDSYNTH}" -eq 0 ]; then
+                echo "Warning: fluidsynth is not installed; skipping Piano Quartet No. 2 WAV render." >&2
+            fi
+            if [ "${HAS_FFMPEG}" -eq 0 ]; then
+                echo "Warning: ffmpeg is not installed; skipping Piano Quartet No. 2 WAV render." >&2
+                echo "  macOS:  brew install ffmpeg" >&2
+                echo "  Ubuntu: sudo apt install ffmpeg" >&2
+            fi
+        fi
+    else
+        echo "Warning: ${QUARTET_NO2_CONFIG} not found; skipping Algorithmic Piano Quartet No. 2." >&2
+    fi
+}
+
 build_algorithmic() {
     if [ "${HAS_ALGORITHMIC}" -eq 1 ]; then
         echo "Building Algorithmic scaffold into ${OUTPUT_DIR}"
@@ -151,6 +173,7 @@ main() {
     build_modus_operandi
     build_jazz_rhythms
     build_piano_quartet
+    build_piano_quartet_no2
     build_algorithmic
     render_modus_operandi_wav
     echo "Build complete. Artifacts are in ${OUTPUT_DIR}"

@@ -50,4 +50,6 @@ python -m algorithmic_piano_quartet_no2 -c configs/algorithmic-piano-quartet-no2
 
 ## Current Build Scope
 
-No. 2 is available as a package and CLI, but it is not part of the default `build.sh` or GitHub Actions workflow yet. That is intentional for now. It keeps the established build and release outputs stable while No. 2 is still in an exploratory stage.
+No. 2 is part of the local `build.sh` workflow, so a normal local build will generate its outputs alongside the other compositions.
+
+It is not part of the GitHub Actions workflow yet. That is still intentional while No. 2 remains in an exploratory stage.

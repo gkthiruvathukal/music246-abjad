@@ -29,6 +29,16 @@ max_simultaneous_tones_per_quantum = 4
 max_pitch_leap = 5
 tempo_bpm = 50
 seed = 42
+piano_chord_probability = 0.45
+piano_min_chord_tones = 2
+piano_max_chord_tones = 4
+piano_rh_max_chord_tones = 3
+piano_lh_max_chord_tones = 2
+piano_chord_span = 12
+piano_rh_chord_span = 12
+piano_lh_chord_span = 16
+piano_preferred_chord_steps = [3, 4, 5, 7]
+piano_min_chord_separation = 3
 
 [materials]
 pitch_classes = [0, 1, 3, 6, 8, 10]
@@ -79,4 +89,4 @@ role = "keyboard"
 midi_channel = 4
 midi_program = 1
 midi_instrument = "acoustic grand"
-range = ["A0", "C8"]
+range = ["A0", "C6"]
