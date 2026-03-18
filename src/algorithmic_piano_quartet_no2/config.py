@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from fractions import Fraction
+from itertools import combinations
 from pathlib import Path
 
 try:
@@ -37,6 +38,7 @@ class GenerationConfig:
     min_rest_quanta: int
     max_rest_quanta: int
     max_simultaneous_tones_per_quantum: int
+    piano_max_simultaneous_events: int
     max_pitch_leap: int
     seed: int
     tempo_bpm: int
@@ -44,12 +46,18 @@ class GenerationConfig:
     piano_chord_probability: float
     piano_min_chord_tones: int
     piano_max_chord_tones: int
+    piano_rh_min_chord_tones: int
     piano_rh_max_chord_tones: int
+    piano_lh_min_chord_tones: int
     piano_lh_max_chord_tones: int
     piano_chord_span: int
     piano_rh_chord_span: int
     piano_lh_chord_span: int
+    piano_rh_min_total_span: int
+    piano_lh_min_total_span: int
     piano_preferred_chord_steps: tuple[int, ...]
+    piano_rh_preferred_chord_steps: tuple[int, ...]
+    piano_lh_preferred_chord_steps: tuple[int, ...]
     piano_min_chord_separation: int
 
 
@@ -182,6 +190,10 @@ def load_config(path: str | Path) -> ProjectConfig:
         max_simultaneous_tones_per_quantum=generation_data.get(
             "max_simultaneous_tones_per_quantum", 4
         ),
+        piano_max_simultaneous_events=generation_data.get(
+            "piano_max_simultaneous_events",
+            generation_data.get("max_simultaneous_tones_per_quantum", 4),
+        ),
         max_pitch_leap=generation_data.get("max_pitch_leap", 5),
         seed=generation_data.get("seed", 17),
         tempo_bpm=generation_data.get("tempo_bpm", 72),
@@ -189,7 +201,15 @@ def load_config(path: str | Path) -> ProjectConfig:
         piano_chord_probability=generation_data.get("piano_chord_probability", 0.35),
         piano_min_chord_tones=generation_data.get("piano_min_chord_tones", 2),
         piano_max_chord_tones=generation_data.get("piano_max_chord_tones", 4),
+        piano_rh_min_chord_tones=generation_data.get(
+            "piano_rh_min_chord_tones",
+            generation_data.get("piano_min_chord_tones", 2),
+        ),
         piano_rh_max_chord_tones=generation_data.get("piano_rh_max_chord_tones", 3),
+        piano_lh_min_chord_tones=generation_data.get(
+            "piano_lh_min_chord_tones",
+            generation_data.get("piano_min_chord_tones", 2),
+        ),
         piano_lh_max_chord_tones=generation_data.get("piano_lh_max_chord_tones", 2),
         piano_chord_span=generation_data.get("piano_chord_span", 12),
         piano_rh_chord_span=generation_data.get(
@@ -197,8 +217,22 @@ def load_config(path: str | Path) -> ProjectConfig:
             generation_data.get("piano_chord_span", 12),
         ),
         piano_lh_chord_span=generation_data.get("piano_lh_chord_span", 16),
+        piano_rh_min_total_span=generation_data.get("piano_rh_min_total_span", 4),
+        piano_lh_min_total_span=generation_data.get("piano_lh_min_total_span", 7),
         piano_preferred_chord_steps=tuple(
             generation_data.get("piano_preferred_chord_steps", [3, 4, 5, 7])
+        ),
+        piano_rh_preferred_chord_steps=tuple(
+            generation_data.get(
+                "piano_rh_preferred_chord_steps",
+                generation_data.get("piano_preferred_chord_steps", [3, 4, 5, 7]),
+            )
+        ),
+        piano_lh_preferred_chord_steps=tuple(
+            generation_data.get(
+                "piano_lh_preferred_chord_steps",
+                generation_data.get("piano_preferred_chord_steps", [3, 4, 5, 7]),
+            )
         ),
         piano_min_chord_separation=generation_data.get("piano_min_chord_separation", 3),
     )

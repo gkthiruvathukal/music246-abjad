@@ -26,18 +26,25 @@ max_note_duration = "1"
 min_rest_duration = "1/16"
 max_rest_duration = "1/4"
 max_simultaneous_tones_per_quantum = 4
+piano_max_simultaneous_events = 6
 max_pitch_leap = 5
 tempo_bpm = 50
 seed = 42
 piano_chord_probability = 0.45
 piano_min_chord_tones = 2
 piano_max_chord_tones = 4
+piano_rh_min_chord_tones = 2
 piano_rh_max_chord_tones = 3
-piano_lh_max_chord_tones = 2
+piano_lh_min_chord_tones = 2
+piano_lh_max_chord_tones = 3
 piano_chord_span = 12
 piano_rh_chord_span = 12
 piano_lh_chord_span = 16
+piano_rh_min_total_span = 4
+piano_lh_min_total_span = 7
 piano_preferred_chord_steps = [3, 4, 5, 7]
+piano_rh_preferred_chord_steps = [3, 4, 5, 7]
+piano_lh_preferred_chord_steps = [3, 4, 5, 7, 8, 9, 10]
 piano_min_chord_separation = 3
 
 [materials]

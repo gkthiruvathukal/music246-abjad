@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from itertools import combinations
 from pathlib import Path
 import random
 
@@ -105,6 +106,7 @@ def _build_piano_chord(
     minimum_tones: int,
     maximum_tones: int,
     max_span: int,
+    minimum_total_span: int,
     preferred_steps: tuple[int, ...],
     minimum_separation: int,
     rng: random.Random,
@@ -119,35 +121,46 @@ def _build_piano_chord(
     if not candidates:
         return (seed_pitch,)
 
-    def interval_quality(pitch: int) -> tuple[int, int, int]:
+    def interval_quality(pitch: int) -> tuple[int, int]:
         interval = abs(pitch - seed_pitch)
         nearest_preferred = min(abs(interval - step) for step in preferred_steps)
-        crushed_penalty = 1 if interval < minimum_separation else 0
-        return (crushed_penalty, nearest_preferred, interval)
+        return (nearest_preferred, interval)
 
     candidates.sort(key=lambda pitch: (*interval_quality(pitch), pitch))
-    available_size = min(maximum_tones, len(candidates) + 1)
-    target_size = rng.randint(minimum_tones, available_size)
-    selected = [seed_pitch]
-    for pitch in candidates:
-        if any(abs(pitch - chosen) < minimum_separation for chosen in selected):
-            continue
-        selected.append(pitch)
-        if len(selected) >= target_size:
-            break
-
-    if len(selected) < minimum_tones:
-        for pitch in candidates:
-            if pitch in selected:
-                continue
-            selected.append(pitch)
-            if len(selected) >= minimum_tones:
-                break
-
-    chord = tuple(sorted({pitch for pitch in selected if low <= pitch <= high}))
-    if not chord:
+    candidate_pool = [seed_pitch, *candidates[: min(len(candidates), 12)]]
+    available_size = min(maximum_tones, len(candidate_pool))
+    if available_size <= 1:
         return (seed_pitch,)
-    return chord
+
+    target_size = rng.randint(minimum_tones, available_size)
+    valid_chords: list[tuple[tuple[int, ...], tuple[int, int, int]]] = []
+
+    for combo in combinations(candidate_pool[1:], target_size - 1):
+        chord = tuple(sorted((seed_pitch, *combo)))
+        if any((upper - lower) < minimum_separation for lower, upper in zip(chord, chord[1:])):
+            continue
+        total_span = chord[-1] - chord[0]
+        if total_span > max_span:
+            continue
+        span_penalty = max(0, minimum_total_span - total_span)
+        adjacent_penalty = sum(
+            min(abs((upper - lower) - step) for step in preferred_steps)
+            for lower, upper in zip(chord, chord[1:])
+        )
+        seed_penalty = sum(
+            min(abs(abs(pitch - seed_pitch) - step) for step in preferred_steps)
+            for pitch in chord
+            if pitch != seed_pitch
+        )
+        valid_chords.append((chord, (span_penalty, adjacent_penalty + seed_penalty, -total_span)))
+
+    if valid_chords:
+        valid_chords.sort(key=lambda item: item[1])
+        best_score = valid_chords[0][1]
+        top_chords = [chord for chord, score in valid_chords if score == best_score][:4]
+        return rng.choice(top_chords)
+
+    return (seed_pitch,)
 
 
 def _rest_probability(role: str, current_density: int, limit: int) -> float:
@@ -232,14 +245,21 @@ def _build_generation_note_lines(config: ProjectConfig) -> tuple[str, ...]:
         f"Pitch classes: {_pitch_class_names(config.pitch_classes)}",
         "Instrumentation: piano, violin, viola, cello",
         (
+            "Occupancy: "
+            f"ensemble<={config.generation.max_simultaneous_tones_per_quantum}; "
+            f"piano<={config.generation.piano_max_simultaneous_events}"
+        ),
+        (
             "Piano chords: "
             f"p={config.generation.piano_chord_probability:.2f}; "
-            f"rh<={config.generation.piano_rh_max_chord_tones}; "
-            f"lh<={config.generation.piano_lh_max_chord_tones}; "
-            f"min={config.generation.piano_min_chord_tones}; "
+            f"rh={config.generation.piano_rh_min_chord_tones}-{config.generation.piano_rh_max_chord_tones}; "
+            f"lh={config.generation.piano_lh_min_chord_tones}-{config.generation.piano_lh_max_chord_tones}; "
             f"rh-span<={config.generation.piano_rh_chord_span}; "
             f"lh-span<={config.generation.piano_lh_chord_span}; "
-            f"steps={','.join(str(step) for step in config.generation.piano_preferred_chord_steps)}"
+            f"rh-total>={config.generation.piano_rh_min_total_span}; "
+            f"lh-total>={config.generation.piano_lh_min_total_span}; "
+            f"rh-steps={','.join(str(step) for step in config.generation.piano_rh_preferred_chord_steps)}; "
+            f"lh-steps={','.join(str(step) for step in config.generation.piano_lh_preferred_chord_steps)}"
         ),
     ]
 
@@ -266,7 +286,8 @@ def _generate_voice(
     high: int,
     role: str,
     config: ProjectConfig,
-    tracker: OccupancyTracker,
+    ensemble_tracker: OccupancyTracker,
+    piano_tracker: OccupancyTracker | None,
     rng: random.Random,
 ) -> VoiceMaterial:
     total_quanta = config.generation.measures * config.generation.measure_quanta
@@ -283,8 +304,11 @@ def _generate_voice(
     while cursor < total_quanta:
         measure_offset = cursor % config.generation.measure_quanta
         measure_remaining = config.generation.measure_quanta - measure_offset
-        current_density = tracker.count(cursor)
+        current_density = ensemble_tracker.count(cursor)
+        piano_density = piano_tracker.count(cursor) if piano_tracker is not None else 0
         choose_rest = current_density >= config.generation.max_simultaneous_tones_per_quantum
+        if piano_tracker is not None and piano_density >= config.generation.piano_max_simultaneous_events:
+            choose_rest = True
         if not choose_rest:
             rest_probability = _rest_probability(
                 role,
@@ -309,7 +333,12 @@ def _generate_voice(
         if role == "bass":
             durations = [value for value in durations if value >= 2] or durations
         duration = rng.choice(durations)
-        if not tracker.can_place(cursor, duration):
+        if not ensemble_tracker.can_place(cursor, duration):
+            rest_duration = min(measure_remaining, max(rest_min, 1))
+            events.append(Event(start_quantum=cursor, duration_quanta=rest_duration, pitches=None))
+            cursor += rest_duration
+            continue
+        if piano_tracker is not None and not piano_tracker.can_place(cursor, duration):
             rest_duration = min(measure_remaining, max(rest_min, 1))
             events.append(Event(start_quantum=cursor, duration_quanta=rest_duration, pitches=None))
             cursor += rest_duration
@@ -330,29 +359,42 @@ def _generate_voice(
             part_id == "piano"
             and rng.random() < config.generation.piano_chord_probability
         ):
+            minimum_tones = config.generation.piano_min_chord_tones
             maximum_tones = config.generation.piano_max_chord_tones
             chord_span = config.generation.piano_chord_span
+            preferred_steps = config.generation.piano_preferred_chord_steps
             if staff_id == "piano_rh":
+                minimum_tones = max(minimum_tones, config.generation.piano_rh_min_chord_tones)
                 maximum_tones = min(maximum_tones, config.generation.piano_rh_max_chord_tones)
                 chord_span = config.generation.piano_rh_chord_span
+                minimum_total_span = config.generation.piano_rh_min_total_span
+                preferred_steps = config.generation.piano_rh_preferred_chord_steps
             elif staff_id == "piano_lh":
+                minimum_tones = max(minimum_tones, config.generation.piano_lh_min_chord_tones)
                 maximum_tones = min(maximum_tones, config.generation.piano_lh_max_chord_tones)
                 chord_span = config.generation.piano_lh_chord_span
+                minimum_total_span = config.generation.piano_lh_min_total_span
+                preferred_steps = config.generation.piano_lh_preferred_chord_steps
+            else:
+                minimum_total_span = config.generation.piano_rh_min_total_span
             pitches = _build_piano_chord(
                 seed_pitch=pitch,
                 low=low,
                 high=high,
                 pitch_classes=config.pitch_classes,
-                minimum_tones=config.generation.piano_min_chord_tones,
+                minimum_tones=minimum_tones,
                 maximum_tones=maximum_tones,
                 max_span=chord_span,
-                preferred_steps=config.generation.piano_preferred_chord_steps,
+                minimum_total_span=minimum_total_span,
+                preferred_steps=preferred_steps,
                 minimum_separation=config.generation.piano_min_chord_separation,
                 rng=rng,
             )
         else:
             pitches = (pitch,)
-        tracker.occupy(cursor, duration)
+        ensemble_tracker.occupy(cursor, duration)
+        if piano_tracker is not None:
+            piano_tracker.occupy(cursor, duration)
         events.append(Event(start_quantum=cursor, duration_quanta=duration, pitches=pitches))
         last_pitch = round(sum(pitches) / len(pitches))
         cursor += duration
@@ -369,9 +411,13 @@ def _generate_voice(
 
 
 def compose_piece(config: ProjectConfig) -> Piece:
-    tracker = OccupancyTracker(
+    ensemble_tracker = OccupancyTracker(
         total_quanta=config.generation.measures * config.generation.measure_quanta,
         limit=config.generation.max_simultaneous_tones_per_quantum,
+    )
+    piano_tracker = OccupancyTracker(
+        total_quanta=config.generation.measures * config.generation.measure_quanta,
+        limit=config.generation.piano_max_simultaneous_events,
     )
     rng = random.Random(config.generation.seed)
     voices: list[VoiceMaterial] = []
@@ -392,7 +438,8 @@ def compose_piece(config: ProjectConfig) -> Piece:
                         high=high,
                         role=role,
                         config=config,
-                        tracker=tracker,
+                        ensemble_tracker=ensemble_tracker,
+                        piano_tracker=piano_tracker,
                         rng=rng,
                     )
                 )
@@ -409,7 +456,8 @@ def compose_piece(config: ProjectConfig) -> Piece:
                     high=part.range_high,
                     role=part.role,
                     config=config,
-                    tracker=tracker,
+                    ensemble_tracker=ensemble_tracker,
+                    piano_tracker=None,
                     rng=rng,
                 )
             )
