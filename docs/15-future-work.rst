@@ -1,7 +1,7 @@
 Future Work
 ===========
 
-The clearest next step is stronger motivic transfer across instruments. The quartet work would benefit from short ideas that can move from one part to another in a controlled way. This would make the ensemble behave less like several related generators and more like chamber music.
+The next clear step is stronger motivic transfer across instruments. The quartet work would benefit from short ideas that can move from one part to another in a controlled way. This would make the ensemble behave less like several related generators and more like chamber music.
 
 Section-level control is also needed. At present, most decisions are local. Future versions should define larger sections with different density, register, and activity profiles. That would improve formal shape and help the music move through clearer phases.
 

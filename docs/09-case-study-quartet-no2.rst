@@ -1,7 +1,7 @@
 Case Study IV: Algorithmic Piano Quartet No. 2
 ===============================================
 
-``Algorithmic Piano Quartet No. 2`` exists because the repository needed a place to continue experimenting without destabilizing No. 1. From a software point of view, this is a forked package. From a musical point of view, it is a controlled branch for testing new behavior. The decision to fork rather than rewrite No. 1 in place is important. It keeps the first proof-of-concept score intact while opening a second path for more aggressive technical and musical changes.
+``Algorithmic Piano Quartet No. 2`` exists because the repository needed a place to continue experimenting without destabilizing No. 1. From a software point of view, this is a forked package. From a musical point of view, it is a controlled branch for testing new behavior. The decision to fork rather than rewrite No. 1 in place is important. It keeps the first proof-of-concept score intact while opening a second path for larger technical and musical changes.
 
 The first large difference is the piano. No. 1 mainly treats piano lines as single-note event streams. No. 2 allows the piano to generate chords. Those chords are still derived from the configured pitch-class material and the configured hand ranges, but they are shaped with more detail. The left and right hands can have different chord sizes, different preferred spacing, and different span limits.
 
@@ -27,7 +27,7 @@ Latest release artifacts for this score are:
    * - WAV
      - `algorithmic-piano-quartet-no-2.wav <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algorithmic-piano-quartet-no-2.wav>`_
 
-The config classes make that change easy to see. ``PartConfig`` still carries one instrument definition, including name, role, staff type, and range. ``RenderConfig`` still carries the SoundFont choices and sample rate. The main difference is ``GenerationConfig``. In No. 2, this class carries the extra piano controls: separate occupancy for piano, separate chord-size limits for each hand, separate span limits, and separate preferred interval lists. Those fields are the contract between the TOML file and the generator.
+The config classes make that change easy to see. ``PartConfig`` still carries one instrument definition, including name, role, staff type, and range. ``RenderConfig`` still carries the SoundFont choices and sample rate. The main difference is ``GenerationConfig``. In No. 2, this class carries the extra piano controls: separate occupancy for piano, separate chord-size limits for each hand, separate span limits, and separate preferred interval lists. Those fields are the link between the TOML file and the generator.
 
 .. literalinclude:: ../src/algorithmic_piano_quartet_no2/config.py
    :language: python

@@ -1,7 +1,7 @@
 Case Study I: Modus Operandi for Piano
 ======================================
 
-``Modus Operandi for Piano`` is the most fixed composition in the repository. It is a three-movement solo piano work organized around three modes on F: Dorian, Phrygian, and Lydian. Each movement has a clear tempo, meter, and registral profile. The right hand carries the main line, and the left hand provides a slower accompaniment. Even though the score is produced with Abjad and LilyPond, the work itself is not built as an open-ended generator. It is closer to a coded score than to a stochastic composition system.
+``Modus Operandi for Piano`` is the most fixed composition in the repository. It is a three-movement solo piano work organized around three modes on F: Dorian, Phrygian, and Lydian. Each movement has a clear tempo, meter, and registral profile. The right hand carries the main line, and the left hand provides a slower accompaniment. Even though the score is produced with Abjad and LilyPond, the work itself is not built as an open-ended generator. It is closer to a score written in code than to a random composition system.
 
 This package is important because it shows that the repository is not limited to generative experiments. It can also support a more traditional compositional process in which the musical material is already decided, but the score is still generated and rendered programmatically. That gives the project a wider scope. It is not only about algorithmic output. It is also about representing finished musical decisions cleanly in code.
 

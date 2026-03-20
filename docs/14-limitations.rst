@@ -7,4 +7,4 @@ Motivic transfer is also limited. The present system can generate local material
 
 Harmonic planning is another limitation. The current quartet code makes many local decisions well enough to produce playable material, but it does not yet plan longer spans of harmonic motion in a strong way. In No. 2, left-hand chord spacing is more deliberate than before, but the system is still not building a full harmonic strategy over large stretches of the piece.
 
-Finally, the repository still contains a useful but incomplete scaffold in the ``algorithmic`` package. That is not a flaw in itself, but it does show that the broader planned system is still under construction.
+Finally, the repository still contains a useful but incomplete placeholder in the ``algorithmic`` package. That is not a flaw in itself, but it does show that the broader planned system is still under construction.
