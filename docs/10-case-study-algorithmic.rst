@@ -5,6 +5,22 @@ The ``algorithmic`` package is deliberately incomplete. It exists to hold the pl
 
 Right now the package is only a stub. It can generate a placeholder score, run through the same CLI path as the other packages, and produce LilyPond, PDF, and MIDI outputs. That is enough to keep the project metadata, build script, and release workflow ready for future algorithmic material.
 
+Latest release artifacts for this score are:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Format
+     - Link
+   * - PDF
+     - `algorithmic.pdf <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algorithmic.pdf>`_
+   * - LilyPond
+     - `algorithmic.ly <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algorithmic.ly>`_
+   * - MIDI
+     - `algorithmic.midi <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algorithmic.midi>`_
+   * - WAV
+     - Not published for this score
+
 The placeholder score code is intentionally small:
 
 .. literalinclude:: ../src/algorithmic/score.py

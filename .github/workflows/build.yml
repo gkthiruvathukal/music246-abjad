@@ -187,6 +187,38 @@ jobs:
             build/algorithmic-piano-quartet-no-2*.midi
             build/algorithmic-piano-quartet-no-2*.wav
 
+  build-algorithmic:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install LilyPond
+        uses: codello/setup-lilypond@v0.1.0
+        with:
+          lilypond-version: "2.24"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package
+        run: pip install -e .
+
+      - name: Build Algorithmic scaffold outputs
+        run: python -m algorithmic -o build
+
+      - name: Upload Algorithmic scaffold artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: algorithmic
+          path: |
+            build/algorithmic.ly
+            build/algorithmic.pdf
+            build/algorithmic.midi
+
   release:
     if: startsWith(github.ref, 'refs/tags/v')
     needs:
@@ -195,6 +227,7 @@ jobs:
       - build-jazz-rhythms
       - build-piano-quartet-study
       - build-piano-quartet-no2
+      - build-algorithmic
     runs-on: ubuntu-latest
 
     steps:
@@ -228,6 +261,22 @@ jobs:
           name: piano-quartet-no2
           path: release/piano-quartet-no2
 
+      - name: Download Algorithmic scaffold artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: algorithmic
+          path: release/algorithmic
+
+      - name: Create stable quartet aliases
+        run: |
+          set -euo pipefail
+          for ext in pdf midi ly wav; do
+            no1=(release/piano-quartet-study/algo-rhythms-quartet-no-1*.${ext})
+            no2=(release/piano-quartet-no2/algorithmic-piano-quartet-no-2*.${ext})
+            cp "${no1[0]}" "release/piano-quartet-study/algo-rhythms-quartet-no-1.${ext}"
+            cp "${no2[0]}" "release/piano-quartet-no2/algorithmic-piano-quartet-no-2.${ext}"
+          done
+
       - name: Create release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -244,11 +293,14 @@ jobs:
             release/jazz-rhythms/jazz-rhythms.pdf \
             release/jazz-rhythms/jazz-rhythms.midi \
             release/jazz-rhythms/jazz-rhythms.ly \
-            release/piano-quartet-study/algo-rhythms-quartet-no-1*.pdf \
-            release/piano-quartet-study/algo-rhythms-quartet-no-1*.midi \
-            release/piano-quartet-study/algo-rhythms-quartet-no-1*.ly \
-            release/piano-quartet-study/algo-rhythms-quartet-no-1*.wav \
-            release/piano-quartet-no2/algorithmic-piano-quartet-no-2*.pdf \
-            release/piano-quartet-no2/algorithmic-piano-quartet-no-2*.midi \
-            release/piano-quartet-no2/algorithmic-piano-quartet-no-2*.ly \
-            release/piano-quartet-no2/algorithmic-piano-quartet-no-2*.wav
+            release/piano-quartet-study/algo-rhythms-quartet-no-1.pdf \
+            release/piano-quartet-study/algo-rhythms-quartet-no-1.midi \
+            release/piano-quartet-study/algo-rhythms-quartet-no-1.ly \
+            release/piano-quartet-study/algo-rhythms-quartet-no-1.wav \
+            release/piano-quartet-no2/algorithmic-piano-quartet-no-2.pdf \
+            release/piano-quartet-no2/algorithmic-piano-quartet-no-2.midi \
+            release/piano-quartet-no2/algorithmic-piano-quartet-no-2.ly \
+            release/piano-quartet-no2/algorithmic-piano-quartet-no-2.wav \
+            release/algorithmic/algorithmic.pdf \
+            release/algorithmic/algorithmic.midi \
+            release/algorithmic/algorithmic.ly
