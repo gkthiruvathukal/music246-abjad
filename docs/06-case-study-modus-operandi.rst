@@ -23,6 +23,23 @@ Latest release artifacts for this score are:
    * - WAV
      - `modus-operandi-abjad.wav <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/modus-operandi-abjad.wav>`_
 
+Listen
+------
+
+.. only:: html
+
+   .. raw:: html
+
+      <audio controls preload="none">
+        <source src="https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/modus-operandi-abjad.wav" type="audio/wav">
+        Your browser does not support the audio element.
+      </audio>
+
+.. only:: not html
+
+   Audio:
+   `modus-operandi-abjad.wav <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/modus-operandi-abjad.wav>`_
+
 The movement-building code is direct enough to read almost like score notation. It is still too long to reproduce in full in the body of the paper, so only the opening of the movement is shown here:
 
 .. literalinclude:: ../src/modus_operandi_abjad/score.py
