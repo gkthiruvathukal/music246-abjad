@@ -5,7 +5,8 @@ Case Study II: Jazz Rhythmic Patterns
 
 This package works as a compositional vocabulary source. It also works as a simple example of how musical ideas can be encoded as reusable Python functions. Each pattern returns a short list of notes and rests. The score builder then places several staves one under another so the patterns can be compared visually.
 
-Latest release artifacts for this score are:
+Download
+--------
 
 .. list-table::
    :header-rows: 1
@@ -20,6 +21,13 @@ Latest release artifacts for this score are:
      - `jazz-rhythms.midi <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/jazz-rhythms.midi>`_
    * - WAV
      - Not published for this score
+
+Listen
+------
+
+.. note::
+
+   A WAV player is not available for this score yet. Audio support for this case study is planned.
 
 The pattern functions are intentionally small:
 

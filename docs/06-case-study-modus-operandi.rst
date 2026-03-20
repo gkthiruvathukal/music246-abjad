@@ -7,7 +7,8 @@ This package is important because it shows that the repository is not limited to
 
 The implementation reflects that role. The CLI writes a LilyPond file, compiles it, and then merges the per-movement MIDI files that LilyPond emits. This extra step is necessary because the piece is built from multiple score blocks. The WAV render is then handled through a separate script that downloads and caches a piano SoundFont on first use.
 
-Latest release artifacts for this score are:
+Download
+--------
 
 .. list-table::
    :header-rows: 1

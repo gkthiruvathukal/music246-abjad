@@ -23,7 +23,8 @@ The musical content is not chosen all at once. It is built event by event on a q
 
 The result is not strict counterpoint or formal harmony. It is a constrained event generator designed to produce clear, playable material.
 
-Latest release artifacts for this score are:
+Download
+--------
 
 .. list-table::
    :header-rows: 1
@@ -38,6 +39,23 @@ Latest release artifacts for this score are:
      - `algo-rhythms-quartet-no-1.midi <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algo-rhythms-quartet-no-1.midi>`_
    * - WAV
      - `algo-rhythms-quartet-no-1.wav <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algo-rhythms-quartet-no-1.wav>`_
+
+Listen
+------
+
+.. only:: html
+
+   .. raw:: html
+
+      <audio controls preload="none">
+        <source src="https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algo-rhythms-quartet-no-1.wav" type="audio/wav">
+        Your browser does not support the audio element.
+      </audio>
+
+.. only:: not html
+
+   Audio:
+   `algo-rhythms-quartet-no-1.wav <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algo-rhythms-quartet-no-1.wav>`_
 
 That event loop sits near the center of the package:
 

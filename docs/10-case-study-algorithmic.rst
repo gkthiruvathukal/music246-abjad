@@ -5,7 +5,8 @@ The ``algorithmic`` package is deliberately incomplete. It exists to hold the pl
 
 Right now the package is only a stub. It can generate a placeholder score, run through the same CLI path as the other packages, and produce LilyPond, PDF, and MIDI outputs. That is enough to keep the project metadata, build script, and release workflow ready for future algorithmic material.
 
-Latest release artifacts for this score are:
+Download
+--------
 
 .. list-table::
    :header-rows: 1
@@ -20,6 +21,13 @@ Latest release artifacts for this score are:
      - `algorithmic.midi <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algorithmic.midi>`_
    * - WAV
      - Not published for this score
+
+Listen
+------
+
+.. note::
+
+   A WAV player is not available for this score yet. Audio support for this case study is planned.
 
 The placeholder score code is intentionally small:
 

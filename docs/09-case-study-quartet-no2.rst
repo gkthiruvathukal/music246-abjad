@@ -11,7 +11,8 @@ The third difference is the way left-hand spacing is treated. No. 2 now looks at
 
 The second quartet extends the same basic internal model as No. 1, but it expands the generation settings. The added fields define separate piano occupancy, separate left-hand and right-hand chord ranges, and separate preferred spacing rules. In other words, No. 2 does not invent a new architecture. It stretches the old one in a more piano-aware direction.
 
-Latest release artifacts for this score are:
+Download
+--------
 
 .. list-table::
    :header-rows: 1
@@ -26,6 +27,23 @@ Latest release artifacts for this score are:
      - `algorithmic-piano-quartet-no-2.midi <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algorithmic-piano-quartet-no-2.midi>`_
    * - WAV
      - `algorithmic-piano-quartet-no-2.wav <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algorithmic-piano-quartet-no-2.wav>`_
+
+Listen
+------
+
+.. only:: html
+
+   .. raw:: html
+
+      <audio controls preload="none">
+        <source src="https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algorithmic-piano-quartet-no-2.wav" type="audio/wav">
+        Your browser does not support the audio element.
+      </audio>
+
+.. only:: not html
+
+   Audio:
+   `algorithmic-piano-quartet-no-2.wav <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algorithmic-piano-quartet-no-2.wav>`_
 
 The config classes make that change easy to see. ``PartConfig`` still carries one instrument definition, including name, role, staff type, and range. ``RenderConfig`` still carries the SoundFont choices and sample rate. The main difference is ``GenerationConfig``. In No. 2, this class carries the extra piano controls: separate occupancy for piano, separate chord-size limits for each hand, separate span limits, and separate preferred interval lists. Those fields are the link between the TOML file and the generator.
 
