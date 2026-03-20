@@ -1,4 +1,4 @@
-SPHINXBUILD   ?= ../.venv/bin/sphinx-build
+SPHINXBUILD   ?= $(shell if [ -x ../.venv/bin/sphinx-build ]; then echo ../.venv/bin/sphinx-build; else echo sphinx-build; fi)
 SOURCEDIR     = .
 BUILDDIR      = _build
 
