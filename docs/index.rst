@@ -1,7 +1,13 @@
 Composition using Python and Abjad/LilyPond: Life Beyond Notation Software
 ==========================================================================
 
-This documentation tree is the working home for the technical report. The target format is an ArXiv-style paper, but the material is organized here first as Sphinx documents so the report can evolve in smaller pieces. For now, distribution of this report is via Figshare at `doi.org/10.6084/m9.figshare.31827391 <https://doi.org/10.6084/m9.figshare.31827391.v1>`__
+.. warning::
+   This site is about work in progress.
+   Although these are compositions, they are related to my work in an ongoing composition class and should be viewed as sketches toward a bigger work.
+
+This documentation tree is the working home for the technical report.
+The target format is an ArXiv-style paper, but the material is organized here first as Sphinx documents so the report can evolve in smaller pieces.
+For now, distribution of this report is via Figshare at `doi.org/10.6084/m9.figshare.31827391 <https://doi.org/10.6084/m9.figshare.31827391.v1>`__
 
 If this repository or the accompanying report is useful in your own work, please consider citing it.
 

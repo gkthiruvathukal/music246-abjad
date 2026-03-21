@@ -1,7 +1,9 @@
 Appendix C: Selected Code Listings
 ==================================
 
-This appendix is reserved for code listings that are too long for the main body. The main paper should use short excerpts when a small example is enough. Longer listings belong here, where they can support reproducibility without breaking the flow of the argument.
+This appendix is reserved for code listings that are too long for the main body.
+The main paper should use short excerpts when a small example is enough.
+Longer listings belong here, where they can support reproducibility without breaking the flow of the argument.
 
 One useful example is the second quartet chord builder, which contains much of the recent experimental work on left-hand and right-hand spacing:
 

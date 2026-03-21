@@ -21,4 +21,8 @@ The repository is organized around a small number of score packages, configurati
    ├── pyproject.toml
    └── .github/workflows/build.yml
 
-The top level is intentionally small. Score packages live in ``src``. Quartet configuration lives in ``configs``. Build and release behavior lives at the top level and in the GitHub workflow file. The ``docs`` directory now holds the technical report source.
+The top level is intentionally small.
+Score packages live in ``src``.
+Quartet configuration lives in ``configs``.
+Build and release behavior lives at the top level and in the GitHub workflow file.
+The ``docs`` directory now holds the technical report source.
