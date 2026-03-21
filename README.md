@@ -16,6 +16,21 @@ The docs site includes:
 - listen sections for available WAV files
 - score preview thumbnails
 
+## Citation
+
+If this repository or the accompanying report is useful in your own work, please consider citing it.
+
+```bibtex
+@article{Thiruvathukal2026,
+  author = "George K. Thiruvathukal",
+  title = "{Composition using Python and Abjad/LilyPond: Life Beyond Notation Software}",
+  year = "2026",
+  month = "3",
+  url = "https://figshare.com/articles/online_resource/Composition_using_Python_and_Abjad_LilyPond_Life_Beyond_Notation_Software/31827391",
+  doi = "10.6084/m9.figshare.31827391.v1"
+}
+```
+
 ## Projects
 
 ### Modus Operandi for Piano

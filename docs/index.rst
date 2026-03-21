@@ -8,6 +8,19 @@ Composition using Python and Abjad/LilyPond: Life Beyond Notation Software
 
 This documentation tree is the working home for the technical report. The target format is an ArXiv-style paper, but the material is organized here first as Sphinx documents so the report can evolve in smaller pieces.
 
+If this repository or the accompanying report is useful in your own work, please consider citing it.
+
+.. code-block:: bibtex
+
+   @article{Thiruvathukal2026,
+     author = "George K. Thiruvathukal",
+     title = "{Composition using Python and Abjad/LilyPond: Life Beyond Notation Software}",
+     year = "2026",
+     month = "3",
+     url = "https://figshare.com/articles/online_resource/Composition_using_Python_and_Abjad_LilyPond_Life_Beyond_Notation_Software/31827391",
+     doi = "10.6084/m9.figshare.31827391.v1"
+   }
+
 .. toctree::
    :maxdepth: 1
    :caption: Technical Report
