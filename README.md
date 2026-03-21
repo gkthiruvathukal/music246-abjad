@@ -32,9 +32,6 @@ A three-movement minimalist solo piano work in F Dorian, F Phrygian, and F Lydia
 | MIDI | [modus-operandi-abjad.midi](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/modus-operandi-abjad.midi) |
 | WAV | [modus-operandi-abjad.wav](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/modus-operandi-abjad.wav) |
 
-Listen:
-- [Latest WAV](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/modus-operandi-abjad.wav)
-
 ### Jazz Rhythmic Patterns
 
 A small library of generated jazz comping rhythms rendered as score, LilyPond, and MIDI.
@@ -47,9 +44,6 @@ A small library of generated jazz comping rhythms rendered as score, LilyPond, a
 | PDF | [jazz-rhythms.pdf](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/jazz-rhythms.pdf) |
 | LilyPond | [jazz-rhythms.ly](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/jazz-rhythms.ly) |
 | MIDI | [jazz-rhythms.midi](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/jazz-rhythms.midi) |
-
-Listen:
-- Audio is not published for this score yet
 
 ### Algo Rhythms Quartet No. 1
 
@@ -66,9 +60,6 @@ A generated tonal piano quartet for piano, violin, viola, and cello. This is the
 | MIDI | [algo-rhythms-quartet-no-1.midi](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algo-rhythms-quartet-no-1.midi) |
 | WAV | [algo-rhythms-quartet-no-1.wav](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algo-rhythms-quartet-no-1.wav) |
 
-Listen:
-- [Latest WAV](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algo-rhythms-quartet-no-1.wav)
-
 ### Algorithmic Piano Quartet No. 2
 
 A separate exploratory branch of the quartet work. It starts from No. 1 but is allowed to evolve independently.
@@ -84,9 +75,6 @@ A separate exploratory branch of the quartet work. It starts from No. 1 but is a
 | MIDI | [algorithmic-piano-quartet-no-2.midi](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algorithmic-piano-quartet-no-2.midi) |
 | WAV | [algorithmic-piano-quartet-no-2.wav](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algorithmic-piano-quartet-no-2.wav) |
 
-Listen:
-- [Latest WAV](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algorithmic-piano-quartet-no-2.wav)
-
 ### Algorithmic
 
 A placeholder package for future algorithmic composition work.
@@ -99,9 +87,6 @@ A placeholder package for future algorithmic composition work.
 | PDF | [algorithmic.pdf](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algorithmic.pdf) |
 | LilyPond | [algorithmic.ly](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algorithmic.ly) |
 | MIDI | [algorithmic.midi](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/algorithmic.midi) |
-
-Listen:
-- Audio is not published for this score yet
 
 ## Setup
 
