@@ -7,6 +7,7 @@ import sys
 
 import abjad
 
+from .render import render_clap_wav
 from .score import build_lilypond_file
 
 STEM = "jazz-rhythms"
@@ -85,12 +86,20 @@ def parse_args(argv=None):
         default=False,
         help="compile and produce MIDI",
     )
+    group.add_argument(
+        "--wav",
+        action="store_true",
+        default=False,
+        help="render a clap-based WAV file from the generated MIDI",
+    )
 
     args = parser.parse_args(argv)
 
-    if not (args.ly or args.pdf or args.midi):
+    if not (args.ly or args.pdf or args.midi or args.wav):
         args.ly = True
         args.pdf = True
+        args.midi = True
+    if args.wav:
         args.midi = True
 
     return args
@@ -109,6 +118,11 @@ def main(argv=None):
 
     if formats_to_compile:
         compile_lilypond(ly_path, args.output_dir, formats_to_compile)
+        if args.wav:
+            midi_path = os.path.join(args.output_dir, f"{STEM}.midi")
+            wav_path = os.path.join(args.output_dir, f"{STEM}.wav")
+            render_clap_wav(midi_path, wav_path)
+            print(f"Wrote {wav_path}")
 
     if not formats_to_compile and args.ly:
         print("Done (--ly only, skipping LilyPond compilation).")

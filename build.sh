@@ -96,7 +96,7 @@ build_modus_operandi() {
 
 build_jazz_rhythms() {
     echo "Building Jazz Rhythms outputs into ${OUTPUT_DIR}"
-    python -m jazz_rhythm -o "${OUTPUT_DIR}"
+    python -m jazz_rhythm -o "${OUTPUT_DIR}" --pdf --wav
 }
 
 build_piano_quartet() {

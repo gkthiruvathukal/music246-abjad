@@ -52,7 +52,7 @@ A three-movement minimalist solo piano work in F Dorian, F Phrygian, and F Lydia
 
 ### Jazz Rhythmic Patterns
 
-A small library of generated jazz comping rhythms rendered as score, LilyPond, and MIDI.
+A small library of generated jazz comping rhythms rendered as score, LilyPond, MIDI, and clap-based WAV.
 
 - Source: `src/jazz_rhythm/`
 - CLI: `python -m jazz_rhythm -o build`
@@ -62,6 +62,7 @@ A small library of generated jazz comping rhythms rendered as score, LilyPond, a
 | PDF | [jazz-rhythms.pdf](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/jazz-rhythms.pdf) |
 | LilyPond | [jazz-rhythms.ly](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/jazz-rhythms.ly) |
 | MIDI | [jazz-rhythms.midi](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/jazz-rhythms.midi) |
+| WAV | [jazz-rhythms.wav](https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/jazz-rhythms.wav) |
 
 ### Algo Rhythms Quartet No. 1
 

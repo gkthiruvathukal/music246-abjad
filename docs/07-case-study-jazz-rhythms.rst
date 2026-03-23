@@ -27,16 +27,19 @@ Download
    * - MIDI
      - `jazz-rhythms.midi <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/jazz-rhythms.midi>`_
    * - WAV
-     - Not published for this score
+     - `jazz-rhythms.wav <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/jazz-rhythms.wav>`_
 
 .. only:: html
 
    Listen
    ------
 
-   .. note::
+   .. raw:: html
 
-      A WAV player is not available for this score yet. Audio support for this case study is planned.
+      <audio controls preload="none">
+        <source src="https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/jazz-rhythms.wav" type="audio/wav">
+        Your browser does not support the audio element.
+      </audio>
 
 Score Preview
 -------------
@@ -64,4 +67,6 @@ This package matters because it shows that the repository does not only support 
 It also supports smaller compositional tools.
 It also shows that presentation matters.
 The same rhythms read differently once they are shown in a chart-like notation style instead of a generic rhythm-only staff.
+The audio path now follows the same idea.
+Instead of leaving the rhythms silent, the package can render them as a simple clap track so the patterns can also be heard.
 In a technical report, that helps show the full range of the codebase.

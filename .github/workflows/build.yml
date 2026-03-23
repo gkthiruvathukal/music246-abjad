@@ -104,7 +104,7 @@ jobs:
         run: pip install -e .
 
       - name: Build Jazz Rhythms outputs
-        run: python -m jazz_rhythm -o build
+        run: python -m jazz_rhythm -o build --pdf --wav
 
       - name: Upload Jazz Rhythms artifacts
         uses: actions/upload-artifact@v4
@@ -114,6 +114,7 @@ jobs:
             build/jazz-rhythms.ly
             build/jazz-rhythms.pdf
             build/jazz-rhythms.midi
+            build/jazz-rhythms.wav
 
   build-piano-quartet-study:
     runs-on: ubuntu-latest
@@ -330,6 +331,7 @@ jobs:
             release/jazz-rhythms/jazz-rhythms.pdf \
             release/jazz-rhythms/jazz-rhythms.midi \
             release/jazz-rhythms/jazz-rhythms.ly \
+            release/jazz-rhythms/jazz-rhythms.wav \
             release/jazz-rhythms/jazz-rhythms-thumbnail.png \
             release/piano-quartet-study/algo-rhythms-quartet-no-1.pdf \
             release/piano-quartet-study/algo-rhythms-quartet-no-1.midi \
