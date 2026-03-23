@@ -9,6 +9,8 @@ This package works as a compositional vocabulary source.
 It also works as a simple example of how musical ideas can be encoded as reusable Python functions.
 Each pattern returns a short list of notes and rests.
 The score builder then places several staves one under another so the patterns can be compared visually.
+The notation is now closer to what a jazz player would expect in a rhythm chart: a normal five-line staff, slash noteheads, and hits placed on the middle line.
+That makes the page read less like abstract rhythmic study and more like practical ensemble notation.
 
 Download
 --------
@@ -60,4 +62,6 @@ The score layer is equally direct:
 
 This package matters because it shows that the repository does not only support finished scores and large generators.
 It also supports smaller compositional tools.
+It also shows that presentation matters.
+The same rhythms read differently once they are shown in a chart-like notation style instead of a generic rhythm-only staff.
 In a technical report, that helps show the full range of the codebase.

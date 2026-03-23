@@ -8,9 +8,25 @@ TITLE = "Jazz Rhythmic Patterns using Abjad Python"
 COMPOSER = "George K. Thiruvathukal"
 
 
+def _style_as_jazz_hits(staff):
+    """Format one staff as a five-line jazz hits staff."""
+    literal = abjad.LilyPondLiteral(
+        r"""
+        \omit Clef
+        \override NoteHead.style = #'slash
+        \override Stem.direction = #up
+        \override Rest.staff-position = #0
+        """,
+        site="before",
+    )
+    first_leaf = abjad.select.leaf(staff, 0)
+    if first_leaf is not None:
+        abjad.attach(literal, first_leaf)
+
+
 def _make_staff(name, markup, rhythm_maker, measures=4):
     """Build one rhythmic staff showing repeated instances of a pattern."""
-    staff = abjad.Staff(lilypond_type="RhythmicStaff", name=name)
+    staff = abjad.Staff(name=name)
     leaves = []
     for _ in range(measures):
         leaves.extend(rhythm_maker())
@@ -18,6 +34,7 @@ def _make_staff(name, markup, rhythm_maker, measures=4):
     if leaves:
         abjad.attach(abjad.TimeSignature((4, 4)), leaves[0])
         abjad.attach(abjad.Markup(rf'\markup "{markup}"'), leaves[0], direction=abjad.UP)
+    _style_as_jazz_hits(staff)
     return staff
 
 
