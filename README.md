@@ -68,9 +68,9 @@ A small library of generated jazz comping rhythms rendered as score, LilyPond, M
 
 A generated tonal piano quartet for piano, violin, viola, and cello. This is the first proof-of-concept score in the larger quartet line.
 
-- Source: `src/algorithmic_piano_quartet/`
-- Config: `configs/algorithmic-piano-quartet.toml`
-- CLI: `python -m algorithmic_piano_quartet -c configs/algorithmic-piano-quartet.toml -o build`
+- Source: `src/algorithmic_piano_quartet_no1/`
+- Config: `configs/algorithmic-piano-quartet-no1.toml`
+- CLI: `python -m algorithmic_piano_quartet_no1 -c configs/algorithmic-piano-quartet-no1.toml -o build`
 
 | Format | Link |
 | --- | --- |
@@ -126,7 +126,7 @@ This exposes these console scripts:
 ```bash
 modus-operandi-abjad
 jazz-rhythms
-algorithmic-piano-quartet
+algorithmic-piano-quartet-no1
 algorithmic-piano-quartet-no2
 algorithmic
 ```
@@ -173,7 +173,7 @@ You can also run the packages directly:
 ```bash
 python -m modus_operandi_abjad -o build
 python -m jazz_rhythm -o build
-python -m algorithmic_piano_quartet -c configs/algorithmic-piano-quartet.toml -o build
+python -m algorithmic_piano_quartet_no1 -c configs/algorithmic-piano-quartet-no1.toml -o build
 python -m algorithmic_piano_quartet_no2 -c configs/algorithmic-piano-quartet-no2.toml -o build
 python -m algorithmic -o build
 ```

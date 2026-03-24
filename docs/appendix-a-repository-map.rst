@@ -7,13 +7,13 @@ The repository is organized around a small number of score packages, configurati
 
    compositions-abjad/
    ├── configs/
-   │   ├── algorithmic-piano-quartet.toml
+   │   ├── algorithmic-piano-quartet-no1.toml
    │   └── algorithmic-piano-quartet-no2.toml
    ├── docs/
    ├── src/
    │   ├── modus_operandi_abjad/
    │   ├── jazz_rhythm/
-   │   ├── algorithmic_piano_quartet/
+   │   ├── algorithmic_piano_quartet_no1/
    │   ├── algorithmic_piano_quartet_no2/
    │   └── algorithmic/
    ├── build.sh

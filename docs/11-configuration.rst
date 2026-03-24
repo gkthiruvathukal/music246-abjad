@@ -25,7 +25,7 @@ This is one of the best examples in the project of how technical design and musi
 
 The first quartet config is compact enough to show the overall model:
 
-.. literalinclude:: ../configs/algorithmic-piano-quartet.toml
+.. literalinclude:: ../configs/algorithmic-piano-quartet-no1.toml
    :language: toml
    :lines: 1-63
    :caption: Core configuration for Quartet No. 1.

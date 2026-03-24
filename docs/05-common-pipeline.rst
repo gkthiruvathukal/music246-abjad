@@ -28,7 +28,7 @@ The CLI is still simple from the outside, but the internal render path is more c
 The end of the main quartet CLI shows this in two steps.
 First, it decides which outputs LilyPond needs to compile:
 
-.. literalinclude:: ../src/algorithmic_piano_quartet/cli.py
+.. literalinclude:: ../src/algorithmic_piano_quartet_no1/cli.py
    :language: python
    :start-after: docs: begin quartet-output-compilation
    :end-before: docs: end quartet-output-compilation
@@ -36,7 +36,7 @@ First, it decides which outputs LilyPond needs to compile:
 
 Then it decides how WAV rendering should happen once the MIDI file exists:
 
-.. literalinclude:: ../src/algorithmic_piano_quartet/cli.py
+.. literalinclude:: ../src/algorithmic_piano_quartet_no1/cli.py
    :language: python
    :start-after: docs: begin quartet-wav-rendering
    :end-before: docs: end quartet-wav-rendering

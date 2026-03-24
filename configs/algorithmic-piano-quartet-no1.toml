@@ -1,0 +1,82 @@
+title = "Algo Rhythms Quartet No. 1"
+composer = "George K. Thiruvathukal"
+
+[output]
+basename = "algo-rhythms-quartet-no-1"
+label = ""
+include_measures = true
+include_tempo = true
+include_seed = true
+include_timestamp = true
+timestamp_format = "%Y-%m-%d@%H-%M"
+
+[render]
+# Dual-soundfont render setup:
+#   piano   -> ~/.soundfonts/SalamanderGrandPiano-V3+20200602.sf2
+#   strings -> ~/.soundfonts/AegeanSymphonicOrchestra.sf2
+piano_soundfont = "~/.soundfonts/SalamanderGrandPiano-V3+20200602.sf2"
+strings_soundfont = "~/.soundfonts/AegeanSymphonicOrchestra.sf2"
+sample_rate = 44100
+
+[generation]
+measures = 32
+time_signature = [4, 4]
+min_note_duration = "1/16"
+max_note_duration = "1"
+min_rest_duration = "1/16"
+max_rest_duration = "1/4"
+max_simultaneous_tones_per_quantum = 4
+max_pitch_leap = 5
+tempo_bpm = 50
+seed = 42
+
+[materials]
+pitch_classes = [0, 1, 3, 6, 8, 10]
+
+[[parts]]
+id = "violin"
+name = "Violin"
+short_name = "Vln."
+family = "strings"
+clef = "treble"
+role = "melodic"
+midi_channel = 1
+midi_program = 41
+midi_instrument = "violin"
+range = ["G3", "A7"]
+
+[[parts]]
+id = "viola"
+name = "Viola"
+short_name = "Vla."
+family = "strings"
+clef = "alto"
+role = "melodic"
+midi_channel = 2
+midi_program = 42
+midi_instrument = "viola"
+range = ["C3", "E6"]
+
+[[parts]]
+id = "cello"
+name = "Cello"
+short_name = "Vc."
+family = "strings"
+clef = "bass"
+role = "bass"
+midi_channel = 3
+midi_program = 43
+midi_instrument = "cello"
+range = ["C2", "C5"]
+
+[[parts]]
+id = "piano"
+name = "Piano"
+short_name = "Pno."
+family = "keyboard"
+staff_type = "grand"
+role = "keyboard"
+midi_channel = 4
+midi_program = 1
+midi_instrument = "acoustic grand"
+range = ["A0", "C8"]

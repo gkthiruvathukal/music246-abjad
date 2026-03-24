@@ -21,12 +21,12 @@ It bundles title, output settings, pitch material, generation settings, render s
 
 The config loader is where these musical and technical settings become one internal project configuration:
 
-.. literalinclude:: ../src/algorithmic_piano_quartet/config.py
+.. literalinclude:: ../src/algorithmic_piano_quartet_no1/config.py
    :language: python
    :lines: 13-63
    :caption: Core quartet configuration data classes.
 
-.. literalinclude:: ../src/algorithmic_piano_quartet/config.py
+.. literalinclude:: ../src/algorithmic_piano_quartet_no1/config.py
    :language: python
    :lines: 103-194
    :caption: Loading the No. 1 configuration from TOML.
@@ -81,7 +81,7 @@ Score Preview
 
 That event loop sits near the center of the package:
 
-.. literalinclude:: ../src/algorithmic_piano_quartet/generator.py
+.. literalinclude:: ../src/algorithmic_piano_quartet_no1/generator.py
    :language: python
    :lines: 188-272
    :caption: Core event generation for Quartet No. 1.

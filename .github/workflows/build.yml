@@ -116,7 +116,7 @@ jobs:
             build/jazz-rhythms.midi
             build/jazz-rhythms.wav
 
-  build-piano-quartet-study:
+  build-piano-quartet-no1:
     runs-on: ubuntu-latest
 
     steps:
@@ -139,13 +139,13 @@ jobs:
       - name: Install audio tools
         run: sudo apt-get update && sudo apt-get install -y fluidsynth ffmpeg
 
-      - name: Build Piano Quartet Study outputs
-        run: python -m algorithmic_piano_quartet -c configs/algorithmic-piano-quartet.toml -o build --pdf --wav
+      - name: Build Piano Quartet No. 1 outputs
+        run: python -m algorithmic_piano_quartet_no1 -c configs/algorithmic-piano-quartet-no1.toml -o build --pdf --wav
 
-      - name: Upload Piano Quartet Study artifacts
+      - name: Upload Piano Quartet No. 1 artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: piano-quartet-study
+          name: piano-quartet-no1
           path: |
             build/algo-rhythms-quartet-no-1*.ly
             build/algo-rhythms-quartet-no-1*.pdf
@@ -226,7 +226,7 @@ jobs:
       - build-docs
       - build-modus-operandi
       - build-jazz-rhythms
-      - build-piano-quartet-study
+      - build-piano-quartet-no1
       - build-piano-quartet-no2
       - build-algorithmic
     runs-on: ubuntu-latest
@@ -250,11 +250,11 @@ jobs:
           name: jazz-rhythms
           path: release/jazz-rhythms
 
-      - name: Download Piano Quartet Study artifacts
+      - name: Download Piano Quartet No. 1 artifacts
         uses: actions/download-artifact@v4
         with:
-          name: piano-quartet-study
-          path: release/piano-quartet-study
+          name: piano-quartet-no1
+          path: release/piano-quartet-no1
 
       - name: Download Piano Quartet No. 2 artifacts
         uses: actions/download-artifact@v4
@@ -277,9 +277,9 @@ jobs:
         run: |
           set -euo pipefail
           for ext in pdf midi ly wav; do
-            no1=(release/piano-quartet-study/algo-rhythms-quartet-no-1*.${ext})
+            no1=(release/piano-quartet-no1/algo-rhythms-quartet-no-1*.${ext})
             no2=(release/piano-quartet-no2/algo-rhythms-quartet-no-2*.${ext})
-            cp "${no1[0]}" "release/piano-quartet-study/algo-rhythms-quartet-no-1.${ext}"
+            cp "${no1[0]}" "release/piano-quartet-no1/algo-rhythms-quartet-no-1.${ext}"
             cp "${no2[0]}" "release/piano-quartet-no2/algo-rhythms-quartet-no-2.${ext}"
           done
 
@@ -305,8 +305,8 @@ jobs:
             "release/jazz-rhythms/jazz-rhythms.pdf" \
             "release/jazz-rhythms/jazz-rhythms-thumbnail.png"
           create_thumbnail \
-            "release/piano-quartet-study/algo-rhythms-quartet-no-1.pdf" \
-            "release/piano-quartet-study/algo-rhythms-quartet-no-1-thumbnail.png"
+            "release/piano-quartet-no1/algo-rhythms-quartet-no-1.pdf" \
+            "release/piano-quartet-no1/algo-rhythms-quartet-no-1-thumbnail.png"
           create_thumbnail \
             "release/piano-quartet-no2/algo-rhythms-quartet-no-2.pdf" \
             "release/piano-quartet-no2/algo-rhythms-quartet-no-2-thumbnail.png"
@@ -333,11 +333,11 @@ jobs:
             release/jazz-rhythms/jazz-rhythms.ly \
             release/jazz-rhythms/jazz-rhythms.wav \
             release/jazz-rhythms/jazz-rhythms-thumbnail.png \
-            release/piano-quartet-study/algo-rhythms-quartet-no-1.pdf \
-            release/piano-quartet-study/algo-rhythms-quartet-no-1.midi \
-            release/piano-quartet-study/algo-rhythms-quartet-no-1.ly \
-            release/piano-quartet-study/algo-rhythms-quartet-no-1.wav \
-            release/piano-quartet-study/algo-rhythms-quartet-no-1-thumbnail.png \
+            release/piano-quartet-no1/algo-rhythms-quartet-no-1.pdf \
+            release/piano-quartet-no1/algo-rhythms-quartet-no-1.midi \
+            release/piano-quartet-no1/algo-rhythms-quartet-no-1.ly \
+            release/piano-quartet-no1/algo-rhythms-quartet-no-1.wav \
+            release/piano-quartet-no1/algo-rhythms-quartet-no-1-thumbnail.png \
             release/piano-quartet-no2/algo-rhythms-quartet-no-2.pdf \
             release/piano-quartet-no2/algo-rhythms-quartet-no-2.midi \
             release/piano-quartet-no2/algo-rhythms-quartet-no-2.ly \

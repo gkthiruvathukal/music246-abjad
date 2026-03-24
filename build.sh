@@ -10,7 +10,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VENV_DIR="${ROOT_DIR}/.venv"
 OUTPUT_DIR="${1:-build}"
-QUARTET_CONFIG="${ROOT_DIR}/configs/algorithmic-piano-quartet.toml"
+QUARTET_NO1_CONFIG="${ROOT_DIR}/configs/algorithmic-piano-quartet-no1.toml"
 QUARTET_NO2_CONFIG="${ROOT_DIR}/configs/algorithmic-piano-quartet-no2.toml"
 HAS_FLUIDSYNTH=0
 HAS_FFMPEG=0
@@ -100,23 +100,23 @@ build_jazz_rhythms() {
 }
 
 build_piano_quartet() {
-    if [ -f "${QUARTET_CONFIG}" ]; then
-        echo "Building Piano Quartet Study outputs into ${OUTPUT_DIR}"
+    if [ -f "${QUARTET_NO1_CONFIG}" ]; then
+        echo "Building Algo Rhythms Quartet No. 1 outputs into ${OUTPUT_DIR}"
         if [ "${HAS_FLUIDSYNTH}" -eq 1 ] && [ "${HAS_FFMPEG}" -eq 1 ]; then
-            python -m algorithmic_piano_quartet -c "${QUARTET_CONFIG}" -o "${OUTPUT_DIR}" --pdf --wav
+            python -m algorithmic_piano_quartet_no1 -c "${QUARTET_NO1_CONFIG}" -o "${OUTPUT_DIR}" --pdf --wav
         else
-            python -m algorithmic_piano_quartet -c "${QUARTET_CONFIG}" -o "${OUTPUT_DIR}"
+            python -m algorithmic_piano_quartet_no1 -c "${QUARTET_NO1_CONFIG}" -o "${OUTPUT_DIR}"
             if [ "${HAS_FLUIDSYNTH}" -eq 0 ]; then
-                echo "Warning: fluidsynth is not installed; skipping Piano Quartet WAV render." >&2
+                echo "Warning: fluidsynth is not installed; skipping Algo Rhythms Quartet No. 1 WAV render." >&2
             fi
             if [ "${HAS_FFMPEG}" -eq 0 ]; then
-                echo "Warning: ffmpeg is not installed; skipping Piano Quartet WAV render." >&2
+                echo "Warning: ffmpeg is not installed; skipping Algo Rhythms Quartet No. 1 WAV render." >&2
                 echo "  macOS:  brew install ffmpeg" >&2
                 echo "  Ubuntu: sudo apt install ffmpeg" >&2
             fi
         fi
     else
-        echo "Warning: ${QUARTET_CONFIG} not found; skipping Piano Quartet Study." >&2
+        echo "Warning: ${QUARTET_NO1_CONFIG} not found; skipping Algo Rhythms Quartet No. 1." >&2
     fi
 }
 

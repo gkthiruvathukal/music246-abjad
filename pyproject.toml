@@ -16,7 +16,7 @@ dependencies = [
 [project.scripts]
 modus-operandi-abjad = "modus_operandi_abjad.cli:main"
 jazz-rhythms = "jazz_rhythm.cli:main"
-algorithmic-piano-quartet = "algorithmic_piano_quartet.cli:main"
+algorithmic-piano-quartet-no1 = "algorithmic_piano_quartet_no1.cli:main"
 algorithmic-piano-quartet-no2 = "algorithmic_piano_quartet_no2.cli:main"
 algorithmic = "algorithmic.cli:main"
 

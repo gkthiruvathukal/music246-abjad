@@ -14,7 +14,7 @@ One useful example is the second quartet chord builder, which contains much of t
 
 Another useful example is the first quartet score assembly layer:
 
-.. literalinclude:: ../src/algorithmic_piano_quartet/score.py
+.. literalinclude:: ../src/algorithmic_piano_quartet_no1/score.py
    :language: python
    :lines: 200-263
    :caption: Final score assembly for Quartet No. 1.

@@ -9,7 +9,7 @@ It keeps each score family readable, allows each package to evolve at its own pa
 There are five active package paths.
 ``modus_operandi_abjad`` contains a fixed three-movement piano work.
 ``jazz_rhythm`` contains reusable rhythmic studies.
-``algorithmic_piano_quartet`` contains the first config-driven quartet generator.
+``algorithmic_piano_quartet_no1`` contains the first config-driven quartet generator.
 ``algorithmic_piano_quartet_no2`` contains the forked and more experimental second quartet generator.
 ``algorithmic`` is a placeholder package for future work.
 The package entry points are defined in ``../pyproject.toml`` and exposed both as ``python -m ...`` module invocations and as installed console scripts.
