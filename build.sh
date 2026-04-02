@@ -90,7 +90,7 @@ detect_optional_tools() {
         HAS_BIRD_IM_MIGRATION=1
     fi
 
-    if command -v pdftoppm >/dev/null 2>&1 && command -v convert >/dev/null 2>&1; then
+    if command -v pdfcrop >/dev/null 2>&1 && command -v pdftoppm >/dev/null 2>&1 && command -v convert >/dev/null 2>&1; then
         HAS_THUMBNAIL_TOOLS=1
     fi
 }
@@ -194,10 +194,13 @@ create_thumbnail() {
     local pdf_path="$1"
     local png_path="$2"
     local base_path="${png_path%.png}"
+    local cropped_pdf="${base_path}-cropped.pdf"
     local temp_path="${base_path}-page1"
 
-    pdftoppm -png -f 1 -singlefile "${pdf_path}" "${temp_path}"
+    pdfcrop --margins '10 10 10 10' "${pdf_path}" "${cropped_pdf}"
+    pdftoppm -png -f 1 -singlefile "${cropped_pdf}" "${temp_path}"
     convert "${temp_path}.png" -resize 50% "${png_path}"
+    rm -f "${cropped_pdf}"
     rm -f "${temp_path}.png"
     echo "Wrote ${png_path}"
 }
@@ -220,7 +223,7 @@ render_bird_im_migration_thumbnails() {
                 "${OUTPUT_DIR}/bird-im-migration-q32-thumbnail.png"
         fi
     else
-        echo "Warning: pdftoppm and/or convert are not installed; skipping Bird Im-Migration thumbnail render." >&2
+        echo "Warning: pdfcrop, pdftoppm, and/or convert are not installed; skipping Bird Im-Migration thumbnail render." >&2
     fi
 }
 

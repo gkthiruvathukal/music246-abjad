@@ -345,7 +345,7 @@ jobs:
             local cropped_pdf="${base_path}-cropped.pdf"
             local temp_path="${base_path}-page1"
 
-            pdfcrop "${pdf_path}" "${cropped_pdf}"
+            pdfcrop --margins '10 10 10 10' "${pdf_path}" "${cropped_pdf}"
             pdftoppm -png -f 1 -singlefile "${cropped_pdf}" "${temp_path}"
             convert "${temp_path}.png" -resize 50% "${png_path}"
             rm -f "${cropped_pdf}"
