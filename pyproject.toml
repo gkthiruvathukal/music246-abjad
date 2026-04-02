@@ -19,6 +19,10 @@ jazz-rhythms = "jazz_rhythm.cli:main"
 algorithmic-piano-quartet-no1 = "algorithmic_piano_quartet_no1.cli:main"
 algorithmic-piano-quartet-no2 = "algorithmic_piano_quartet_no2.cli:main"
 algorithmic = "algorithmic.cli:main"
+bird-im-migration = "bird_im_migration.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+bird_im_migration = ["data/*.txt", "data/*.wav"]

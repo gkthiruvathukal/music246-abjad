@@ -220,6 +220,50 @@ jobs:
             build/algorithmic.pdf
             build/algorithmic.midi
 
+  build-bird-im-migration:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install LilyPond
+        uses: codello/setup-lilypond@v0.1.0
+        with:
+          lilypond-version: "2.24"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package
+        run: pip install -e .
+
+      - name: Install FluidSynth
+        run: sudo apt-get update && sudo apt-get install -y fluidsynth ffmpeg
+
+      - name: Build Bird Im-Migration outputs
+        run: |
+          python -m bird_im_migration -o build --quantization 16 --pdf --midi
+          python -m bird_im_migration -o build --quantization 32 --pdf --midi
+          ./midi2wav.sh build/bird-im-migration-q16.midi build/bird-im-migration-q16.wav
+          ./midi2wav.sh build/bird-im-migration-q32.midi build/bird-im-migration-q32.wav
+
+      - name: Upload Bird Im-Migration artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: bird-im-migration
+          path: |
+            build/bird-im-migration-q16.ly
+            build/bird-im-migration-q16.pdf
+            build/bird-im-migration-q16.midi
+            build/bird-im-migration-q16.wav
+            build/bird-im-migration-q32.ly
+            build/bird-im-migration-q32.pdf
+            build/bird-im-migration-q32.midi
+            build/bird-im-migration-q32.wav
+
   release:
     if: startsWith(github.ref, 'refs/tags/v')
     needs:
@@ -229,6 +273,7 @@ jobs:
       - build-piano-quartet-no1
       - build-piano-quartet-no2
       - build-algorithmic
+      - build-bird-im-migration
     runs-on: ubuntu-latest
 
     steps:
@@ -267,6 +312,12 @@ jobs:
         with:
           name: algorithmic
           path: release/algorithmic
+
+      - name: Download Bird Im-Migration artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: bird-im-migration
+          path: release/bird-im-migration
 
       - name: Install thumbnail tools
         run: |
@@ -313,6 +364,12 @@ jobs:
           create_thumbnail \
             "release/algorithmic/algorithmic.pdf" \
             "release/algorithmic/algorithmic-thumbnail.png"
+          create_thumbnail \
+            "release/bird-im-migration/bird-im-migration-q16.pdf" \
+            "release/bird-im-migration/bird-im-migration-q16-thumbnail.png"
+          create_thumbnail \
+            "release/bird-im-migration/bird-im-migration-q32.pdf" \
+            "release/bird-im-migration/bird-im-migration-q32-thumbnail.png"
 
       - name: Create release
         env:
@@ -346,4 +403,14 @@ jobs:
             release/algorithmic/algorithmic.pdf \
             release/algorithmic/algorithmic.midi \
             release/algorithmic/algorithmic.ly \
-            release/algorithmic/algorithmic-thumbnail.png
+            release/algorithmic/algorithmic-thumbnail.png \
+            release/bird-im-migration/bird-im-migration-q16.pdf \
+            release/bird-im-migration/bird-im-migration-q16.midi \
+            release/bird-im-migration/bird-im-migration-q16.ly \
+            release/bird-im-migration/bird-im-migration-q16.wav \
+            release/bird-im-migration/bird-im-migration-q16-thumbnail.png \
+            release/bird-im-migration/bird-im-migration-q32.pdf \
+            release/bird-im-migration/bird-im-migration-q32.midi \
+            release/bird-im-migration/bird-im-migration-q32.ly \
+            release/bird-im-migration/bird-im-migration-q32.wav \
+            release/bird-im-migration/bird-im-migration-q32-thumbnail.png
