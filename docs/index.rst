@@ -48,6 +48,7 @@ If this repository or the accompanying report is useful in your own work, please
    09-case-study-quartet-no2
    10-case-study-algorithmic
    10a-case-study-bird-im-migration
+   10b-case-study-bird-im-migration-ensemble
    11-configuration
    12-build-render-release
    13-score-discussion
