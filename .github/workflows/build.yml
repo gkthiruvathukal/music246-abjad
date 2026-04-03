@@ -264,6 +264,45 @@ jobs:
             build/bird-im-migration-q32.midi
             build/bird-im-migration-q32.wav
 
+  build-bird-im-migration-ensemble:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install LilyPond
+        uses: codello/setup-lilypond@v0.1.0
+        with:
+          lilypond-version: "2.24"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package
+        run: pip install -e .
+
+      - name: Install audio tools
+        run: sudo apt-get update && sudo apt-get install -y fluidsynth ffmpeg
+
+      - name: Build Bird Im-Migration Ensemble outputs
+        run: python -m bird_im_migration_ensemble -o build --pdf --midi --wav
+
+      - name: Upload Bird Im-Migration Ensemble artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: bird-im-migration-ensemble
+          path: |
+            build/bird-im-migration-ensemble.ly
+            build/bird-im-migration-ensemble.pdf
+            build/bird-im-migration-ensemble.midi
+            build/bird-im-migration-ensemble.wav
+            build/bird-im-migration-ensemble-mvt1.wav
+            build/bird-im-migration-ensemble-mvt2.wav
+            build/bird-im-migration-ensemble-mvt3.wav
+
   release:
     if: startsWith(github.ref, 'refs/tags/v')
     needs:
@@ -274,6 +313,7 @@ jobs:
       - build-piano-quartet-no2
       - build-algorithmic
       - build-bird-im-migration
+      - build-bird-im-migration-ensemble
     runs-on: ubuntu-latest
 
     steps:
@@ -318,6 +358,12 @@ jobs:
         with:
           name: bird-im-migration
           path: release/bird-im-migration
+
+      - name: Download Bird Im-Migration Ensemble artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: bird-im-migration-ensemble
+          path: release/bird-im-migration-ensemble
 
       - name: Install thumbnail tools
         run: |
@@ -373,6 +419,9 @@ jobs:
           create_thumbnail \
             "release/bird-im-migration/bird-im-migration-q32.pdf" \
             "release/bird-im-migration/bird-im-migration-q32-thumbnail.png"
+          create_thumbnail \
+            "release/bird-im-migration-ensemble/bird-im-migration-ensemble.pdf" \
+            "release/bird-im-migration-ensemble/bird-im-migration-ensemble-thumbnail.png"
 
       - name: Create release
         env:
@@ -416,4 +465,12 @@ jobs:
             release/bird-im-migration/bird-im-migration-q32.midi \
             release/bird-im-migration/bird-im-migration-q32.ly \
             release/bird-im-migration/bird-im-migration-q32.wav \
-            release/bird-im-migration/bird-im-migration-q32-thumbnail.png
+            release/bird-im-migration/bird-im-migration-q32-thumbnail.png \
+            release/bird-im-migration-ensemble/bird-im-migration-ensemble.pdf \
+            release/bird-im-migration-ensemble/bird-im-migration-ensemble.midi \
+            release/bird-im-migration-ensemble/bird-im-migration-ensemble.ly \
+            release/bird-im-migration-ensemble/bird-im-migration-ensemble.wav \
+            release/bird-im-migration-ensemble/bird-im-migration-ensemble-mvt1.wav \
+            release/bird-im-migration-ensemble/bird-im-migration-ensemble-mvt2.wav \
+            release/bird-im-migration-ensemble/bird-im-migration-ensemble-mvt3.wav \
+            release/bird-im-migration-ensemble/bird-im-migration-ensemble-thumbnail.png
