@@ -51,5 +51,5 @@ The placeholder score code is intentionally small:
    :pyobject: build_lilypond_file
    :caption: Placeholder score generation in the algorithmic scaffold package.
 
-This section matters because the report is not only about finished compositions.
+This section shows that the report is not only about finished compositions.
 It is also about building a technical environment that can support future composition work cleanly.

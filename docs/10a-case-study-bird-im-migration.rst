@@ -161,5 +161,5 @@ The package can also be invoked directly:
    python -m bird_im_migration -o build --quantization 16 --pdf --midi
    python -m bird_im_migration -o build --quantization 32 --pdf --midi
 
-This case study matters because it shows that the Abjad approach can also absorb analysis-driven material rather than only symbolic or algorithmically invented content.
+This case study shows that the Abjad approach can also absorb analysis-driven material rather than only symbolic or algorithmically invented content.
 It expands the technical report from score construction alone into the broader territory of spectral reduction and transcription as compositional method.

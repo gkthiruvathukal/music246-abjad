@@ -5,12 +5,12 @@ The repository treats build and release behavior as part of the system, not as a
 Local builds run through ``../build.sh``.
 That script creates or reuses a virtual environment, installs the project in editable mode, checks for required tools, and then builds each score path in turn.
 When audio tools are available, it also renders WAV output.
-This matters because it gives one repeatable command for the full local workflow.
+This gives one repeatable command for the full local workflow.
 
 Continuous integration mirrors the same idea.
 GitHub Actions builds the score packages, uploads artifacts, and creates tagged releases.
 The repository is therefore able to move from source code to a published release without a separate manual packaging process.
-That makes the technical report stronger because the output pipeline is not hypothetical.
+That helps keep the technical report grounded because the output pipeline is not hypothetical.
 It is already in regular use.
 
 The quartet render path is the most complex part of this build layer.

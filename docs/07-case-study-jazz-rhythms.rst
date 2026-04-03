@@ -63,9 +63,9 @@ The score layer is equally direct:
    :pyobject: build_lilypond_file
    :caption: Assembly of the jazz rhythm comparison score.
 
-This package matters because it shows that the repository does not only support finished scores and large generators.
+This package shows that the repository does not only support finished scores and large generators.
 It also supports smaller compositional tools.
-It also shows that presentation matters.
+It also suggests that presentation changes how the material is understood.
 The same rhythms read differently once they are shown in a chart-like notation style instead of a generic rhythm-only staff.
 The audio path now follows the same idea.
 Instead of leaving the rhythms silent, the package can render them as a simple clap track so the patterns can also be heard.

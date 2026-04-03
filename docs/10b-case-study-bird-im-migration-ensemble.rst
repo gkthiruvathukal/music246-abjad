@@ -6,7 +6,7 @@ The earlier package is a proof of concept for reducing bird-like partial activit
 The ensemble package keeps that reduction as its source library, but it stops trying to remain purely spectral.
 Instead, it treats the bird fragments as modular motives and places them inside a more obviously composed environment: alternating treble calls, a low piano drone with patterned variation, and percussion that behaves like an environmental pulse rather than a literal transcription of the recording.
 
-This case study matters because it shows a second stage of the same project.
+This case study shows a second stage of the same project.
 The spectral analysis is still there.
 The curated regions are still there.
 But the composition is no longer only a reduction of recorded sound.
@@ -95,7 +95,7 @@ The raw material is still the same field recording and the same curated regions 
 The difference is that the ensemble package does not treat those regions as a finished score.
 It converts them into a phrase library.
 Each phrase remembers which sample and which curated region it came from.
-That matters because later transformations remain attached to a recognizable source motive rather than becoming anonymous note sequences.
+This keeps later transformations attached to a recognizable source motive rather than turning them into anonymous note sequences.
 
 The core data structures and the default movement plans live together in the generator module:
 
@@ -190,14 +190,14 @@ This layered render path exists for musical reasons as much as technical ones.
 It keeps the piano drone audible, gives the treble material its own timbral space, and allows the release process to expose both the full piece and the individual movement WAVs.
 The build and release workflow therefore records not only the score but also the listening model used during composition.
 
-Why This Case Study Matters
----------------------------
+What This Case Study Shows
+--------------------------
 
 The ensemble package shows a practical way to move from analysis-derived material into a more independent composition.
-The source recording still matters.
-The curated regions still matter.
+The source recording still plays an important role.
+The curated regions remain central as well.
 But the final result is not governed only by the source audio.
 It is governed by a phrase system, a movement plan, and a set of environmental layers designed to make the piece performable.
 
-That hybrid approach is the main contribution of this chapter.
-It demonstrates how an analysis-driven motive can remain visible while the surrounding musical world becomes more flexible, more modular, and more explicitly composed.
+This hybrid approach is one way to move from analysis-derived material toward a more independent composition.
+It suggests how an analysis-driven motive can remain visible while the surrounding musical world becomes more flexible, more modular, and more explicitly composed.
