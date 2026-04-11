@@ -1,5 +1,5 @@
-Music Before Composition using Python and Abjad/LilyPond: Life Beyond Notation Software
-=======================================================================================
+George's Compositions with Python, Abjad, and Lilypond
+======================================================
 
 .. only:: html
 

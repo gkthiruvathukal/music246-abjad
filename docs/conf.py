@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-project = "Music Before Composition using Python and Abjad/LilyPond: Life Beyond Notation Software"
+project = "George's Compositions with Python, Abjad, and Lilypond"
 author = "George K. Thiruvathukal"
 copyright = "2026, George K. Thiruvathukal"
 
@@ -46,7 +46,8 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 source_suffix = ".rst"
 
 html_theme = "sphinx_book_theme"
-html_title = project
+html_title = "George's Compositions with Python, Abjad, and Lilypond"
+html_logo = "_static/compositions.png"
 html_static_path = ["_static"]
 html_extra_path = ["CNAME"]
 html_theme_options = {
