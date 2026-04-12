@@ -215,6 +215,13 @@ def _movement_midi_paths(output_dir: str, stem: str) -> list[str]:
     return midi_files
 
 
+def _movement_wav_name(stem: str, index: int) -> str:
+    if index <= 3:
+        return f"{stem}-mvt{index}.wav"
+    appendix_index = index - 3
+    return f"{stem}-appendix-a{appendix_index}.wav"
+
+
 # [docs:layered-render:start]
 def render_layered_wav_for_midi(
     midi_path: str,
@@ -230,7 +237,8 @@ def render_layered_wav_for_midi(
     percussion_channels = _channels_for_prefixes(midi, {"percussion"})
 
     if not piano_rh_channels or not piano_lh_channels or not ensemble_channels:
-        raise ValueError("Could not detect both piano and melodic ensemble MIDI channels for layered rendering.")
+        render_wav(midi_path, wav_path, ensemble_soundfont_path, sample_rate)
+        return
 
     with tempfile.TemporaryDirectory() as temp_dir:
         piano_rh_midi = Path(temp_dir) / "ensemble-piano-rh.midi"
@@ -288,7 +296,7 @@ def render_full_wav(
 
     movement_wavs: list[str] = []
     for index, midi_path in enumerate(midi_paths, start=1):
-        movement_wav = os.path.join(output_dir, f"{stem}-mvt{index}.wav")
+        movement_wav = os.path.join(output_dir, _movement_wav_name(stem, index))
         render_layered_wav_for_midi(
             midi_path=midi_path,
             wav_path=movement_wav,

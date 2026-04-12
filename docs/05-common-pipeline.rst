@@ -16,6 +16,7 @@ The quartet packages are more explicitly generative.
 They load configuration, turn it into generation rules, create event streams on a quantized grid, and then convert those events into notation.
 The bird packages add a third path.
 ``bird_im_migration`` derives material from curated spectral data, while ``bird_im_migration_ensemble`` takes those extracted phrases and recombines them with transformations and instrumental assignment.
+The same phrase library now supports both the main ensemble movements and a final appendix-style study that demonstrates single transforms, repeated augmentation, transform pairs, and longer transform chains on each curated bird region.
 
 Reproducibility matters more in the quartet packages than in the fixed-score packages.
 The quartet generators expose a random seed through configuration.
@@ -27,6 +28,7 @@ A single piano SoundFont is not enough for a quartet, and a single orchestral So
 The system therefore renders the piano layer and the string layer separately and combines them afterward.
 The CLI is still simple from the outside, but the internal render path is more careful.
 The ensemble bird piece pushes this a bit further by separating piano hands, melodic ensemble, and percussion into different rendering layers before recombination.
+Its appendix study reuses the same transformed bird-note material, but renders it as a single treble staff so the transformations themselves can be inspected more directly.
 
 The end of the main quartet CLI shows this in two steps.
 First, it decides which outputs LilyPond needs to compile:

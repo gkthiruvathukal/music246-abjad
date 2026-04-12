@@ -12,7 +12,7 @@ There are now several active package paths with different compositional roles.
 ``algorithmic_piano_quartet_no1`` contains the first config-driven quartet generator.
 ``algorithmic_piano_quartet_no2`` contains the forked and more experimental second quartet generator.
 ``bird_im_migration`` contains an analysis-driven birdsong reduction built from curated spectral data.
-``bird_im_migration_ensemble`` expands that material into a three-movement chamber piece with separate instrumental and render layers.
+``bird_im_migration_ensemble`` expands that material into a chamber piece with three main movements and an appendix-style transform study, all with separate instrumental and render layers.
 ``algorithmic`` remains a placeholder package for future work.
 The package entry points are defined in ``../pyproject.toml`` and exposed both as ``python -m ...`` module invocations and as installed console scripts.
 
@@ -22,7 +22,7 @@ The generation layer defines musical material or event logic.
 The score layer turns that material into Abjad objects and then into LilyPond source.
 Quartet packages add a fourth layer for configuration loading and a fifth layer for SoundFont handling.
 The bird packages show that the same architecture also works for analysis-driven material.
-``bird_im_migration`` adds a preprocessing step that turns SPEAR partials into quantized phrase material, and ``bird_im_migration_ensemble`` then treats those phrases as modular source objects for a larger score.
+``bird_im_migration`` adds a preprocessing step that turns SPEAR partials into quantized phrase material, and ``bird_im_migration_ensemble`` then treats those phrases as modular source objects for a larger score and for appendix-style transform demonstrations.
 
 The architecture also separates stable work from exploratory work.
 ``Algo Rhythms Quartet No. 1`` stays fixed as a proof-of-concept score.

@@ -14,5 +14,5 @@ That would improve formal shape and help the music move through clearer phases.
 
 Harmonic planning should become more explicit, especially for piano writing.
 No. 2 has already started to separate hand behavior and chord spacing, but the next stage is to connect those local sonorities into larger harmonic motion.
-For the bird pieces, future work includes additional source recordings, clearer phrase-family relationships across movements, and more flexible substitution of instruments and vocal lines.
+For the bird pieces, future work includes additional source recordings, clearer phrase-family relationships across movements, richer transform families beyond the current appendix demonstrations, and more flexible substitution of instruments and vocal lines.
 Broader instrumentation and more systematic post-tonal methods are also natural next steps for the repository as a whole.

@@ -302,9 +302,7 @@ jobs:
             build/bird-im-migration-ensemble.pdf
             build/bird-im-migration-ensemble.midi
             build/bird-im-migration-ensemble.wav
-            build/bird-im-migration-ensemble-mvt1.wav
-            build/bird-im-migration-ensemble-mvt2.wav
-            build/bird-im-migration-ensemble-mvt3.wav
+            build/bird-im-migration-ensemble-mvt*.wav
 
   release:
     if: startsWith(github.ref, 'refs/tags/v')
@@ -460,4 +458,8 @@ jobs:
             release/bird-im-migration-ensemble/bird-im-migration-ensemble-mvt1.wav \
             release/bird-im-migration-ensemble/bird-im-migration-ensemble-mvt2.wav \
             release/bird-im-migration-ensemble/bird-im-migration-ensemble-mvt3.wav \
+            release/bird-im-migration-ensemble/bird-im-migration-ensemble-appendix-a1.wav \
+            release/bird-im-migration-ensemble/bird-im-migration-ensemble-appendix-a2.wav \
+            release/bird-im-migration-ensemble/bird-im-migration-ensemble-appendix-a3.wav \
+            release/bird-im-migration-ensemble/bird-im-migration-ensemble-appendix-a4.wav \
             release/bird-im-migration-ensemble/bird-im-migration-ensemble-thumbnail.png

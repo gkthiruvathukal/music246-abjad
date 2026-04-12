@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import random
 from typing import Iterable
 
@@ -28,6 +28,7 @@ PITCH_CLASS_NAME_TO_INT = {
     "as": 10,
     "b": 11,
 }
+INT_TO_PITCH_CLASS_NAME = {value: key for key, value in PITCH_CLASS_NAME_TO_INT.items()}
 
 
 @dataclass(frozen=True)
@@ -48,7 +49,7 @@ class Phrase:
 @dataclass(frozen=True)
 class PhraseVariant:
     phrase: Phrase
-    transform_name: str
+    transform_names: tuple[str, ...]
     note_bins: tuple[tuple[str, ...], ...]
     span_measures: int
 
@@ -99,6 +100,18 @@ class MovementMaterial:
     measure_units: int
     measures: int
     parts: tuple[InstrumentPart, ...]
+    annotation_staff_id: str | None = None
+    measure_annotations: tuple["MeasureAnnotation", ...] = ()
+    system_break_after_measures: tuple[int, ...] = ()
+    page_break_after_measures: tuple[int, ...] = ()
+    include_closing_indicators: bool = True
+    score_transpose_semitones: int = 0
+
+
+@dataclass(frozen=True)
+class MeasureAnnotation:
+    measure_index: int
+    text_lines: tuple[str, ...]
 
 
 @dataclass(frozen=True)
@@ -182,6 +195,27 @@ DEFAULT_MOVEMENTS: tuple[MovementConfig, ...] = (
         piano_pattern="syncopated",
         seed_offset=71,
     ),
+    MovementConfig(
+        number=4,
+        title="IV. Spectral Analysis of Birds and Transform Debugging",
+        subtitle="Singles, pairs, and triples of transforms with semitone pitch shifts",
+        time_signature=(4, 4),
+        tempo_bpm=60,
+        key_literal=r"\key c \major",
+        center_midi=74,
+        total_measures=24,
+        phrase_pairs=0,
+        intro_measures=0,
+        closing_measures=0,
+        phrase_measures=1,
+        call_transforms=(),
+        response_transforms=(),
+        call_response_probability=0.0,
+        percussion_density=0.0,
+        percussion_pattern="son-clave",
+        piano_pattern="two-beat",
+        seed_offset=0,
+    ),
 )
 
 
@@ -217,6 +251,12 @@ def _note_name_to_midi(note_name: str) -> int:
     return (octave + 1) * 12 + PITCH_CLASS_NAME_TO_INT[pitch_class_name]
 
 
+def _midi_to_note_name(midi_pitch: int) -> str:
+    octave = midi_pitch // 12 - 1
+    pitch_class_name = INT_TO_PITCH_CLASS_NAME[midi_pitch % 12]
+    return f"{pitch_class_name}{octave}"
+
+
 def _resample_bins(
     note_bins: tuple[tuple[str, ...], ...],
     *,
@@ -245,34 +285,80 @@ def _repeat_bins(
     return _resample_bins(repeated, target_units=target_units)
 
 
+def _pitch_shift_bins(
+    note_bins: tuple[tuple[str, ...], ...],
+    semitones: int,
+) -> tuple[tuple[str, ...], ...]:
+    shifted_bins: list[tuple[str, ...]] = []
+    for note_bin in note_bins:
+        shifted_bins.append(
+            tuple(_midi_to_note_name(_note_name_to_midi(note) + semitones) for note in note_bin)
+        )
+    return tuple(shifted_bins)
+
+
+def _normalize_transform_names(transform_names: str | tuple[str, ...]) -> tuple[str, ...]:
+    if isinstance(transform_names, str):
+        return (transform_names,)
+    return transform_names
+
+
+def _parse_pitch_transform(transform_name: str) -> int | None:
+    if not transform_name.startswith("pitch"):
+        return None
+    semitone_text = transform_name[5:]
+    if not semitone_text or semitone_text[0] not in "+-":
+        raise ValueError(f"Bad pitch transform: {transform_name}")
+    return int(semitone_text)
+
+
+def _apply_transform(
+    note_bins: tuple[tuple[str, ...], ...],
+    span_measures: int,
+    transform_name: str,
+    *,
+    phrase_measures: int,
+) -> tuple[tuple[tuple[str, ...], ...], int]:
+    pitch_shift = _parse_pitch_transform(transform_name)
+    if transform_name == "identity":
+        return note_bins, span_measures
+    if transform_name == "retrograde":
+        return _retrograde_bins(note_bins), span_measures
+    if transform_name == "augment":
+        return note_bins, span_measures * 2
+    if transform_name == "repeat":
+        return note_bins + note_bins, span_measures * 2
+    if pitch_shift is not None:
+        return _pitch_shift_bins(note_bins, pitch_shift), span_measures
+    raise ValueError(f"Unknown transform: {transform_name}")
+
+
+def _format_transform_label(transform_names: tuple[str, ...]) -> str:
+    return " + ".join(transform_names)
+
+
 # [docs:phrase-transforms:start]
 def _make_variant(
     phrase: Phrase,
-    transform_name: str,
+    transform_names: str | tuple[str, ...],
     *,
     measure_units: int,
     phrase_measures: int,
 ) -> PhraseVariant:
-    if transform_name == "identity":
-        span_measures = phrase_measures
-        bins = _resample_bins(phrase.note_bins, target_units=measure_units * span_measures)
-    elif transform_name == "retrograde":
-        span_measures = phrase_measures
-        bins = _resample_bins(
-            _retrograde_bins(phrase.note_bins),
-            target_units=measure_units * span_measures,
+    normalized_transform_names = _normalize_transform_names(transform_names)
+    bins = phrase.note_bins
+    span_measures = phrase_measures
+    for transform_name in normalized_transform_names:
+        bins, span_measures = _apply_transform(
+            bins,
+            span_measures,
+            transform_name,
+            phrase_measures=phrase_measures,
         )
-    elif transform_name == "augment":
-        span_measures = phrase_measures * 2
-        bins = _resample_bins(phrase.note_bins, target_units=measure_units * span_measures)
-    elif transform_name == "repeat":
-        span_measures = phrase_measures * 2
-        bins = _repeat_bins(phrase.note_bins, target_units=measure_units * span_measures)
-    else:
-        raise ValueError(f"Unknown transform: {transform_name}")
+    bins = _resample_bins(bins, target_units=measure_units * span_measures)
     return PhraseVariant(
         phrase=phrase,
-        transform_name=transform_name,
+        transform_names=normalized_transform_names,
         note_bins=bins,
         span_measures=span_measures,
     )
@@ -319,6 +405,8 @@ def _map_bin_to_instrument(
     high: int,
     max_notes: int,
     prefer_highest: bool,
+    low_tolerance: int = 0,
+    high_tolerance: int = 0,
 ) -> tuple[int, ...]:
     if not note_bin:
         return tuple()
@@ -329,7 +417,12 @@ def _map_bin_to_instrument(
     mapped: list[int] = []
     for midi_pitch in selected:
         shifted = midi_pitch - 72 + center_midi
-        mapped.append(_fit_pitch_to_range(shifted, low, high))
+        mapped_pitch = shifted
+        while mapped_pitch < low - low_tolerance:
+            mapped_pitch += 12
+        while mapped_pitch > high + high_tolerance:
+            mapped_pitch -= 12
+        mapped.append(mapped_pitch)
     return tuple(sorted(mapped))
 
 
@@ -797,6 +890,92 @@ def _build_movement_material(
     )
 
 
+def _build_transform_study_movement_material(
+    phrase: Phrase,
+    config: MovementConfig,
+    *,
+    seed: int,
+    section_title: str,
+) -> MovementMaterial:
+    measure_units = _measure_units(config.time_signature)
+    study_bins: list[tuple[int, ...] | None] = []
+    measure_annotations: list[MeasureAnnotation] = []
+    measure_cursor = 0
+    rng = random.Random(seed + config.seed_offset)
+
+    pitch_single = f"pitch{rng.choice((1, -1)) * rng.randint(1, 4):+d}"
+    pitch_pair = f"pitch{rng.choice((1, -1)) * rng.randint(1, 4):+d}"
+    pitch_triple = f"pitch{rng.choice((1, -1)) * rng.randint(1, 4):+d}"
+    transform_sequences = (
+        ("identity",),
+        ("retrograde",),
+        ("augment",),
+        ("augment", "augment"),
+        ("repeat",),
+        (pitch_single,),
+        ("retrograde", "augment"),
+        ("augment", pitch_pair),
+        ("retrograde", "augment", pitch_triple),
+    )
+    for transform_sequence in transform_sequences:
+        variant = _make_variant(
+            phrase,
+            transform_sequence,
+            measure_units=measure_units,
+            phrase_measures=config.phrase_measures,
+        )
+        transform_label = _format_transform_label(variant.transform_names)
+        annotation_lines = (transform_label,)
+        if transform_sequence == ("identity",):
+            annotation_lines = (
+                phrase.region_name,
+                transform_label,
+            )
+        measure_annotations.append(
+            MeasureAnnotation(
+                measure_index=measure_cursor,
+                text_lines=annotation_lines,
+            )
+        )
+        mapped_bins = [
+            _map_bin_to_instrument(
+                note_bin,
+                center_midi=74,
+                low=72,
+                high=91,
+                max_notes=1,
+                prefer_highest=True,
+                low_tolerance=4,
+                high_tolerance=4,
+            )
+            or None
+            for note_bin in variant.note_bins
+        ]
+        study_bins.extend(mapped_bins)
+        measure_cursor += variant.span_measures
+
+    parts = (
+        InstrumentPart(
+            staff_id="bird_study",
+            name="Bird",
+            short_name="Bird",
+            clef="treble",
+            midi_instrument="violin",
+            events=tuple(_phrase_bins_to_events(study_bins)),
+        ),
+    )
+    return MovementMaterial(
+        config=replace(config, title=section_title),
+        measure_units=measure_units,
+        measures=measure_cursor,
+        parts=parts,
+        annotation_staff_id="bird_study",
+        measure_annotations=tuple(measure_annotations),
+        include_closing_indicators=False,
+        score_transpose_semitones=-12,
+    )
+
+
 def build_ensemble_piece(
     *,
     sources: Iterable[BirdSource] = (DEFAULT_SOURCE,),
@@ -804,14 +983,29 @@ def build_ensemble_piece(
     seed: int = 7,
 ) -> EnsemblePiece:
     phrases = build_phrase_library(sources=sources)
-    materials = tuple(
-        _build_movement_material(phrases, movement, seed=seed)
-        for movement in movements
-    )
+    materials_list: list[MovementMaterial] = []
+    study_labels = ("Appendix A1", "Appendix A2", "Appendix A3", "Appendix A4")
+    for movement in movements:
+        if movement.number != 4:
+            materials_list.append(_build_movement_material(phrases, movement, seed=seed))
+            continue
+        for index, phrase in enumerate(phrases):
+            section_title = (
+                f"{study_labels[index]}. Demonstration of transforms on {phrase.region_name}"
+            )
+            materials_list.append(
+                _build_transform_study_movement_material(
+                    phrase,
+                    movement,
+                    seed=seed + index,
+                    section_title=section_title,
+                )
+            )
+    materials = tuple(materials_list)
     generation_note_lines = (
         "Bird Im-Migration Ensemble",
         "Source treatment: curated bird fragments -> modular phrase variants",
-        "Transforms: identity, retrograde, augment, repeat",
+        "Transforms: identity, retrograde, augment, repeat, pitch+N / pitch-N",
         "Ensemble: violin, trumpet, percussion, piano drone (legato LH + jazz comp RH)",
         f"Phrase sources: {', '.join(sorted({phrase.region_name for phrase in phrases}))}",
         f"Seed: {seed}",

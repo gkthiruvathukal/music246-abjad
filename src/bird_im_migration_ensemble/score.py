@@ -5,7 +5,13 @@ from __future__ import annotations
 import abjad
 from fractions import Fraction
 
-from .generator import EnsembleEvent, EnsemblePiece, InstrumentPart, MovementMaterial
+from .generator import (
+    EnsembleEvent,
+    EnsemblePiece,
+    InstrumentPart,
+    MeasureAnnotation,
+    MovementMaterial,
+)
 
 
 PITCH_CLASS_NAMES = {
@@ -136,6 +142,7 @@ def _style_as_jazz_hits(staff: abjad.Staff) -> None:
 
 def _build_staff(part: InstrumentPart, movement: MovementMaterial) -> abjad.Staff:
     voice = abjad.Voice(name=f"{part.staff_id}_voice")
+    measures: list[abjad.Container] = []
     split_events = []
     for event in part.events:
         split_events.extend(
@@ -157,12 +164,85 @@ def _build_staff(part: InstrumentPart, movement: MovementMaterial) -> abjad.Staf
                 container.append(leaf)
             current = next(event_iter, None)
         voice.append(container)
+        measures.append(container)
 
     staff = abjad.Staff([voice], name=part.staff_id)
     _attach_staff_indicators(staff, part, movement)
     if part.staff_id == "percussion":
         _style_as_jazz_hits(staff)
+    if movement.annotation_staff_id == part.staff_id:
+        _attach_measure_annotations(staff, measures, movement.measure_annotations)
+        _attach_system_breaks(staff, measures, movement.system_break_after_measures)
+        _attach_page_breaks(staff, measures, movement.page_break_after_measures)
     return staff
+
+
+def _annotation_markup(annotation: MeasureAnnotation) -> str:
+    if len(annotation.text_lines) > 1:
+        title = annotation.text_lines[0]
+        subtitle = annotation.text_lines[1]
+        return (
+            r"\markup \override #'(baseline-skip . 3.2) \column { "
+            r"\vspace #1 "
+            rf'\line {{ \bold "{title}" }} '
+            rf'\line {{ \italic "{subtitle}" }} '
+            r"}"
+        )
+    lines = " ".join(rf'"{line}"' for line in annotation.text_lines)
+    return rf"\markup \column {{ {lines} }}"
+
+
+def _attach_measure_annotations(
+    staff: abjad.Staff,
+    measures: list[abjad.Container],
+    annotations: tuple[MeasureAnnotation, ...],
+) -> None:
+    for annotation in annotations:
+        if annotation.measure_index >= len(measures):
+            continue
+        first_leaf = abjad.select.leaf(measures[annotation.measure_index], 0)
+        if first_leaf is None:
+            continue
+        abjad.attach(
+            abjad.Markup(_annotation_markup(annotation)),
+            first_leaf,
+            direction=abjad.UP,
+        )
+
+
+def _attach_system_breaks(
+    staff: abjad.Staff,
+    measures: list[abjad.Container],
+    break_after_measures: tuple[int, ...],
+) -> None:
+    for measure_number in break_after_measures:
+        measure_index = measure_number - 1
+        if measure_index < 0 or measure_index >= len(measures):
+            continue
+        last_leaf = abjad.select.leaf(measures[measure_index], -1)
+        if last_leaf is None:
+            continue
+        abjad.attach(abjad.LilyPondLiteral(r"\break", site="after"), last_leaf)
+
+
+def _attach_page_breaks(
+    staff: abjad.Staff,
+    measures: list[abjad.Container],
+    break_after_measures: tuple[int, ...],
+) -> None:
+    for measure_number in break_after_measures:
+        measure_index = measure_number - 1
+        if measure_index < 0 or measure_index >= len(measures):
+            continue
+        last_leaf = abjad.select.leaf(measures[measure_index], -1)
+        if last_leaf is None:
+            continue
+        abjad.attach(abjad.LilyPondLiteral(r"\pageBreak", site="after"), last_leaf)
+
+
+def _transpose_score(score: abjad.Score, semitones: int) -> None:
+    if semitones:
+        abjad.mutate.transpose(score, semitones)
 
 
 def _build_piano_staff(movement: MovementMaterial) -> abjad.StaffGroup | None:
@@ -211,6 +291,9 @@ def _apply_opening_markup(score: abjad.Score, movement: MovementMaterial) -> Non
 
 
 def _apply_closing_indicators(score: abjad.Score, movement: MovementMaterial) -> None:
+    if not movement.include_closing_indicators:
+        abjad.attach(abjad.BarLine("|."), abjad.select.leaf(score, -1))
+        return
     all_pitched = [
         leaf
         for leaf in abjad.select.leaves(score)
@@ -244,9 +327,17 @@ def _build_movement_score(movement: MovementMaterial) -> abjad.Score:
     if piano_group is not None:
         staves.append(piano_group)
     score = abjad.Score(staves, name=f"movement_{movement.config.number}_score")
+    _transpose_score(score, movement.score_transpose_semitones)
     _apply_opening_markup(score, movement)
     _apply_closing_indicators(score, movement)
     return score
+
+
+def _layout_block_for_movement(movement: MovementMaterial) -> abjad.Block:
+    layout_block = abjad.Block(name="layout")
+    if movement.annotation_staff_id == "bird_study":
+        layout_block.items.append(r"indent = 0\mm")
+    return layout_block
 
 
 def build_lilypond_file(piece: EnsemblePiece) -> abjad.LilyPondFile:
@@ -263,9 +354,23 @@ def build_lilypond_file(piece: EnsemblePiece) -> abjad.LilyPondFile:
     for index, movement in enumerate(piece.movements):
         score_block = abjad.Block(name="score")
         score_block.items.append(_build_movement_score(movement))
-        score_block.items.append(abjad.Block(name="layout"))
+        score_block.items.append(_layout_block_for_movement(movement))
         score_block.items.append(abjad.Block(name="midi"))
         items.append(score_block)
-        if index < len(piece.movements) - 1:
+        next_movement = piece.movements[index + 1] if index < len(piece.movements) - 1 else None
+        if (
+            next_movement is not None
+            and movement.annotation_staff_id == "bird_study"
+            and next_movement.annotation_staff_id == "bird_study"
+        ):
+            items.append(r"\markup \vspace #2")
+        should_page_break = (
+            next_movement is not None
+            and not (
+                movement.annotation_staff_id == "bird_study"
+                and next_movement.annotation_staff_id == "bird_study"
+            )
+        )
+        if should_page_break:
             items.append(r"\pageBreak")
     return abjad.LilyPondFile(items=items)
