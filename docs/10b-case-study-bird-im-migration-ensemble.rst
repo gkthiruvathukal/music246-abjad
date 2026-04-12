@@ -21,24 +21,34 @@ Download
 
    * - Format
      - Link
+     - Duration
    * - PDF
      - `bird-im-migration-ensemble.pdf <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/bird-im-migration-ensemble.pdf>`_
+     - n/a
    * - WAV
      - `bird-im-migration-ensemble.wav <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/bird-im-migration-ensemble.wav>`_
+     - 9:29
    * - Movement I WAV
      - `bird-im-migration-ensemble-mvt1.wav <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/bird-im-migration-ensemble-mvt1.wav>`_
+     - 1:30
    * - Movement II WAV
      - `bird-im-migration-ensemble-mvt2.wav <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/bird-im-migration-ensemble-mvt2.wav>`_
+     - 1:44
    * - Movement III WAV
      - `bird-im-migration-ensemble-mvt3.wav <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/bird-im-migration-ensemble-mvt3.wav>`_
+     - 1:32
    * - Appendix A1 WAV
      - `bird-im-migration-ensemble-appendix-a1.wav <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/bird-im-migration-ensemble-appendix-a1.wav>`_
+     - 1:11
    * - Appendix A2 WAV
      - `bird-im-migration-ensemble-appendix-a2.wav <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/bird-im-migration-ensemble-appendix-a2.wav>`_
+     - 1:11
    * - Appendix A3 WAV
      - `bird-im-migration-ensemble-appendix-a3.wav <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/bird-im-migration-ensemble-appendix-a3.wav>`_
+     - 1:11
    * - Appendix A4 WAV
      - `bird-im-migration-ensemble-appendix-a4.wav <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/bird-im-migration-ensemble-appendix-a4.wav>`_
+     - 1:11
 
 .. only:: html
 
@@ -47,6 +57,8 @@ Download
 
    Full Piece
    ^^^^^^^^^^
+
+   Duration: 9:29
 
    .. raw:: html
 
@@ -58,6 +70,8 @@ Download
    Movement I
    ^^^^^^^^^^
 
+   Duration: 1:30
+
    .. raw:: html
 
       <audio controls preload="none">
@@ -67,6 +81,8 @@ Download
 
    Movement II
    ^^^^^^^^^^^
+
+   Duration: 1:44
 
    .. raw:: html
 
@@ -78,6 +94,8 @@ Download
    Movement III
    ^^^^^^^^^^^^
 
+   Duration: 1:32
+
    .. raw:: html
 
       <audio controls preload="none">
@@ -87,6 +105,8 @@ Download
 
    Appendix A1
    ^^^^^^^^^^^
+
+   Duration: 1:11
 
    .. raw:: html
 
@@ -98,6 +118,8 @@ Download
    Appendix A2
    ^^^^^^^^^^^
 
+   Duration: 1:11
+
    .. raw:: html
 
       <audio controls preload="none">
@@ -108,6 +130,8 @@ Download
    Appendix A3
    ^^^^^^^^^^^
 
+   Duration: 1:11
+
    .. raw:: html
 
       <audio controls preload="none">
@@ -117,6 +141,8 @@ Download
 
    Appendix A4
    ^^^^^^^^^^^
+
+   Duration: 1:11
 
    .. raw:: html
 
