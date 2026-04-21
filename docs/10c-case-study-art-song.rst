@@ -5,7 +5,7 @@ Case Study VIII: We Choose the Moon, We Choose Earth
 
    This case study is still in the conceptual stage.
    The lyrics, dramatic form, and production map are being used as a planning scaffold for the finished composition.
-   The lead sheet and timeline describe an intended Logic Pro realization while I am still learning how to shape the song, use sampled rocket and space sounds, and integrate those sounds into the musical arrangement.
+   The lead sheet and timeline describe an intended Logic Pro version while I am still learning how to shape the song, use sampled rocket and space sounds, and blend those sounds into the musical arrangement.
 
 Personal Background
 -------------------
@@ -20,19 +20,22 @@ The Artemis II mission left me, and much of the world, speechless while we found
 Project Inspiration
 -------------------
 
-This project is an art song for voice and piano shaped by the activist tradition, but with a strong rock/folk influence.
+This project is an art song for voice and piano shaped by activist music, with a strong rock/folk influence.
 It will not be a classical piece, and it will not be a jazz piece.
-The central idea is to place John F. Kennedy's 1962 Rice University moon speech in dialogue with the Artemis II mission.
-Rather than treating the moonshot as a historical artifact, the song presents it as a modern and relevant idea: collective effort, difficult work, and public purpose, all of them possible even during the most challenging and tumultuous times.
+The main idea is to place John F. Kennedy's 1962 Rice University moon speech in conversation with the Artemis II mission.
+The song does not treat the moonshot as only a historical event.
+It presents it as an idea that still matters: people working together, doing difficult work, and serving a public purpose, even in hard times.
 
-Kennedy's words provide the primary text.
-The recurring rhetoric of choice, challenge, and resolve gives the song its public voice.
+Kennedy's words provide the main text.
+His repeated ideas of choice, challenge, and resolve give the song its public voice.
 The emotional turn comes from Artemis II, especially Christina Koch's line, ``We choose Earth.``
-That response reframes the moon mission not as escape from the world, but as a renewed commitment to it and to one another.
+That response changes the meaning of the moon mission.
+It is not about escaping the world.
+It is about choosing Earth and choosing one another.
 
-The title, *We Choose the Moon, We Choose Earth*, states the whole dramatic argument.
-The first half comes from Kennedy's call to undertake difficult collective action.
-The second half comes from the modern mission's reminder that exploration ultimately returns us to Earth and to each other.
+The title, *We Choose the Moon, We Choose Earth*, states the main idea.
+The first half comes from Kennedy's call to take on difficult work together.
+The second half comes from the modern mission's reminder that exploration brings us back to Earth and to each other.
 
 Source Texts
 ------------
@@ -82,20 +85,20 @@ The song shape is:
 - Coda: ``We choose Earth / We choose each other``
 
 The dramatic idea is that Kennedy and Artemis II are not in conflict.
-Kennedy provides the language of aspiration and effort.
-Artemis provides the moral answer: we choose difficult collective action not to abandon the world, but to return to it with greater responsibility.
+Kennedy gives the song its language of effort and ambition.
+Artemis gives the answer: we take on difficult work together not to abandon the world, but to care for it more fully.
 
 Production Map
 --------------
 
-The musical design can be treated as a lead sheet for sound, texture, and pacing rather than as a conventional chord chart.
+The musical design can work as a lead sheet for sound, texture, and pacing rather than as a regular chord chart.
 The piece may be built in Apple Logic as a hybrid of rock/folk song, spoken art song, and electronic sound design.
-The vocal model is closer to speech-inflected rock recitation than to operatic singing: the verses can be mostly recited, while the refrain, bridge, and coda can open into doubled or harmonized vocal writing.
+The vocal style is closer to speech-based rock recitation than to operatic singing: the verses can be mostly recited, while the refrain, bridge, and coda can open into doubled or harmonized vocals.
 This approach keeps the text clear while allowing the repeated phrases to become song-like.
-The timings below are provisional production targets for a roughly five-minute realization, not fixed notation.
-The table should be read as a practical Logic Pro roadmap: each row gives a section of the song, its approximate position in time, the function of the vocal delivery, the electronic or acoustic sound world, the rhythmic behavior, and one possible way to realize the idea inside Logic.
+The timings below are rough production targets for a song of about five minutes, not fixed notation.
+The table should be read as a practical Logic Pro roadmap: each row gives a section of the song, its approximate place in time, the function of the vocal delivery, the sound world, the rhythmic behavior, and one possible way to build the idea inside Logic.
 It is not a final score.
-Instead, it is a working map for turning the lyric draft into a performable and producible song.
+Instead, it is a working map for turning the lyric draft into a song that can be performed and produced.
 
 .. list-table::
    :header-rows: 1
@@ -133,7 +136,7 @@ Instead, it is a working map for turning the lyric draft into a performable and 
      - Stereo widening, ChromaVerb shimmer, delay throws at phrase endings.
    * - Short refrain
      - 1:58 / 0:22
-     - The Kennedy refrain returns in compressed form, as if reacquired through transmission.
+     - The Kennedy refrain returns in a shorter form, as if it is coming back through transmission.
      - Refrain pulse is present but thinner; radio-filtered vocal double shadows the lead.
      - Shorter and more urgent; a transitional build into Artemis II.
      - Channel EQ band-pass on the ghost vocal, narrower stereo image, rising noise swell.
@@ -142,7 +145,7 @@ Instead, it is a working map for turning the lyric draft into a performable and 
      - Close, intimate vocal delivery centered on ``We choose Earth``.
      - Drums drop out; cold lunar-orbit ambience, suspended pad, isolated piano tones, faint spacecraft interior sounds.
      - Time can loosen here; the bridge should feel like a change of perspective rather than a bigger chorus.
-     - Automation removes groove elements, increases vocal intimacy, and shifts harmony to a remote or suspended tonal center.
+     - Automation removes groove elements, brings the vocal closer, and shifts the harmony to a more suspended place.
    * - Loss of signal / far side
      - 3:00 / 0:14
      - No lyric, or a final fragment disappearing into blackout.
@@ -166,12 +169,12 @@ Instead, it is a working map for turning the lyric draft into a performable and 
      - The voice may stop, or one final ``We choose Earth`` can return after silence.
      - Silence, radio crackle, sub reentry rumble, white-noise heat, then a broad triumphant chord.
      - Dramatic interruption followed by return; the ending should feel like reentry rather than a simple fade.
-     - Automated silence, Quick Sampler radio click, filtered noise rise, final full-spectrum chord.
+     - Automated silence, Quick Sampler radio click, filtered noise rise, final full chord.
 
-This lead sheet deliberately separates the song from strict notation.
-The exact chords can remain flexible while the structural functions stay clear: declaration, organization, voyage, moral reversal, blackout, return, and communal resolution.
-The space sounds should not behave only as effects added after the fact.
-They should gradually become part of the arrangement: rocket noise becomes percussion, telemetry becomes groove, radio loss becomes form, and reentry becomes cadence.
+This lead sheet separates the song from strict notation on purpose.
+The exact chords can stay flexible while the section roles stay clear: declaration, organization, voyage, moral turn, blackout, return, and shared resolution.
+The space sounds should not feel like effects added at the end.
+They should gradually become part of the arrangement: rocket noise becomes percussion, telemetry becomes groove, radio loss becomes form, and reentry becomes the ending.
 
 Timeline Graphic
 ----------------
@@ -278,11 +281,12 @@ Lyric Draft
 Musical Rationale
 -----------------
 
-Musically, the piece should remain song-like rather than abstractly through-composed.
-The verses should be speech-inflected and text-forward.
-The refrain should broaden into a more memorable melodic shape.
-The bridge should open emotionally and harmonically around ``We choose Earth``, and the coda should feel distilled and communal.
-The folk/rock influence suggests a steady pulse, direct harmonic language, and a balance between intimacy and public declaration.
+Musically, the piece should stay song-like and clear.
+The verses should follow the rhythm of speech and keep the words in front.
+The refrain should open into a stronger melody.
+The bridge should open up around ``We choose Earth``, and the coda should feel simple and shared.
+The folk/rock influence suggests a steady pulse, clear harmonies, and a balance between intimacy and public statement.
 
-Although the piece draws on folk/rock and activist-song traditions, it still functions as an art song because it is rooted in close text setting, rhetorical pacing, and the expressive relationship between words and accompaniment.
-The political meaning comes from how the text is shaped, repeated, and transformed across the song.
+The piece uses folk/rock and activist-song ideas, but it still works as an art song.
+The focus is on clear text setting, careful pacing, and a close connection between the voice and piano.
+Its political meaning should come through the way the words are set, repeated, and developed over the course of the song.

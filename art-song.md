@@ -1,10 +1,10 @@
 # We Choose the Moon, We Choose Earth
 
-This project is an art song for voice and piano shaped by the activist tradition, but with a strong rock/folk influence. The central idea is to place John F. Kennedy's 1962 Rice University moon speech in dialogue with the Artemis II mission. Rather than treating the moonshot as a historical artifact, the song presents it as a still-living civic idea: collective effort, difficult work, and public purpose.
+This project is an art song for voice and piano shaped by activist music, with a strong rock/folk influence. The main idea is to place John F. Kennedy's 1962 Rice University moon speech in conversation with the Artemis II mission. The song does not treat the moonshot as only a historical event. It presents it as an idea that still matters: people working together, doing difficult work, and serving a public purpose.
 
-Kennedy's words provide the primary text. The recurring rhetoric of choice, challenge, and resolve gives the song its public voice. The emotional turn comes from Artemis II, especially Christina Koch's line: "We choose Earth." That response reframes the moon mission not as escape from the world, but as a renewed commitment to it and to one another.
+Kennedy's words provide the main text. His repeated ideas of choice, challenge, and resolve give the song its public voice. The emotional turn comes from Artemis II, especially Christina Koch's line: "We choose Earth." That response changes the meaning of the moon mission. It is not about escaping the world. It is about choosing Earth and choosing one another.
 
-The title, *We Choose the Moon, We Choose Earth*, states the whole dramatic argument. The first half comes from Kennedy's call to undertake difficult collective action. The second half comes from the modern mission's reminder that exploration ultimately returns us to Earth and to each other.
+The title, *We Choose the Moon, We Choose Earth*, states the main idea. The first half comes from Kennedy's call to take on difficult work together. The second half comes from the modern mission's reminder that exploration brings us back to Earth and to each other.
 
 The Artemis II crew was Reid Wiseman, Victor Glover, Christina Koch, and Jeremy Hansen. The modern response in this project is drawn especially from Christina Koch's words:
 
@@ -41,7 +41,7 @@ The song shape is:
 - Final verse and refrain: Kennedy heard again after the bridge
 - Coda: "We choose Earth / We choose each other"
 
-The dramatic idea is that Kennedy and Artemis II are not in conflict. Kennedy provides the language of aspiration and effort. Artemis provides the moral answer: we choose difficult collective action not to abandon the world, but to return to it with greater responsibility.
+The dramatic idea is that Kennedy and Artemis II are not in conflict. Kennedy gives the song its language of effort and ambition. Artemis gives the answer: we take on difficult work together not to abandon the world, but to care for it more fully.
 
 ## Lyric Draft
 
@@ -111,6 +111,6 @@ We choose each other.
 We choose Earth.
 ```
 
-Musically, the piece should remain song-like rather than abstractly through-composed. The verses should be speech-inflected and text-forward. The refrain should broaden into a more memorable melodic shape. The bridge should open emotionally and harmonically around "We choose Earth," and the coda should feel distilled and communal. The folk/rock influence suggests a steady pulse, direct harmonic language, and a balance between intimacy and public declaration.
+Musically, the piece should stay song-like and clear. The verses should follow the rhythm of speech and keep the words in front. The refrain should open into a stronger melody. The bridge should open up around "We choose Earth," and the coda should feel simple and shared. The folk/rock influence suggests a steady pulse, clear harmonies, and a balance between intimacy and public statement.
 
-Although the piece draws on folk/rock and activist-song traditions, it still functions as an art song because it is rooted in close text setting, rhetorical pacing, and the expressive relationship between words and accompaniment. The political meaning comes from how the text is shaped, repeated, and transformed across the song.
+The piece uses folk/rock and activist-song ideas, but it still works as an art song. The focus is on clear text setting, careful pacing, and a close connection between the voice and piano. Its political meaning should come through the way the words are set, repeated, and developed over the course of the song.
