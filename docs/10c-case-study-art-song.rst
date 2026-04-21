@@ -7,12 +7,18 @@ Case Study VIII: We Choose the Moon, We Choose Earth
    The lyrics, dramatic form, and production map are being used as a planning scaffold for the finished composition.
    The lead sheet and timeline describe an intended Logic Pro realization while I am still learning how to shape the song, use sampled rocket and space sounds, and integrate those sounds into the musical arrangement.
 
+Personal Background
+-------------------
+
 My plan for the final composition in COMP 246 begins from a much older personal background.
 Starting when I was ten years old, before there was an internet, I used to send letters to NASA.
 I was especially excited by interplanetary missions, above all Viking I and Viking II to Mars.
 NASA sent me large packets of articles and photographs, and those materials stayed with me.
 When I think about what makes America great, NASA is the first thing that comes to mind.
 The Artemis II mission left me, and much of the world, speechless while we found ourselves living through yet another war.
+
+Project Inspiration
+-------------------
 
 This project is an art song for voice and piano shaped by the activist tradition, but with a strong rock/folk influence.
 It will not be a classical piece, and it will not be a jazz piece.
@@ -27,6 +33,9 @@ That response reframes the moon mission not as escape from the world, but as a r
 The title, *We Choose the Moon, We Choose Earth*, states the whole dramatic argument.
 The first half comes from Kennedy's call to undertake difficult collective action.
 The second half comes from the modern mission's reminder that exploration ultimately returns us to Earth and to each other.
+
+Source Texts
+------------
 
 The Artemis II crew was Reid Wiseman, Victor Glover, Christina Koch, and Jeremy Hansen.
 The modern response in this project is drawn especially from Christina Koch's words:
@@ -47,6 +56,9 @@ The main Kennedy lines shaping the song are:
    that challenge is one that we are willing to accept, one we are unwilling to postpone, and one we intend to win
    We set sail on this new sea
    there is new knowledge to be gained, and new rights to be won, and they must be won and used for the progress of all people
+
+Refrain and Song Shape
+----------------------
 
 The piece is designed around a real refrain, because the refrain is essential to both protest song and folk/rock practice.
 The chosen refrain is adapted very closely from Kennedy:
@@ -73,14 +85,17 @@ The dramatic idea is that Kennedy and Artemis II are not in conflict.
 Kennedy provides the language of aspiration and effort.
 Artemis provides the moral answer: we choose difficult collective action not to abandon the world, but to return to it with greater responsibility.
 
-Production Lead Sheet
----------------------
+Production Map
+--------------
 
 The musical design can be treated as a lead sheet for sound, texture, and pacing rather than as a conventional chord chart.
 The piece may be built in Apple Logic as a hybrid of rock/folk song, spoken art song, and electronic sound design.
 The vocal model is closer to speech-inflected rock recitation than to operatic singing: the verses can be mostly recited, while the refrain, bridge, and coda can open into doubled or harmonized vocal writing.
 This approach keeps the text clear while allowing the repeated phrases to become song-like.
 The timings below are provisional production targets for a roughly five-minute realization, not fixed notation.
+The table should be read as a practical Logic Pro roadmap: each row gives a section of the song, its approximate position in time, the function of the vocal delivery, the electronic or acoustic sound world, the rhythmic behavior, and one possible way to realize the idea inside Logic.
+It is not a final score.
+Instead, it is a working map for turning the lyric draft into a performable and producible song.
 
 .. list-table::
    :header-rows: 1
@@ -158,6 +173,13 @@ The exact chords can remain flexible while the structural functions stay clear: 
 The space sounds should not behave only as effects added after the fact.
 They should gradually become part of the arrangement: rocket noise becomes percussion, telemetry becomes groove, radio loss becomes form, and reentry becomes cadence.
 
+Timeline Graphic
+----------------
+
+The generated timeline below presents the same production map visually.
+Its purpose is to show pacing: where each section begins, how long it might last, and how the sound world changes across the piece.
+Because the timeline is generated during the documentation build, it can be revised as the composition becomes more concrete without maintaining a separate image file by hand.
+
 .. only:: html
 
    .. image:: _static/art-song-production-timeline.svg
@@ -169,8 +191,8 @@ They should gradually become part of the arrangement: rocket noise becomes percu
    The production timeline is generated as an HTML documentation figure.
    The table above carries the same timing and sound-design information for PDF output.
 
-Download
---------
+Planned Outputs
+---------------
 
 .. list-table::
    :header-rows: 1
@@ -252,6 +274,9 @@ Lyric Draft
    We choose Earth.
    We choose each other.
    We choose Earth.
+
+Musical Rationale
+-----------------
 
 Musically, the piece should remain song-like rather than abstractly through-composed.
 The verses should be speech-inflected and text-forward.
