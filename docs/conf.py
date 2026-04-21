@@ -9,6 +9,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+timeline_script = ROOT / "scripts" / "generate_art_song_timeline.py"
+if timeline_script.exists():
+    subprocess.check_call([sys.executable, str(timeline_script)], cwd=ROOT)
+
 project = "George's Compositions with Python, Abjad, and Lilypond"
 author = "George K. Thiruvathukal"
 copyright = "2026, George K. Thiruvathukal"
