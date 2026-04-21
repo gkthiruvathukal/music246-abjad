@@ -1,6 +1,12 @@
 Case Study VIII: We Choose the Moon, We Choose Earth
 ====================================================
 
+.. warning::
+
+   This case study is still in the conceptual stage.
+   The lyrics, dramatic form, and production map are being used as a planning scaffold for the finished composition.
+   The lead sheet and timeline describe an intended Logic Pro realization while I am still learning how to shape the song, use sampled rocket and space sounds, and integrate those sounds into the musical arrangement.
+
 My plan for the final composition in COMP 246 begins from a much older personal background.
 Starting when I was ten years old, before there was an internet, I used to send letters to NASA.
 I was especially excited by interplanetary missions, above all Viking I and Viking II to Mars.
