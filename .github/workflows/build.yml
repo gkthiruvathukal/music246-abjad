@@ -223,6 +223,39 @@ jobs:
             build/algorithmic.pdf
             build/algorithmic.midi
 
+  build-art-song:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install LilyPond
+        uses: codello/setup-lilypond@v0.1.0
+        with:
+          lilypond-version: "2.24"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package
+        run: pip install -e .
+
+      - name: Build Art Song outputs
+        run: python -m art_song -o build --pdf --midi
+
+      - name: Upload Art Song artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: art-song
+          path: |
+            build/art-song*.ly
+            build/art-song*.pdf
+            build/art-song.midi
+            build/art-song-chord-voicings.md
+
   build-bird-im-migration:
     runs-on: ubuntu-latest
 
@@ -314,6 +347,7 @@ jobs:
       - build-piano-quartet-no1
       - build-piano-quartet-no2
       - build-algorithmic
+      - build-art-song
       - build-bird-im-migration
       - build-bird-im-migration-ensemble
     runs-on: ubuntu-latest
@@ -354,6 +388,12 @@ jobs:
         with:
           name: algorithmic
           path: release/algorithmic
+
+      - name: Download Art Song artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: art-song
+          path: release/art-song
 
       - name: Download Bird Im-Migration artifacts
         uses: actions/download-artifact@v4
@@ -416,6 +456,9 @@ jobs:
             "release/algorithmic/algorithmic.pdf" \
             "release/algorithmic/algorithmic-thumbnail.png"
           create_thumbnail \
+            "release/art-song/art-song.pdf" \
+            "release/art-song/art-song-thumbnail.png"
+          create_thumbnail \
             "release/bird-im-migration/bird-im-migration-q16.pdf" \
             "release/bird-im-migration/bird-im-migration-q16-thumbnail.png"
           create_thumbnail \
@@ -448,6 +491,16 @@ jobs:
             release/piano-quartet-no2/algo-rhythms-quartet-no-2-thumbnail.png \
             release/algorithmic/algorithmic.pdf \
             release/algorithmic/algorithmic-thumbnail.png \
+            release/art-song/art-song.pdf \
+            release/art-song/art-song.midi \
+            release/art-song/art-song-voice.pdf \
+            release/art-song/art-song-violin.pdf \
+            release/art-song/art-song-viola.pdf \
+            release/art-song/art-song-trumpet-c.pdf \
+            release/art-song/art-song-trumpet-bb.pdf \
+            release/art-song/art-song-piano.pdf \
+            release/art-song/art-song-chord-voicings.md \
+            release/art-song/art-song-thumbnail.png \
             release/bird-im-migration/bird-im-migration-q16.pdf \
             release/bird-im-migration/bird-im-migration-q16.wav \
             release/bird-im-migration/bird-im-migration-q16-thumbnail.png \

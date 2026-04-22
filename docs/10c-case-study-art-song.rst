@@ -1,11 +1,10 @@
 Case Study VIII: We Choose the Moon, We Choose Earth
 ====================================================
 
-.. warning::
-
-   This case study is still in the conceptual stage.
-   The lyrics, dramatic form, and production map are being used as a planning scaffold for the finished composition.
-   The lead sheet and timeline describe an intended Logic Pro version while I am still learning how to shape the song, use sampled rocket and space sounds, and blend those sounds into the musical arrangement.
+This case study now documents the working Abjad score for *We Choose the Moon, We Choose Earth*.
+The piece began as a Logic Pro production plan for a space-themed activist art song, but the current version has moved into a notated lead-score format for the available class ensemble: voice, violin, viola, trumpet, and piano.
+The result is not only a lead sheet and not only a fully fixed concert score.
+It is a hybrid artifact: the score gives the players written material, chord changes, dynamics, vocal text, and formal cues, while still leaving room for piano interpretation and eventual production work.
 
 Personal Background
 -------------------
@@ -20,14 +19,12 @@ The Artemis II mission left me, and much of the world, speechless while we found
 Project Inspiration
 -------------------
 
-This project is an art song for voice and piano shaped by activist music, with a strong rock/folk influence.
-It will not be a classical piece, and it will not be a jazz piece.
-The main idea is to place John F. Kennedy's 1962 Rice University moon speech in conversation with the Artemis II mission.
-The song does not treat the moonshot as only a historical event.
+The piece places John F. Kennedy's 1962 Rice University moon speech in conversation with the Artemis II mission.
+It does not treat the moonshot only as a historical event.
 It presents it as an idea that still matters: people working together, doing difficult work, and serving a public purpose, even in hard times.
 
-Kennedy's words provide the main text.
-His repeated ideas of choice, challenge, and resolve give the song its public voice.
+Kennedy's words provide the public voice of the song.
+His repeated ideas of choice, challenge, and resolve shape the spoken vocal line and the refrain.
 The emotional turn comes from Artemis II, especially Christina Koch's line, ``We choose Earth.``
 That response changes the meaning of the moon mission.
 It is not about escaping the world.
@@ -54,51 +51,169 @@ The main Kennedy lines shaping the song are:
 .. code-block:: text
 
    We choose to go to the moon.
-   not because they are easy, but because they are hard
+   We choose to go to the moon in this decade and do the other things
+   not because they are easy, but because they are hard.
    Because that goal will serve to organize and measure the best of our energies and skills
-   that challenge is one that we are willing to accept, one we are unwilling to postpone, and one we intend to win
-   We set sail on this new sea
-   there is new knowledge to be gained, and new rights to be won, and they must be won and used for the progress of all people
-
-Refrain and Song Shape
-----------------------
-
-The piece is designed around a real refrain, because the refrain is essential to both protest song and folk/rock practice.
-The chosen refrain is adapted very closely from Kennedy:
-
-   Because that goal will serve
-   to organize and measure
-   the best of our energies and skills,
-   because that challenge is one
-   that we are willing to accept,
+   that challenge is one that we are willing to accept,
    one we are unwilling to postpone,
    and one we intend to win.
 
-The song shape is:
+Current Musical Form
+--------------------
 
-- Verse 1: Kennedy's opening declaration
-- Refrain: the ``organize and measure`` passage
-- Verse 2: ``We set sail on this new sea`` and ``progress of all people``
-- Short refrain: a return of the Kennedy refrain
-- Bridge: the Artemis II response, centered on ``We choose Earth``
-- Final verse and refrain: Kennedy heard again after the bridge
-- Coda: ``We choose Earth / We choose each other``
+The current Abjad draft is forty-nine measures long in 4/4 at quarter note = 76.
+It uses four large formal regions:
 
-The dramatic idea is that Kennedy and Artemis II are not in conflict.
-Kennedy gives the song its language of effort and ambition.
-Artemis gives the answer: we take on difficult work together not to abandon the world, but to care for it more fully.
+.. list-table::
+   :header-rows: 1
+   :widths: 16 12 36 36
 
-Production Map
---------------
+   * - Section
+     - Measures
+     - Dramatic Function
+     - Musical Treatment
+   * - Intro
+     - 1-8
+     - Establishes liftoff atmosphere before the text enters.
+     - Quiet open fifths, high string shimmer, viola pedal, and distant trumpet signal.
+   * - Verse
+     - 9-18
+     - Presents Kennedy's opening declaration as public speech.
+     - Mostly spoken vocal rhythm with sparse instrumental responses and piano roots/voicings.
+   * - Refrain
+     - 19-37
+     - Opens the piece into the ``organize and measure`` passage.
+     - More melodic vocal contour, stronger trumpet answers, and richer jazz-influenced harmony.
+   * - Bridge
+     - 38-49
+     - Turns toward Artemis II and ``We choose Earth.``
+     - Suspended harmony, colder string color, then a quieter ending that recedes after the final statement.
 
-The musical design can work as a lead sheet for sound, texture, and pacing rather than as a regular chord chart.
-The piece may be built in Apple Logic as a hybrid of rock/folk song, spoken art song, and electronic sound design.
-The vocal style is closer to speech-based rock recitation than to operatic singing: the verses can be mostly recited, while the refrain, bridge, and coda can open into doubled or harmonized vocals.
-This approach keeps the text clear while allowing the repeated phrases to become song-like.
-The timings below are rough production targets for a song of about five minutes, not fixed notation.
-The table should be read as a practical Logic Pro roadmap: each row gives a section of the song, its approximate place in time, the function of the vocal delivery, the sound world, the rhythmic behavior, and one possible way to build the idea inside Logic.
-It is not a final score.
-Instead, it is a working map for turning the lyric draft into a song that can be performed and produced.
+This version intentionally omits guitar from the notated score.
+The original plan included guitar, but the class instrumentation is uncertain and a guitarist could improvise from the chord lead sheet if one is available.
+Removing the guitar staff keeps the score readable and focuses the written ensemble on the musicians known to be available.
+
+Instrumentation and Roles
+-------------------------
+
+The score uses voice, violin, viola, trumpet, and piano.
+The piano part is written on two staves, but it is not meant to be a completely fixed accompaniment.
+The left hand shows the root or bass path, while the right hand gives practical voicings that explain the chord symbols.
+This makes the jazz color easier to read for classically trained players and gives the pianist a usable voicing cheat sheet.
+
+The violin and viola are treated as color and gravity rather than as generic padding.
+The violin often supplies high shimmer, sustained chord tones, and star-field gestures.
+The viola grounds the harmony with slow inner motion and pedal tones.
+The trumpet is written for a solid jazz player: it begins as a distant mission signal, then grows into more lyrical answers during the refrain and bridge.
+The score includes a concert-pitch trumpet part and a B-flat trumpet part with transposed pitches and chord symbols.
+
+Harmony
+-------
+
+The harmonic language moved away from simple major-fifth sonorities toward readable jazz color.
+The goal is a space sound without making the chord chart too complex for the ensemble.
+Representative sonorities include:
+
+- ``D5`` and ``Dadd9`` for open launch and public declaration.
+- ``Dmaj9/F#`` for a bright but grounded expansion.
+- ``Gmaj7(#11)`` for the Lydian star-field color.
+- ``A13sus4`` and ``A7`` for suspended propulsion and release.
+- ``Bm11`` and ``Em9`` for a wider, more suspended refrain and bridge.
+
+The chord labels in the score are written as standard rehearsal symbols.
+The piano staff shows practical left-hand and right-hand voicings, and the command-line build also writes a generated Markdown reference at ``build/art-song-chord-voicings.md``.
+
+Lead-Score Design
+-----------------
+
+The notation is designed to read as a lead sheet/score hybrid.
+The full score includes:
+
+- chord labels above the ensemble;
+- a mostly spoken vocal line with lyric underlay;
+- rehearsal boxes for the intro, verse, refrain, and bridge;
+- written violin, viola, trumpet, and piano material;
+- dynamics and hairpins that create a gradual buildup and a quieter ending;
+- layout control so systems are limited to about four measures per line;
+- ragged last-system spacing, so the final line is not stretched unnaturally across the page.
+
+The individual part PDFs include chord labels and a vocal cue line.
+This is important because the piece depends on text pacing and formal awareness, not only on each player's notes.
+The B-flat trumpet part receives both transposed notation and transposed chord labels.
+
+Current Outputs
+---------------
+
+The art-song command now generates the full score, part scores, MIDI, LilyPond files, and the chord voicing cheat sheet.
+
+.. code-block:: console
+
+   python -m art_song -o build --pdf --midi
+
+The expected generated files are:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 36 20 44
+
+   * - Artifact
+     - Status
+     - Notes
+   * - ``build/art-song.pdf``
+     - Generated
+     - Full lead-score for voice, strings, trumpet, and piano.
+   * - ``build/art-song.midi``
+     - Generated
+     - MIDI rendering of the current notated score.
+   * - ``build/art-song.ly``
+     - Generated
+     - LilyPond emitted from the Abjad score model.
+   * - ``build/art-song-voice.pdf``
+     - Generated
+     - Voice part with chord labels.
+   * - ``build/art-song-violin.pdf``
+     - Generated
+     - Violin part with chord labels and vocal cue.
+   * - ``build/art-song-viola.pdf``
+     - Generated
+     - Viola part with chord labels and vocal cue.
+   * - ``build/art-song-trumpet-c.pdf``
+     - Generated
+     - Concert-pitch trumpet part with chord labels and vocal cue.
+   * - ``build/art-song-trumpet-bb.pdf``
+     - Generated
+     - B-flat trumpet part with transposed pitches and chord symbols.
+   * - ``build/art-song-piano.pdf``
+     - Generated
+     - Piano part with chord labels and vocal cue.
+   * - ``build/art-song-chord-voicings.md``
+     - Generated
+     - Measure-by-measure chord and piano voicing reference.
+
+Implementation Notes
+--------------------
+
+The current score is generated in :mod:`art_song.score`.
+The implementation moved from a placeholder score toward structured Abjad data:
+
+- each part is stored as measure-level Python data;
+- validation checks that every part has the expected number of measures;
+- validation checks that each measure totals 4/4;
+- chord labels are generated from the same measure structure as the score;
+- lyrics are derived from vocal annotations and attached as lyric underlay;
+- dynamic maps and hairpin ranges are attached by measure number;
+- part builders share the same source material as the full score;
+- the command-line tool writes the full score, all parts, and the voicing reference.
+
+Some low-level LilyPond literals remain where Abjad does not provide a higher-level convenience for the exact output needed, such as lyrics, page layout, and explicit system breaks.
+The main musical structure, however, now lives in Python data and Abjad objects rather than in a large handwritten LilyPond string.
+
+Original Production Plan
+------------------------
+
+The earlier plan imagined the piece as a Logic Pro production with sampled rocket, radio, telemetry, reentry, and splashdown sounds.
+That production plan is still useful, but it is now secondary to the notated classroom score.
+The sound-design ideas can return later as a produced version or as performance notes.
 
 .. list-table::
    :header-rows: 1
@@ -128,60 +243,24 @@ Instead, it is a working map for turning the lyric draft into a song that can be
      - Telemetry beeps, sequenced synth pulse, switch-click percussion, sidechained pad.
      - A measured groove appears, suggesting systems coming online and collective effort becoming organized.
      - Retro Synth or Alchemy arpeggiator, Step Sequencer click pattern, Logic Compressor sidechain movement.
-   * - Verse 2: ``new sea`` and ``progress of all people``
-     - 1:24 / 0:34
-     - Recited verse returns, but with a wider emotional horizon.
-     - Open suspended chords, high shimmer pad, guitar harmonics or processed piano, more melodic bass.
-     - More forward motion than Verse 1; the pulse should feel like travel rather than machinery alone.
-     - Stereo widening, ChromaVerb shimmer, delay throws at phrase endings.
-   * - Short refrain
-     - 1:58 / 0:22
-     - The Kennedy refrain returns in a shorter form, as if it is coming back through transmission.
-     - Refrain pulse is present but thinner; radio-filtered vocal double shadows the lead.
-     - Shorter and more urgent; a transitional build into Artemis II.
-     - Channel EQ band-pass on the ghost vocal, narrower stereo image, rising noise swell.
    * - Bridge: Artemis II response
-     - 2:20 / 0:40
+     - 1:24 / 0:40
      - Close, intimate vocal delivery centered on ``We choose Earth``.
      - Drums drop out; cold lunar-orbit ambience, suspended pad, isolated piano tones, faint spacecraft interior sounds.
      - Time can loosen here; the bridge should feel like a change of perspective rather than a bigger chorus.
      - Automation removes groove elements, brings the vocal closer, and shifts the harmony to a more suspended place.
-   * - Loss of signal / far side
-     - 3:00 / 0:14
-     - No lyric, or a final fragment disappearing into blackout.
-     - Radio layer degrades, the mix narrows to mono, telemetry slows, static cuts off.
-     - Near silence or true silence for two to four seconds.
-     - Direction Mixer narrows the image, Channel EQ band-limits the bus, volume automation creates the blackout.
-   * - Final verse and refrain
-     - 3:14 / 0:54
-     - Kennedy is heard again after Artemis; the refrain can now support fuller harmony.
-     - Piano, bass, vocal harmonies, telemetry pulse, and rocket textures combine into one band.
-     - The groove is clearest here, but should still preserve the speech rhythm of the text.
-     - Reintroduce earlier tracks with warmer filtering; embed rocket and telemetry sounds rhythmically rather than as sound effects.
-   * - Coda: ``We choose Earth / We choose each other``
-     - 4:08 / 0:30
-     - Repeated mantra; lead vocal can be joined by stacked harmonies.
-     - Warm pad, piano, softened machine textures, distant radio memory.
-     - Harmonic rhythm slows; the machine world recedes behind human voices.
-     - Vocal stacks, long reverb tail, gradual muting of sequenced elements.
-   * - Outro: blackout and reentry
-     - 4:38 / 0:26
-     - The voice may stop, or one final ``We choose Earth`` can return after silence.
-     - Silence, radio crackle, sub reentry rumble, white-noise heat, then a broad triumphant chord.
+   * - Coda / reentry image
+     - 2:04 / 0:30+
+     - The final vocal can return quietly rather than ending as a full anthem.
+     - Silence, radio crackle, sub reentry rumble, white-noise heat, then a softened final chord.
      - Dramatic interruption followed by return; the ending should feel like reentry rather than a simple fade.
      - Automated silence, Quick Sampler radio click, filtered noise rise, final full chord.
-
-This lead sheet separates the song from strict notation on purpose.
-The exact chords can stay flexible while the section roles stay clear: declaration, organization, voyage, moral turn, blackout, return, and shared resolution.
-The space sounds should not feel like effects added at the end.
-They should gradually become part of the arrangement: rocket noise becomes percussion, telemetry becomes groove, radio loss becomes form, and reentry becomes the ending.
 
 Timeline Graphic
 ----------------
 
-The generated timeline below presents the same production map visually.
-Its purpose is to show pacing: where each section begins, how long it might last, and how the sound world changes across the piece.
-Because the timeline is generated during the documentation build, it can be revised as the composition becomes more concrete without maintaining a separate image file by hand.
+The generated timeline below preserves the earlier production roadmap visually.
+It should now be read as a future production layer, not as the exact form of the notated classroom score.
 
 .. only:: html
 
@@ -192,22 +271,7 @@ Because the timeline is generated during the documentation build, it can be revi
 .. only:: latex
 
    The production timeline is generated as an HTML documentation figure.
-   The table above carries the same timing and sound-design information for PDF output.
-
-Planned Outputs
----------------
-
-.. list-table::
-   :header-rows: 1
-
-   * - Format
-     - Status
-   * - PDF
-     - Coming soon
-   * - MIDI
-     - Coming soon
-   * - WAV
-     - Coming soon
+   The table above carries the same sound-design information for PDF output.
 
 Lyric Draft
 -----------
@@ -232,22 +296,6 @@ Lyric Draft
    one we are unwilling to postpone,
    and one we intend to win.
 
-   Verse 2
-   We set sail on this new sea
-   because there is new knowledge to be gained,
-   and new rights to be won,
-   and they must be won
-   and used for the progress of all people.
-
-   Short Refrain
-   Because that goal will serve
-   to organize and measure
-   the best of our energies and skills,
-   because that challenge is one
-   we are willing to accept,
-   one we are unwilling to postpone,
-   and one we intend to win.
-
    Bridge
    With this burn to the moon,
    we do not leave Earth.
@@ -256,37 +304,19 @@ Lyric Draft
    We will always choose Earth.
    We will always choose each other.
 
-   Final Verse
-   We choose to go to the moon,
-   not because it is easy,
-   but because it is hard.
-   We choose to go to the moon,
-   and do the other things,
-   for the progress of all people.
-
-   Final Refrain
-   Because that goal will serve
-   to organize and measure
-   the best of our energies and skills,
-   because that challenge is one
-   we are willing to accept,
-   one we are unwilling to postpone,
-   and one we intend to win.
-
    Coda
    We choose Earth.
    We choose each other.
    We choose Earth.
 
-Musical Rationale
------------------
+Revision Plan
+-------------
 
-Musically, the piece should stay song-like and clear.
-The verses should follow the rhythm of speech and keep the words in front.
-The refrain should open into a stronger melody.
-The bridge should open up around ``We choose Earth``, and the coda should feel simple and shared.
-The folk/rock influence suggests a steady pulse, clear harmonies, and a balance between intimacy and public statement.
+The immediate next phase is not to add more instruments.
+It is to make the current lead-score clearer for rehearsal.
 
-The piece uses folk/rock and activist-song ideas, but it still works as an art song.
-The focus is on clear text setting, careful pacing, and a close connection between the voice and piano.
-Its political meaning should come through the way the words are set, repeated, and developed over the course of the song.
+- Decide whether above-staff spoken annotations should remain, or whether the lyric underlay is now enough.
+- Review the trumpet part with the jazz player and adjust register, articulation, and space for improvisatory response.
+- Check whether the piano voicings are idiomatic enough to read while still leaving room for improvisation.
+- Refine dynamics after hearing the ensemble balance, especially the buildup into the refrain and the quieter ending.
+- Decide whether the original Logic Pro sound-design plan should become a later produced version or a separate companion recording.
