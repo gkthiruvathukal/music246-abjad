@@ -177,6 +177,7 @@ jazz-rhythms
 algorithmic-piano-quartet-no1
 algorithmic-piano-quartet-no2
 algorithmic
+art-song
 bird-im-migration
 bird-im-migration-ensemble
 ```
@@ -226,6 +227,7 @@ python -m jazz_rhythm -o build
 python -m algorithmic_piano_quartet_no1 -c configs/algorithmic-piano-quartet-no1.toml -o build
 python -m algorithmic_piano_quartet_no2 -c configs/algorithmic-piano-quartet-no2.toml -o build
 python -m algorithmic -o build
+python -m art_song -o build --pdf --midi
 python -m bird_im_migration -o build --quantization 16 --pdf --midi
 python -m bird_im_migration_ensemble -o build --pdf --wav
 ```
