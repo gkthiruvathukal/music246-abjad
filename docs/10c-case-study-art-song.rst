@@ -61,8 +61,8 @@ The main Kennedy lines shaping the song are:
 Current Musical Form
 --------------------
 
-The current Abjad draft is forty-nine measures long in 4/4 at quarter note = 76.
-It uses four large formal regions:
+The current Abjad draft is seventy-nine measures long in 4/4 at quarter note = 76.
+It now expands the classroom lead score beyond the first verse/refrain/bridge outline by adding a second verse, a short refrain return, a brief loss-of-signal passage, and an outro.
 
 .. list-table::
    :header-rows: 1
@@ -84,10 +84,26 @@ It uses four large formal regions:
      - 19-37
      - Opens the piece into the ``organize and measure`` passage.
      - More melodic vocal contour, stronger trumpet answers, and richer jazz-influenced harmony.
+   * - Verse 2
+     - 38-47
+     - Extends Kennedy's image of setting sail on a new sea.
+     - Reuses the Verse 1 harmonic and instrumental frame with new vocal text.
+   * - Short Refrain
+     - 48-55
+     - Returns the refrain in compressed form before the Artemis turn.
+     - Uses the opening refrain material as a shorter formal signal.
    * - Bridge
-     - 38-49
+     - 56-67
      - Turns toward Artemis II and ``We choose Earth.``
-     - Suspended harmony, colder string color, then a quieter ending that recedes after the final statement.
+     - Suspended harmony and colder string color, with the vocal line moving toward the modern response.
+   * - Loss of Signal
+     - 68-71
+     - Creates a short blackout after the bridge.
+     - Mostly rests, held tones, and sparse open sonorities.
+   * - Outro
+     - 72-79
+     - Closes with the shared ``We choose Earth / each other`` idea.
+     - Quiet communal ending built from the bridge/coda material.
 
 This version intentionally omits guitar from the notated score.
 The original plan included guitar, but the class instrumentation is uncertain and a guitarist could improvise from the chord lead sheet if one is available.
@@ -131,7 +147,7 @@ The full score includes:
 
 - chord labels above the ensemble;
 - a mostly spoken vocal line with lyric underlay;
-- rehearsal boxes for the intro, verse, refrain, and bridge;
+- rehearsal boxes for each formal region;
 - written violin, viola, trumpet, and piano material;
 - dynamics and hairpins that create a gradual buildup and a quieter ending;
 - layout control so systems are limited to about four measures per line;
@@ -296,6 +312,21 @@ Lyric Draft
    one we are unwilling to postpone,
    and one we intend to win.
 
+   Verse 2
+   We set sail on this new sea
+   because there is new knowledge to be gained,
+   and new rights to be won,
+   and they must be won
+   and used for the progress of all people.
+
+   Short Refrain
+   Because that goal will serve
+   to organize and measure
+   the best of our energies and skills,
+   one we are willing to accept,
+   one we are unwilling to postpone,
+   and one we intend to win.
+
    Bridge
    With this burn to the moon,
    we do not leave Earth.
@@ -304,7 +335,10 @@ Lyric Draft
    We will always choose Earth.
    We will always choose each other.
 
-   Coda
+   Loss of Signal
+   [instrumental blackout]
+
+   Outro
    We choose Earth.
    We choose each other.
    We choose Earth.

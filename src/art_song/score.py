@@ -14,9 +14,13 @@ PitchToken = str | tuple[str, str]
 
 SECTION_LENGTHS = {
     "intro": 8,
-    "verse": 10,
+    "verse_1": 10,
     "refrain": 19,
+    "verse_2": 10,
+    "short_refrain": 8,
     "bridge": 12,
+    "loss_of_signal": 4,
+    "outro": 8,
 }
 
 SECTION_DYNAMICS = {
@@ -26,24 +30,34 @@ SECTION_DYNAMICS = {
         22: "mf",
         29: "f",
         37: "mp",
-        45: "p",
-        48: "pp",
+        47: "mf",
+        55: "mp",
+        63: "p",
+        67: "pp",
+        71: "p",
+        78: "pp",
     },
     "violin": {
         0: "pp",
         18: "mp",
         26: "mf",
         37: "p",
-        45: "mp",
-        48: "pp",
+        47: "mp",
+        55: "p",
+        67: "pp",
+        71: "p",
+        78: "pp",
     },
     "viola": {
         0: "pp",
         18: "mp",
         26: "mf",
         37: "p",
-        45: "mp",
-        48: "pp",
+        47: "mp",
+        55: "p",
+        67: "pp",
+        71: "p",
+        78: "pp",
     },
     "trumpet": {
         0: "pp",
@@ -51,8 +65,12 @@ SECTION_DYNAMICS = {
         26: "mf",
         34: "f",
         37: "p",
-        45: "mp",
-        48: "pp",
+        47: "mp",
+        55: "p",
+        63: "mp",
+        67: "pp",
+        71: "p",
+        78: "pp",
     },
     "piano_right": {
         0: "pp",
@@ -60,8 +78,11 @@ SECTION_DYNAMICS = {
         18: "mp",
         26: "mf",
         37: "p",
-        45: "mp",
-        48: "pp",
+        47: "mp",
+        55: "p",
+        67: "pp",
+        71: "p",
+        78: "pp",
     },
     "piano_left": {
         0: "pp",
@@ -69,27 +90,30 @@ SECTION_DYNAMICS = {
         18: "mp",
         26: "mf",
         37: "p",
-        45: "mp",
-        48: "pp",
+        47: "mp",
+        55: "p",
+        67: "pp",
+        71: "p",
+        78: "pp",
     },
 }
 
 CRESCENDO_RANGES = {
-    "voice": [(18, 29), (37, 45)],
-    "violin": [(0, 7), (18, 29), (37, 45)],
-    "viola": [(18, 29), (37, 45)],
-    "trumpet": [(18, 34), (37, 45)],
-    "piano_right": [(18, 29), (37, 45)],
-    "piano_left": [(18, 29), (37, 45)],
+    "voice": [(18, 29), (37, 47), (55, 63), (71, 75)],
+    "violin": [(0, 7), (18, 29), (37, 47), (55, 63), (71, 75)],
+    "viola": [(18, 29), (37, 47), (55, 63), (71, 75)],
+    "trumpet": [(18, 34), (37, 47), (55, 63), (71, 75)],
+    "piano_right": [(18, 29), (37, 47), (55, 63), (71, 75)],
+    "piano_left": [(18, 29), (37, 47), (55, 63), (71, 75)],
 }
 
 DECRESCENDO_RANGES = {
-    "voice": [(45, 48)],
-    "violin": [(45, 48)],
-    "viola": [(45, 48)],
-    "trumpet": [(45, 48)],
-    "piano_right": [(45, 48)],
-    "piano_left": [(45, 48)],
+    "voice": [(63, 67), (75, 78)],
+    "violin": [(63, 67), (75, 78)],
+    "viola": [(63, 67), (75, 78)],
+    "trumpet": [(63, 67), (75, 78)],
+    "piano_right": [(63, 67), (75, 78)],
+    "piano_left": [(63, 67), (75, 78)],
 }
 
 CHORD_LABELS: list[list[tuple[str, str]]] = [
@@ -405,6 +429,44 @@ PIANO_LEFT_MEASURES: list[list[PitchToken]] = [
     ["a,1"],
 ]
 
+VERSE2_CHORD_LABELS = CHORD_LABELS[8:18]
+VERSE2_VOICE_MEASURES: list[list[PitchToken]] = [
+    [("d'4", "We set sail on this new sea"), "e'4", "fs'4", "a'4"],
+    [("d'4", "because there is new knowledge"), "e'4", "fs'4", "a'4"],
+    [("r4", "to be gained,"), "d'8", "e'8", "fs'4", "e'4"],
+    [("d'4", "and new rights to be won,"), "e'8", "fs'8", "a'4", "r4"],
+    [("d'4", "and they must be won"), "e'4", "fs'4", "a'4"],
+    ["r1"],
+    [("fs'4", "and used for the progress"), "e'4", "d'4", "e'4"],
+    [("g'4", "of all people."), "fs'4", "e'4", "d'4"],
+    ["e'2", "fs'2"],
+    ["d'1"],
+]
+VERSE2_VIOLIN_MEASURES = VIOLIN_MEASURES[8:18]
+VERSE2_VIOLA_MEASURES = VIOLA_MEASURES[8:18]
+VERSE2_TRUMPET_MEASURES = TRUMPET_MEASURES[8:18]
+VERSE2_GUITAR_MEASURES = GUITAR_MEASURES[8:18]
+VERSE2_PIANO_RIGHT_MEASURES = PIANO_RIGHT_MEASURES[8:18]
+VERSE2_PIANO_LEFT_MEASURES = PIANO_LEFT_MEASURES[8:18]
+
+SHORT_REFRAIN_CHORD_LABELS = CHORD_LABELS[18:26]
+SHORT_REFRAIN_VOICE_MEASURES: list[list[PitchToken]] = [
+    [("a'4", "Because that goal will serve"), "b'4", "a'4", "fs'4"],
+    [("e'4", "to organize and measure"), "fs'4", "a'4", "b'4"],
+    [("b'4", "the best of our energies and skills"), "a'4", "fs'4", "e'4"],
+    ["fs'4", "a'4", "b'4", "a'4"],
+    [("a'4", "one we are willing to accept,"), "a'4", "b'4", "a'4"],
+    [("e'4", "one we are unwilling to postpone,"), "fs'4", "a'4", "b'4"],
+    [("a'4", "and one we intend"), "fs'4", "e'4", "fs'4"],
+    [("d''2", "to win."), "r2"],
+]
+SHORT_REFRAIN_VIOLIN_MEASURES = VIOLIN_MEASURES[18:26]
+SHORT_REFRAIN_VIOLA_MEASURES = VIOLA_MEASURES[18:26]
+SHORT_REFRAIN_TRUMPET_MEASURES = TRUMPET_MEASURES[18:26]
+SHORT_REFRAIN_GUITAR_MEASURES = GUITAR_MEASURES[18:26]
+SHORT_REFRAIN_PIANO_RIGHT_MEASURES = PIANO_RIGHT_MEASURES[18:26]
+SHORT_REFRAIN_PIANO_LEFT_MEASURES = PIANO_LEFT_MEASURES[18:26]
+
 BRIDGE_CHORD_LABELS: list[list[tuple[str, str]]] = [
     [("1", "Bm11")],
     [("1", "Gmaj7(#11)")],
@@ -525,6 +587,168 @@ BRIDGE_PIANO_LEFT_MEASURES: list[list[PitchToken]] = [
     ["d,1"],
 ]
 
+LOSS_CHORD_LABELS: list[list[tuple[str, str]]] = [
+    [("1", "D5")],
+    [("1", "Gmaj7(#11)")],
+    [("1", "A13sus4")],
+    [("1", "Dadd9")],
+]
+
+LOSS_VOICE_MEASURES: list[list[PitchToken]] = [
+    [("r1", "loss of signal")],
+    ["r1"],
+    ["r1"],
+    ["r1"],
+]
+
+LOSS_VIOLIN_MEASURES: list[list[PitchToken]] = [
+    [("<a'' e'''>1", "far-side signal thins")],
+    ["<b'' fs'''>1"],
+    ["r1"],
+    ["a''1"],
+]
+
+LOSS_VIOLA_MEASURES: list[list[PitchToken]] = [
+    ["d'1"],
+    ["g1"],
+    ["a1"],
+    ["d1"],
+]
+
+LOSS_TRUMPET_MEASURES: list[list[PitchToken]] = [
+    ["r1"],
+    [("r2", "distant, almost gone"), "a'2"],
+    ["r1"],
+    ["r1"],
+]
+
+LOSS_GUITAR_MEASURES: list[list[PitchToken]] = [
+    [("c1", "let the signal drop out")],
+    ["c1"],
+    ["c1"],
+    ["c1"],
+]
+
+LOSS_PIANO_RIGHT_MEASURES: list[list[PitchToken]] = [
+    ["<a' d''>1"],
+    ["<b' cs'' fs''>1"],
+    ["<g' b' cs'' fs''>1"],
+    ["<e' fs' a'>1"],
+]
+
+LOSS_PIANO_LEFT_MEASURES: list[list[PitchToken]] = [
+    ["d,1"],
+    ["g,1"],
+    ["a,1"],
+    ["d,1"],
+]
+
+OUTRO_CHORD_LABELS: list[list[tuple[str, str]]] = [
+    [("1", "Dadd9")],
+    [("1", "Dmaj9/F#")],
+    [("1", "Gmaj9")],
+    [("1", "A13sus4")],
+    [("1", "Bm11")],
+    [("1", "Gmaj7(#11)")],
+    [("1", "Dadd9")],
+    [("1", "D5")],
+]
+
+OUTRO_VOICE_MEASURES: list[list[PitchToken]] = [
+    [("d'2", "We choose Earth."), "r2"],
+    [("fs'4", "We choose each other."), "a'4", "fs'4", "e'4"],
+    [("g'2", "We choose Earth."), "r2"],
+    ["r1"],
+    [("a'4", "We will always choose Earth."), "b'4", "a'4", "fs'4"],
+    [("e'4", "We will always choose each other."), "fs'4", "a'2"],
+    [("d''2", "We choose Earth."), "a'2"],
+    ["d'1"],
+]
+
+OUTRO_VIOLIN_MEASURES: list[list[PitchToken]] = [
+    ["a''1"],
+    ["fs''1"],
+    ["g''1"],
+    ["e''1"],
+    ["b''2", "a''2"],
+    ["g''2", "fs''2"],
+    ["a''1"],
+    ["d'''1"],
+]
+
+OUTRO_VIOLA_MEASURES: list[list[PitchToken]] = [
+    ["d'1"],
+    ["fs1"],
+    ["g1"],
+    ["a1"],
+    ["b1"],
+    ["g1"],
+    ["d'1"],
+    ["d1"],
+]
+
+OUTRO_TRUMPET_MEASURES: list[list[PitchToken]] = [
+    ["r1"],
+    ["r1"],
+    ["r2", "a'2"],
+    ["r1"],
+    ["b'2", "a'2"],
+    ["r2", "fs'2"],
+    ["a'1"],
+    ["d''1"],
+]
+
+OUTRO_GUITAR_MEASURES: list[list[PitchToken]] = [
+    [("c4", "simple communal pulse"), "c4", "c4", "c4"],
+    ["c4", "c4", "c4", "c4"],
+    ["c4", "c4", "c4", "c4"],
+    ["c4", "c4", "c4", "c4"],
+    ["c4", "c4", "c4", "c4"],
+    ["c4", "c4", "c4", "c4"],
+    ["c2", "c2"],
+    ["c1"],
+]
+
+OUTRO_PIANO_RIGHT_MEASURES: list[list[PitchToken]] = [
+    ["<e' fs' a'>1"],
+    ["<e' fs' a' cs''>1"],
+    ["<a' b' d'' fs''>1"],
+    ["<g' b' cs'' fs''>1"],
+    ["<a' d'' e''>1"],
+    ["<b' cs'' fs''>1"],
+    ["<e' fs' a'>1"],
+    ["<a' d''>1"],
+]
+
+OUTRO_PIANO_LEFT_MEASURES: list[list[PitchToken]] = [
+    ["d,1"],
+    ["fs,1"],
+    ["g,1"],
+    ["a,1"],
+    ["b,1"],
+    ["g,1"],
+    ["d,1"],
+    ["d,1"],
+]
+
+CHORD_LABELS.extend(VERSE2_CHORD_LABELS)
+VOICE_MEASURES.extend(VERSE2_VOICE_MEASURES)
+VIOLIN_MEASURES.extend(VERSE2_VIOLIN_MEASURES)
+VIOLA_MEASURES.extend(VERSE2_VIOLA_MEASURES)
+TRUMPET_MEASURES.extend(VERSE2_TRUMPET_MEASURES)
+GUITAR_MEASURES.extend(VERSE2_GUITAR_MEASURES)
+PIANO_RIGHT_MEASURES.extend(VERSE2_PIANO_RIGHT_MEASURES)
+PIANO_LEFT_MEASURES.extend(VERSE2_PIANO_LEFT_MEASURES)
+
+CHORD_LABELS.extend(SHORT_REFRAIN_CHORD_LABELS)
+VOICE_MEASURES.extend(SHORT_REFRAIN_VOICE_MEASURES)
+VIOLIN_MEASURES.extend(SHORT_REFRAIN_VIOLIN_MEASURES)
+VIOLA_MEASURES.extend(SHORT_REFRAIN_VIOLA_MEASURES)
+TRUMPET_MEASURES.extend(SHORT_REFRAIN_TRUMPET_MEASURES)
+GUITAR_MEASURES.extend(SHORT_REFRAIN_GUITAR_MEASURES)
+PIANO_RIGHT_MEASURES.extend(SHORT_REFRAIN_PIANO_RIGHT_MEASURES)
+PIANO_LEFT_MEASURES.extend(SHORT_REFRAIN_PIANO_LEFT_MEASURES)
+
 CHORD_LABELS.extend(BRIDGE_CHORD_LABELS)
 VOICE_MEASURES.extend(BRIDGE_VOICE_MEASURES)
 VIOLIN_MEASURES.extend(BRIDGE_VIOLIN_MEASURES)
@@ -533,6 +757,24 @@ TRUMPET_MEASURES.extend(BRIDGE_TRUMPET_MEASURES)
 GUITAR_MEASURES.extend(BRIDGE_GUITAR_MEASURES)
 PIANO_RIGHT_MEASURES.extend(BRIDGE_PIANO_RIGHT_MEASURES)
 PIANO_LEFT_MEASURES.extend(BRIDGE_PIANO_LEFT_MEASURES)
+
+CHORD_LABELS.extend(LOSS_CHORD_LABELS)
+VOICE_MEASURES.extend(LOSS_VOICE_MEASURES)
+VIOLIN_MEASURES.extend(LOSS_VIOLIN_MEASURES)
+VIOLA_MEASURES.extend(LOSS_VIOLA_MEASURES)
+TRUMPET_MEASURES.extend(LOSS_TRUMPET_MEASURES)
+GUITAR_MEASURES.extend(LOSS_GUITAR_MEASURES)
+PIANO_RIGHT_MEASURES.extend(LOSS_PIANO_RIGHT_MEASURES)
+PIANO_LEFT_MEASURES.extend(LOSS_PIANO_LEFT_MEASURES)
+
+CHORD_LABELS.extend(OUTRO_CHORD_LABELS)
+VOICE_MEASURES.extend(OUTRO_VOICE_MEASURES)
+VIOLIN_MEASURES.extend(OUTRO_VIOLIN_MEASURES)
+VIOLA_MEASURES.extend(OUTRO_VIOLA_MEASURES)
+TRUMPET_MEASURES.extend(OUTRO_TRUMPET_MEASURES)
+GUITAR_MEASURES.extend(OUTRO_GUITAR_MEASURES)
+PIANO_RIGHT_MEASURES.extend(OUTRO_PIANO_RIGHT_MEASURES)
+PIANO_LEFT_MEASURES.extend(OUTRO_PIANO_LEFT_MEASURES)
 
 
 def _markup(text: str, *, bold: bool = False, italic: bool = False) -> abjad.Markup:
@@ -604,6 +846,10 @@ def _section_name_for_measure(measure_index: int) -> str:
         if start <= measure_index < stop:
             return section_name
     raise ValueError(f"measure index {measure_index} is outside declared sections")
+
+
+def _section_title(section_name: str) -> str:
+    return section_name.replace("_", " ").title()
 
 
 def _validate_score_data() -> None:
@@ -710,7 +956,7 @@ def build_chord_voicing_cheat_sheet() -> str:
         lines.append(
             "| "
             f"{measure_index + 1} | "
-            f"{_section_name_for_measure(measure_index).title()} | "
+            f"{_section_title(_section_name_for_measure(measure_index))} | "
             f"{_chord_labels_for_cheat_sheet(chords)} | "
             f"`{_measure_tokens_for_cheat_sheet(left)}` | "
             f"`{_measure_tokens_for_cheat_sheet(right)}` |"
@@ -913,9 +1159,13 @@ def _attach_voice_rehearsal_marks(voice: abjad.Component) -> None:
 
     starts = [
         (section_starts["intro"], "Intro - liftoff atmosphere"),
-        (section_starts["verse"], "Verse 1 - spoken declaration"),
+        (section_starts["verse_1"], "Verse 1 - spoken declaration"),
         (section_starts["refrain"], "Refrain - first sung opening"),
+        (section_starts["verse_2"], "Verse 2 - new sea"),
+        (section_starts["short_refrain"], "Short Refrain"),
         (section_starts["bridge"], "Bridge - We choose Earth"),
+        (section_starts["loss_of_signal"], "Loss of Signal"),
+        (section_starts["outro"], "Outro - choose Earth"),
     ]
     for measure_index, text in starts:
         leaf = _measure_start_leaf(voice, VOICE_MEASURES, measure_index)
@@ -1004,7 +1254,7 @@ def _attach_section_rehearsal_marks(
         leaf = _measure_start_leaf(component, measures, running_total)
         if leaf is not None:
             abjad.attach(
-                abjad.RehearsalMark(markup=rf'\markup \box "{section_name.title()}"'),
+                abjad.RehearsalMark(markup=rf'\markup \box "{_section_title(section_name)}"'),
                 leaf,
             )
         running_total += measure_count
