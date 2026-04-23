@@ -100,8 +100,21 @@ detect_optional_tools() {
         HAS_BIRD_IM_MIGRATION_ENSEMBLE=1
     fi
 
-    if command -v pdfcrop >/dev/null 2>&1 && command -v pdftoppm >/dev/null 2>&1 && command -v magick >/dev/null 2>&1; then
-        HAS_THUMBNAIL_TOOLS=1
+    if command -v pdfcrop >/dev/null 2>&1 && command -v pdftoppm >/dev/null 2>&1; then
+        if command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1; then
+            HAS_THUMBNAIL_TOOLS=1
+        fi
+    fi
+}
+
+resize_thumbnail() {
+    local input_path="$1"
+    local output_path="$2"
+
+    if command -v magick >/dev/null 2>&1; then
+        magick "${input_path}" -resize 50% "${output_path}"
+    else
+        convert "${input_path}" -resize 50% "${output_path}"
     fi
 }
 
@@ -235,7 +248,7 @@ create_thumbnail() {
 
     pdfcrop --margins '10 10 10 10' "${pdf_path}" "${cropped_pdf}"
     pdftoppm -png -f 1 -singlefile "${cropped_pdf}" "${temp_path}"
-    magick "${temp_path}.png" -resize 50% "${png_path}"
+    resize_thumbnail "${temp_path}.png" "${png_path}"
     rm -f "${cropped_pdf}"
     rm -f "${temp_path}.png"
     echo "Wrote ${png_path}"
@@ -259,7 +272,7 @@ render_bird_im_migration_thumbnails() {
                 "${OUTPUT_DIR}/bird-im-migration-q32-thumbnail.png"
         fi
     else
-        echo "Warning: pdfcrop, pdftoppm, and/or magick are not installed; skipping Bird Im-Migration thumbnail render." >&2
+        echo "Warning: pdfcrop, pdftoppm, and magick or convert are not installed; skipping Bird Im-Migration thumbnail render." >&2
     fi
 }
 
@@ -276,7 +289,7 @@ render_art_song_thumbnail() {
                 "${OUTPUT_DIR}/art-song-thumbnail.png"
         fi
     else
-        echo "Warning: pdfcrop, pdftoppm, and/or magick are not installed; skipping Art Song thumbnail render." >&2
+        echo "Warning: pdfcrop, pdftoppm, and magick or convert are not installed; skipping Art Song thumbnail render." >&2
     fi
 }
 

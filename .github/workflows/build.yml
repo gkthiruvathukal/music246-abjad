@@ -435,7 +435,11 @@ jobs:
 
             pdfcrop --margins '10 10 10 10' "${pdf_path}" "${cropped_pdf}"
             pdftoppm -png -f 1 -singlefile "${cropped_pdf}" "${temp_path}"
-            magick "${temp_path}.png" -resize 50% "${png_path}"
+            if command -v magick >/dev/null 2>&1; then
+              magick "${temp_path}.png" -resize 50% "${png_path}"
+            else
+              convert "${temp_path}.png" -resize 50% "${png_path}"
+            fi
             rm -f "${cropped_pdf}"
             rm -f "${temp_path}.png"
           }
