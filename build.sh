@@ -129,7 +129,14 @@ build_modus_operandi() {
 
 build_jazz_rhythms() {
     echo "Building Jazz Rhythms outputs into ${OUTPUT_DIR}"
-    python -m jazz_rhythm -o "${OUTPUT_DIR}" --pdf --wav
+    if [ "${HAS_FFMPEG}" -eq 1 ]; then
+        python -m jazz_rhythm -o "${OUTPUT_DIR}" --pdf --wav
+    else
+        python -m jazz_rhythm -o "${OUTPUT_DIR}" --pdf --midi
+        echo "Warning: ffmpeg is not installed; skipping Jazz Rhythms WAV render." >&2
+        echo "  macOS:  brew install ffmpeg" >&2
+        echo "  Ubuntu: sudo apt install ffmpeg" >&2
+    fi
 }
 
 build_piano_quartet() {
@@ -234,7 +241,7 @@ render_bird_im_migration_wavs() {
         return
     fi
 
-    if [ "${HAS_FLUIDSYNTH}" -eq 1 ]; then
+    if [ "${HAS_FLUIDSYNTH}" -eq 1 ] && [ "${HAS_FFMPEG}" -eq 1 ]; then
         echo "Rendering Bird Im-Migration WAV outputs into ${OUTPUT_DIR}"
         if [ -f "${OUTPUT_DIR}/bird-im-migration-q16.midi" ]; then
             "${ROOT_DIR}/midi2wav.sh" \
@@ -247,9 +254,16 @@ render_bird_im_migration_wavs() {
                 "${OUTPUT_DIR}/bird-im-migration-q32.wav"
         fi
     else
-        echo "Warning: fluidsynth is not installed; skipping Bird Im-Migration WAV render." >&2
-        echo "  macOS:  brew install fluidsynth" >&2
-        echo "  Ubuntu: sudo apt install fluidsynth" >&2
+        if [ "${HAS_FLUIDSYNTH}" -eq 0 ]; then
+            echo "Warning: fluidsynth is not installed; skipping Bird Im-Migration WAV render." >&2
+            echo "  macOS:  brew install fluidsynth" >&2
+            echo "  Ubuntu: sudo apt install fluidsynth" >&2
+        fi
+        if [ "${HAS_FFMPEG}" -eq 0 ]; then
+            echo "Warning: ffmpeg is not installed; skipping Bird Im-Migration WAV render." >&2
+            echo "  macOS:  brew install ffmpeg" >&2
+            echo "  Ubuntu: sudo apt install ffmpeg" >&2
+        fi
     fi
 }
 
@@ -308,15 +322,22 @@ render_art_song_thumbnail() {
 }
 
 render_modus_operandi_wav() {
-    if [ "${HAS_FLUIDSYNTH}" -eq 1 ]; then
+    if [ "${HAS_FLUIDSYNTH}" -eq 1 ] && [ "${HAS_FFMPEG}" -eq 1 ]; then
         echo "Rendering Modus Operandi WAV into ${OUTPUT_DIR}"
         "${ROOT_DIR}/midi2wav.sh" \
             "${OUTPUT_DIR}/modus-operandi-abjad.midi" \
             "${OUTPUT_DIR}/modus-operandi-abjad.wav"
     else
-        echo "Warning: fluidsynth is not installed; skipping WAV render." >&2
-        echo "  macOS:  brew install fluidsynth" >&2
-        echo "  Ubuntu: sudo apt install fluidsynth" >&2
+        if [ "${HAS_FLUIDSYNTH}" -eq 0 ]; then
+            echo "Warning: fluidsynth is not installed; skipping WAV render." >&2
+            echo "  macOS:  brew install fluidsynth" >&2
+            echo "  Ubuntu: sudo apt install fluidsynth" >&2
+        fi
+        if [ "${HAS_FFMPEG}" -eq 0 ]; then
+            echo "Warning: ffmpeg is not installed; skipping WAV render." >&2
+            echo "  macOS:  brew install ffmpeg" >&2
+            echo "  Ubuntu: sudo apt install ffmpeg" >&2
+        fi
     fi
 }
 

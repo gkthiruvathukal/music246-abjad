@@ -12,6 +12,7 @@ import tempfile
 import abjad
 import mido
 
+from audio_rendering import normalize_wav, run_audio_command
 from algorithmic_piano_quartet_no2.soundfonts import ensure_soundfont
 from jazz_rhythm.render import render_clap_wav
 from .generator import build_ensemble_piece
@@ -62,8 +63,27 @@ def render_wav(
     wav_path: str,
     soundfont_path: str,
     sample_rate: int,
+    *,
+    normalize_output: bool = True,
 ) -> None:
     soundfont = ensure_soundfont(soundfont_path)
+    if normalize_output:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            raw_wav_path = Path(temp_dir) / "ensemble-raw.wav"
+            cmd = [
+                "fluidsynth",
+                "-ni",
+                "-F",
+                str(raw_wav_path),
+                "-r",
+                str(sample_rate),
+                str(soundfont),
+                midi_path,
+            ]
+            run_audio_command(cmd, wrote_path=str(raw_wav_path))
+            normalize_wav(str(raw_wav_path), wav_path, sample_rate)
+        return
+
     cmd = [
         "fluidsynth",
         "-ni",
@@ -74,14 +94,7 @@ def render_wav(
         str(soundfont),
         midi_path,
     ]
-    print(f"Running: {' '.join(cmd)}")
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        print(result.stderr, file=sys.stderr)
-        sys.exit(result.returncode)
-    if result.stderr:
-        print(result.stderr, end="")
-    print(f"Wrote {wav_path}")
+    run_audio_command(cmd, wrote_path=wav_path)
 
 
 def _channels_for_prefixes(midi: mido.MidiFile, prefixes: set[str]) -> set[int]:
@@ -181,14 +194,7 @@ def mix_wavs(input_paths: list[str], output_path: str, *, weights: list[float] |
             output_path,
         ]
     )
-    print(f"Running: {' '.join(cmd)}")
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        print(result.stderr, file=sys.stderr)
-        sys.exit(result.returncode)
-    if result.stderr:
-        print(result.stderr, end="")
-    print(f"Wrote {output_path}")
+    run_audio_command(cmd, wrote_path=output_path)
 
 
 def _movement_midi_paths(output_dir: str, stem: str) -> list[str]:
@@ -249,6 +255,7 @@ def render_layered_wav_for_midi(
         piano_lh_wav = Path(temp_dir) / "ensemble-piano-lh.wav"
         ensemble_wav = Path(temp_dir) / "ensemble-other.wav"
         percussion_wav = Path(temp_dir) / "ensemble-percussion.wav"
+        mixed_wav = Path(temp_dir) / "ensemble-mix.wav"
 
         _write_filtered_midi(
             midi,
@@ -268,16 +275,17 @@ def render_layered_wav_for_midi(
         if percussion_channels:
             _write_filtered_midi(midi, percussion_channels, percussion_midi)
 
-        render_wav(str(piano_rh_midi), str(piano_rh_wav), piano_soundfont_path, sample_rate)
-        render_wav(str(piano_lh_midi), str(piano_lh_wav), piano_soundfont_path, sample_rate)
-        render_wav(str(ensemble_midi), str(ensemble_wav), ensemble_soundfont_path, sample_rate)
+        render_wav(str(piano_rh_midi), str(piano_rh_wav), piano_soundfont_path, sample_rate, normalize_output=False)
+        render_wav(str(piano_lh_midi), str(piano_lh_wav), piano_soundfont_path, sample_rate, normalize_output=False)
+        render_wav(str(ensemble_midi), str(ensemble_wav), ensemble_soundfont_path, sample_rate, normalize_output=False)
         layers = [str(piano_lh_wav), str(piano_rh_wav), str(ensemble_wav)]
         weights = [1.8, 1.0, 0.9]
         if percussion_channels:
             render_clap_wav(str(percussion_midi), str(percussion_wav), sample_rate=sample_rate)
             layers.append(str(percussion_wav))
             weights.append(0.8)
-        mix_wavs(layers, wav_path, weights=weights)
+        mix_wavs(layers, str(mixed_wav), weights=weights)
+        normalize_wav(str(mixed_wav), wav_path, sample_rate)
 # [docs:layered-render:end]
 
 
@@ -308,6 +316,7 @@ def render_full_wav(
 
     with tempfile.TemporaryDirectory() as temp_dir:
         concat_list = os.path.join(temp_dir, "concat.txt")
+        raw_output_wav = os.path.join(temp_dir, f"{stem}-raw.wav")
         Path(concat_list).write_text(
             "".join(f"file '{Path(path).resolve()}'\n" for path in movement_wavs),
             encoding="utf-8",
@@ -324,16 +333,10 @@ def render_full_wav(
             concat_list,
             "-c",
             "copy",
-            output_wav,
+            raw_output_wav,
         ]
-        print(f"Running: {' '.join(cmd)}")
-        result = subprocess.run(cmd, capture_output=True, text=True)
-        if result.returncode != 0:
-            print(result.stderr, file=sys.stderr)
-            sys.exit(result.returncode)
-        if result.stderr:
-            print(result.stderr, end="")
-        print(f"Wrote {output_wav}")
+        run_audio_command(cmd, wrote_path=raw_output_wav)
+        normalize_wav(raw_output_wav, output_wav, sample_rate)
 # [docs:movement-render-order:end]
 
 

@@ -14,6 +14,7 @@ import tempfile
 import abjad
 import mido
 
+from audio_rendering import normalize_wav, run_audio_command
 from .config import load_config
 from .generator import compose_piece
 from .score import build_lilypond_file
@@ -118,8 +119,27 @@ def render_wav(
     wav_path: str,
     soundfont_path: str,
     sample_rate: int,
+    *,
+    normalize_output: bool = True,
 ) -> None:
     soundfont = ensure_soundfont(soundfont_path)
+    if normalize_output:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            raw_wav_path = Path(temp_dir) / "quartet-raw.wav"
+            cmd = [
+                "fluidsynth",
+                "-ni",
+                "-F",
+                str(raw_wav_path),
+                "-r",
+                str(sample_rate),
+                str(soundfont),
+                midi_path,
+            ]
+            run_audio_command(cmd, wrote_path=str(raw_wav_path))
+            normalize_wav(str(raw_wav_path), wav_path, sample_rate)
+        return
+
     cmd = [
         "fluidsynth",
         "-ni",
@@ -130,14 +150,7 @@ def render_wav(
         str(soundfont),
         midi_path,
     ]
-    print(f"Running: {' '.join(cmd)}")
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        print(result.stderr, file=sys.stderr)
-        sys.exit(result.returncode)
-    if result.stderr:
-        print(result.stderr, end="")
-    print(f"Wrote {wav_path}")
+    run_audio_command(cmd, wrote_path=wav_path)
 
 
 def render_layered_wav(
@@ -159,13 +172,15 @@ def render_layered_wav(
         strings_midi = Path(temp_dir) / "quartet-strings.midi"
         piano_wav = Path(temp_dir) / "quartet-piano.wav"
         strings_wav = Path(temp_dir) / "quartet-strings.wav"
+        raw_wav = Path(temp_dir) / "quartet-mix.wav"
 
         _write_filtered_midi(midi, piano_channels, piano_midi)
         _write_filtered_midi(midi, strings_channels, strings_midi)
 
-        render_wav(str(piano_midi), str(piano_wav), piano_soundfont_path, sample_rate)
-        render_wav(str(strings_midi), str(strings_wav), strings_soundfont_path, sample_rate)
-        mix_wavs(str(piano_wav), str(strings_wav), wav_path)
+        render_wav(str(piano_midi), str(piano_wav), piano_soundfont_path, sample_rate, normalize_output=False)
+        render_wav(str(strings_midi), str(strings_wav), strings_soundfont_path, sample_rate, normalize_output=False)
+        mix_wavs(str(piano_wav), str(strings_wav), str(raw_wav))
+        normalize_wav(str(raw_wav), wav_path, sample_rate)
 
 
 def _channels_for_prefixes(midi: mido.MidiFile, prefixes: set[str]) -> set[int]:
@@ -212,14 +227,7 @@ def mix_wavs(piano_wav_path: str, strings_wav_path: str, output_path: str) -> No
         "pcm_s16le",
         output_path,
     ]
-    print(f"Running: {' '.join(cmd)}")
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        print(result.stderr, file=sys.stderr)
-        sys.exit(result.returncode)
-    if result.stderr:
-        print(result.stderr, end="")
-    print(f"Wrote {output_path}")
+    run_audio_command(cmd, wrote_path=output_path)
 
 
 def main(argv=None):

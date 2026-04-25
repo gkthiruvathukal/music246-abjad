@@ -122,7 +122,6 @@ def main(argv=None):
             midi_path = os.path.join(args.output_dir, f"{STEM}.midi")
             wav_path = os.path.join(args.output_dir, f"{STEM}.wav")
             render_clap_wav(midi_path, wav_path)
-            print(f"Wrote {wav_path}")
 
     if not formats_to_compile and args.ly:
         print("Done (--ly only, skipping LilyPond compilation).")

@@ -106,6 +106,9 @@ jobs:
       - name: Install package
         run: pip install -e .
 
+      - name: Install audio tools
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
       - name: Build Jazz Rhythms outputs
         run: python -m jazz_rhythm -o build --pdf --wav
 

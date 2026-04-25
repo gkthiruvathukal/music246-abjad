@@ -3,10 +3,13 @@
 from __future__ import annotations
 
 import math
+from pathlib import Path
 import random
+import tempfile
 import wave
 from array import array
 
+from audio_rendering import normalize_wav
 import mido
 
 
@@ -60,8 +63,11 @@ def render_clap_wav(midi_path: str, wav_path: str, sample_rate: int = 44100) -> 
         clamped = max(-1.0, min(1.0, value * normalizer))
         pcm.append(int(clamped * 32767))
 
-    with wave.open(wav_path, "wb") as wav_file:
-        wav_file.setnchannels(1)
-        wav_file.setsampwidth(2)
-        wav_file.setframerate(sample_rate)
-        wav_file.writeframes(pcm.tobytes())
+    with tempfile.TemporaryDirectory() as temp_dir:
+        raw_wav_path = Path(temp_dir) / "jazz-rhythm-raw.wav"
+        with wave.open(str(raw_wav_path), "wb") as wav_file:
+            wav_file.setnchannels(1)
+            wav_file.setsampwidth(2)
+            wav_file.setframerate(sample_rate)
+            wav_file.writeframes(pcm.tobytes())
+        normalize_wav(str(raw_wav_path), wav_path, sample_rate)

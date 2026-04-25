@@ -7,7 +7,7 @@
 #   ./midi2wav.sh <input.midi> [output.wav]
 #
 # The soundfont (~296 MB) is downloaded on first use and cached in
-# ~/.soundfonts/.  Requires: fluidsynth, curl, tar, xz.
+# ~/.soundfonts/.  Requires: fluidsynth, ffmpeg, curl, tar, xz.
 
 set -euo pipefail
 
@@ -41,6 +41,13 @@ if ! command -v fluidsynth &>/dev/null; then
     exit 1
 fi
 
+if ! command -v ffmpeg &>/dev/null; then
+    echo "Error: ffmpeg is not installed." >&2
+    echo "  macOS:  brew install ffmpeg" >&2
+    echo "  Ubuntu: sudo apt install ffmpeg" >&2
+    exit 1
+fi
+
 # --- Fetch soundfont if needed -----------------------------------------------
 
 if [ ! -f "$SOUNDFONT_SF2" ]; then
@@ -66,5 +73,13 @@ fi
 # --- Render ------------------------------------------------------------------
 
 echo "Rendering: $MIDI_FILE -> $WAV_FILE"
-fluidsynth -ni -F "$WAV_FILE" -r 44100 "$SOUNDFONT_SF2" "$MIDI_FILE"
+RAW_DIR="$(mktemp -d "${TMPDIR:-/tmp}/midi2wav.XXXXXX")"
+RAW_WAV="${RAW_DIR}/raw.wav"
+cleanup() {
+    rm -rf "$RAW_DIR"
+}
+trap cleanup EXIT
+
+fluidsynth -ni -F "$RAW_WAV" -r 44100 "$SOUNDFONT_SF2" "$MIDI_FILE"
+ffmpeg -y -i "$RAW_WAV" -af loudnorm=I=-16:TP=-1.5:LRA=11 -ar 44100 -c:a pcm_s16le "$WAV_FILE"
 echo "Done: $WAV_FILE"
