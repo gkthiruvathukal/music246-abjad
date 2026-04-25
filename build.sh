@@ -184,7 +184,21 @@ build_algorithmic() {
 build_art_song() {
     if [ "${HAS_ART_SONG}" -eq 1 ]; then
         echo "Building Art Song outputs into ${OUTPUT_DIR}"
-        python -m art_song -o "${OUTPUT_DIR}" --pdf --midi
+        if [ "${HAS_FLUIDSYNTH}" -eq 1 ] && [ "${HAS_FFMPEG}" -eq 1 ]; then
+            python -m art_song -o "${OUTPUT_DIR}" --pdf --midi --wav
+        else
+            python -m art_song -o "${OUTPUT_DIR}" --pdf --midi
+            if [ "${HAS_FLUIDSYNTH}" -eq 0 ]; then
+                echo "Warning: fluidsynth is not installed; skipping Art Song WAV render." >&2
+                echo "  macOS:  brew install fluidsynth" >&2
+                echo "  Ubuntu: sudo apt install fluidsynth" >&2
+            fi
+            if [ "${HAS_FFMPEG}" -eq 0 ]; then
+                echo "Warning: ffmpeg is not installed; skipping Art Song WAV render." >&2
+                echo "  macOS:  brew install ffmpeg" >&2
+                echo "  Ubuntu: sudo apt install ffmpeg" >&2
+            fi
+        fi
     fi
 }
 
