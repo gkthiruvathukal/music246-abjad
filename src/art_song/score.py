@@ -10,7 +10,7 @@ import abjad
 TITLE = "We Choose the Moon, We Choose Earth"
 COMPOSER = "George K. Thiruvathukal"
 
-PitchToken = str | tuple[str, str]
+PitchToken = str | tuple[str, str] | tuple[str, str, str]
 
 SECTION_LENGTHS = {
     "intro": 8,
@@ -166,24 +166,48 @@ VOICE_MEASURES: list[list[PitchToken]] = [
     ["r1"],
     ["r1"],
     [
-        ("d'8", "spoken: We choose to go to the moon."),
-        "d'8",
-        "e'8",
-        "fs'8",
-        "a'4",
+        ("d'8", "spoken: We choose to go to the moon.", "We"),
+        ("d'8", "", "choose"),
+        ("e'8", "", "to"),
+        ("fs'8", "", "go"),
+        ("a'8", "", "to"),
+        ("a'8", "", "the"),
         "r4",
     ],
     [
-        ("d'8", "We choose to go to the moon in this decade"),
-        "e'8",
-        "fs'8",
-        "a'8",
-        "b'4",
-        "a'4",
+        ("d'8", "We choose to go to the moon in this decade", "moon"),
+        ("e'8", "", "in"),
+        ("fs'8", "", "this"),
+        ("a'8", "", "dec-"),
+        ("b'8", "", "ade"),
+        ("b'8", "", "and"),
+        ("a'8", "", "do"),
+        ("a'8", "", "the"),
     ],
-    [("r4", "and do the other things"), "d'8", "e'8", "fs'4", "e'4"],
-    [("d'4", "not because they are easy"), "e'8", "fs'8", "a'4", "r4"],
-    ["d'8", "e'8", "fs'8", "a'8", ("b'4", "but because they are hard"), "a'4"],
+    [
+        ("r4", "and do the other things"),
+        ("d'8", "", "oth-"),
+        ("e'8", "", "er"),
+        ("fs'8", "", "things"),
+        ("fs'8", "", "not"),
+        ("e'4", "", "be-"),
+    ],
+    [
+        ("d'8", "not because they are easy", "cause"),
+        ("d'8", "", "they"),
+        ("e'8", "", "are"),
+        ("fs'8", "", "ea-"),
+        ("a'4", "", "sy"),
+        "r4",
+    ],
+    [
+        ("d'8", "", "but"),
+        ("e'8", "", "be-"),
+        ("fs'8", "", "cause"),
+        ("a'8", "", "they"),
+        ("b'4", "but because they are hard", "are"),
+        ("a'4", "", "hard"),
+    ],
     ["r1"],
     [("fs'8", "repeat the public voice, still mostly spoken"), "e'8", "d'8", "e'8", "fs'4", "a'4"],
     ["b'4", "a'4", "fs'4", "e'4"],
@@ -884,6 +908,14 @@ def _token_without_duration(token: str) -> str:
     return re.sub(r"\d+\.?$", "", token)
 
 
+def _token_parts(item: PitchToken) -> tuple[str, str | None, str | None]:
+    if isinstance(item, tuple):
+        if len(item) == 3:
+            return item[0], item[1], item[2]
+        return item[0], item[1], None
+    return item, None, None
+
+
 def _measure_tokens_for_cheat_sheet(measure: Sequence[PitchToken]) -> str:
     tokens = []
     for item in measure:
@@ -1003,15 +1035,23 @@ def _lyrics_for_voice_measure(measure: Sequence[PitchToken]) -> list[str]:
     pitched_items = [
         item
         for item in measure
-        if _is_pitched_token(item[0] if isinstance(item, tuple) else item)
+        if _is_pitched_token(_token_parts(item)[0])
     ]
     if not pitched_items:
         return []
 
+    explicit_tokens = [_token_parts(item)[2] for item in pitched_items]
+    if any(token is not None for token in explicit_tokens):
+        return [
+            '""' if token in {None, ""} else f'"{_escape_lyric_text(token)}"'
+            for token in explicit_tokens
+        ]
+
     lyric_text = None
     for item in pitched_items:
         if isinstance(item, tuple):
-            lyric_text = _lyric_text_from_annotation(item[1])
+            _, annotation, _ = _token_parts(item)
+            lyric_text = _lyric_text_from_annotation(annotation)
             if lyric_text:
                 break
 
@@ -1040,12 +1080,17 @@ def _voice_lyrics_literal() -> abjad.LilyPondLiteral:
     )
 
 
-def _append_measures(container: abjad.Container, measures: Sequence[Sequence[PitchToken]]) -> None:
+def _append_measures(
+    container: abjad.Container,
+    measures: Sequence[Sequence[PitchToken]],
+    *,
+    attach_annotations: bool = True,
+) -> None:
     for measure in measures:
         for item in measure:
-            token, text = item if isinstance(item, tuple) else (item, None)
+            token, text, _ = _token_parts(item)
             leaf = _make_leaf(token)
-            if text:
+            if text and attach_annotations:
                 abjad.attach(_markup(text, italic=True), leaf, direction=abjad.UP)
             container.append(leaf)
 
@@ -1207,9 +1252,10 @@ def _make_staff(
     dynamic_part: str | None = None,
     lilypond_type: str = "Staff",
     attach_names: bool = True,
+    attach_annotations: bool = True,
 ) -> abjad.Staff:
     staff = abjad.Staff(lilypond_type=lilypond_type, name=name)
-    _append_measures(staff, measures)
+    _append_measures(staff, measures, attach_annotations=attach_annotations)
     _attach_start_indicators(staff, clef=clef, dynamic=dynamic)
     _attach_section_breaks(staff, measures)
     if dynamic_part is not None:
@@ -1276,7 +1322,13 @@ def _make_bflat_trumpet_part_staff() -> abjad.Staff:
 
 
 def _make_part_voice_staff(*, transpose_interval: str | None = None) -> abjad.Staff:
-    staff = _make_staff("Voice cue", "Vox.", VOICE_MEASURES, dynamic_part="voice")
+    staff = _make_staff(
+        "Voice cue",
+        "Vox.",
+        VOICE_MEASURES,
+        dynamic_part="voice",
+        attach_annotations=False,
+    )
     if transpose_interval is not None:
         abjad.mutate.transpose(staff, transpose_interval)
         first_leaf = abjad.select.leaf(staff, 0)
@@ -1338,7 +1390,13 @@ def _make_voice_part_score() -> abjad.Score:
 
 
 def _make_score() -> abjad.Score:
-    voice = _make_staff("Voice", "Vox.", VOICE_MEASURES, dynamic_part="voice")
+    voice = _make_staff(
+        "Voice",
+        "Vox.",
+        VOICE_MEASURES,
+        dynamic_part="voice",
+        attach_annotations=False,
+    )
     _attach_voice_rehearsal_marks(voice)
     abjad.attach(_voice_lyrics_literal(), voice)
     first_voice_leaf = abjad.select.leaf(voice, 0)
