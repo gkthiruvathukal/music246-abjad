@@ -9,6 +9,11 @@ import abjad
 
 TITLE = "We Choose the Moon, We Choose Earth"
 COMPOSER = "George K. Thiruvathukal"
+PERFORMANCE_FOOTNOTE = (
+    "Performance note: Where the score indicates 'random space words/sounds,' the vocalist "
+    "and/or audience may recite spontaneous words or short phrases about space "
+    "exploration and our humanity. Nonverbal space sounds are also welcome."
+)
 
 PitchToken = str | tuple[str, str] | tuple[str, str, str]
 
@@ -213,18 +218,81 @@ VOICE_MEASURES: list[list[PitchToken]] = [
     ["b'4", "a'4", "fs'4", "e'4"],
     [("g'4", "lean toward song here"), "fs'4", "e'4", "d'4"],
     ["e'2", "fs'2"],
-    [("a'4", "sung: Because that goal will serve"), "b'4", "a'4", "fs'4"],
-    [("e'4", "to organize and measure"), "fs'4", "a'4", "b'4"],
-    [("b'4", "the best of our energies and skills"), "a'4", "fs'4", "e'4"],
-    ["fs'4", "a'4", "b'4", "a'4"],
-    [("a'4", "because that challenge is one"), "a'4", "b'4", "a'4"],
-    [("e'4", "that we are willing to accept"), "fs'4", "a'4", "b'4"],
-    ["a'4", "fs'4", "e'2"],
-    [("fs'4", "one we are unwilling to postpone"), "a'4", "b'4", "a'4"],
-    ["e'4", "fs'4", "a'4", "b'4"],
-    ["a'4", "fs'4", "e'2"],
-    [("fs'4", "and one we intend"), "a'4", "b'4", "a'4"],
-    [("d''2", "to win"), "r2"],
+    [
+        ("a'4", "sung: Because that goal will serve", "Be-"),
+        ("b'4", "", "cause"),
+        ("a'8", "", "that"),
+        ("a'8", "", "goal"),
+        ("fs'8", "", "will"),
+        ("fs'8", "", "serve"),
+    ],
+    [
+        ("e'8", "to organize and measure", "to"),
+        ("e'8", "", "or-"),
+        ("fs'4", "", "gan-"),
+        ("a'8", "", "ize"),
+        ("a'8", "", "and"),
+        ("b'8", "", "meas-"),
+        ("b'8", "", "ure"),
+    ],
+    [
+        ("b'4", "the best of our energies and skills", "the"),
+        ("a'4", "", "best"),
+        ("fs'4", "", "of"),
+        ("e'4", "", "our"),
+    ],
+    [
+        ("fs'4", "", "en-"),
+        ("a'4", "", "er-"),
+        ("b'4", "", "gies"),
+        ("a'8", "", "and"),
+        ("a'8", "", "skills"),
+    ],
+    [
+        ("a'4", "because that challenge is one", "Be-"),
+        ("a'4", "", "cause"),
+        ("b'8", "", "that"),
+        ("b'8", "", "chal-"),
+        ("a'4", "", "lenge"),
+    ],
+    [
+        ("e'8", "that we are willing to accept", "is"),
+        ("e'8", "", "one"),
+        ("fs'8", "", "that"),
+        ("fs'8", "", "we"),
+        ("a'8", "", "are"),
+        ("a'8", "", "will-"),
+        ("b'4", "", "ing"),
+    ],
+    [
+        ("a'4", "", "to"),
+        ("fs'4", "", "ac-"),
+        ("e'2", "", "cept"),
+    ],
+    [
+        ("fs'4", "one we are unwilling to postpone", "one"),
+        ("a'4", "", "we"),
+        ("b'4", "", "are"),
+        ("a'4", "", "un-"),
+    ],
+    [
+        ("e'4", "", "will-"),
+        ("fs'4", "", "ing"),
+        ("a'4", "", "to"),
+        ("b'4", "", "post-"),
+    ],
+    [
+        ("a'4", "", "pone"),
+        ("fs'4", "", "and"),
+        ("e'2", "", "one"),
+    ],
+    [
+        ("fs'4", "and one we intend", "we"),
+        ("a'4", "", "in-"),
+        ("b'4", "", "tend"),
+        ("a'4", "", "to"),
+    ],
+    [("d''2", "to win", "win"), "r2"],
     ["r1"],
     [("a'4", "instrumental breath / prepare next verse"), "b'4", "a'4", "fs'4"],
     ["e'4", "fs'4", "a'4", "b'4"],
@@ -455,14 +523,61 @@ PIANO_LEFT_MEASURES: list[list[PitchToken]] = [
 
 VERSE2_CHORD_LABELS = CHORD_LABELS[8:18]
 VERSE2_VOICE_MEASURES: list[list[PitchToken]] = [
-    [("d'4", "We set sail on this new sea"), "e'4", "fs'4", "a'4"],
-    [("d'4", "because there is new knowledge"), "e'4", "fs'4", "a'4"],
-    [("r4", "to be gained,"), "d'8", "e'8", "fs'4", "e'4"],
-    [("d'4", "and new rights to be won,"), "e'8", "fs'8", "a'4", "r4"],
-    [("d'4", "and they must be won"), "e'4", "fs'4", "a'4"],
+    [
+        ("d'8", "We set sail on this new sea", "We"),
+        ("d'8", "", "set"),
+        ("e'8", "", "sail"),
+        ("e'8", "", "on"),
+        ("fs'8", "", "this"),
+        ("fs'8", "", "new"),
+        ("a'4", "", "sea"),
+    ],
+    [
+        ("d'8", "because there is new knowledge", "be-"),
+        ("d'8", "", "cause"),
+        ("e'4", "", "there"),
+        ("fs'4", "", "is"),
+        ("a'8", "", "new"),
+        ("a'8", "", "know-"),
+    ],
+    [
+        ("r4", "to be gained,"),
+        ("d'8", "", "ledge"),
+        ("e'8", "", "to"),
+        ("fs'4", "", "be"),
+        ("e'4", "", "gained"),
+    ],
+    [
+        ("d'8", "and new rights to be won,", "and"),
+        ("d'8", "", "new"),
+        ("e'8", "", "rights"),
+        ("fs'8", "", "to"),
+        ("a'8", "", "be"),
+        ("a'8", "", "won"),
+        "r4",
+    ],
+    [
+        ("d'4", "and they must be won", "and"),
+        ("e'4", "", "they"),
+        ("fs'4", "", "must"),
+        ("a'8", "", "be"),
+        ("a'8", "", "won"),
+    ],
     ["r1"],
-    [("fs'4", "and used for the progress"), "e'4", "d'4", "e'4"],
-    [("g'4", "of all people."), "fs'4", "e'4", "d'4"],
+    [
+        ("fs'8", "and used for the progress", "and"),
+        ("fs'8", "", "used"),
+        ("e'4", "", "for"),
+        ("d'8", "", "the"),
+        ("d'8", "", "pro-"),
+        ("e'4", "", "gress"),
+    ],
+    [
+        ("g'4", "of all people.", "of"),
+        ("fs'4", "", "all"),
+        ("e'4", "", "peo-"),
+        ("d'4", "", "ple"),
+    ],
     ["e'2", "fs'2"],
     ["d'1"],
 ]
@@ -475,14 +590,67 @@ VERSE2_PIANO_LEFT_MEASURES = PIANO_LEFT_MEASURES[8:18]
 
 SHORT_REFRAIN_CHORD_LABELS = CHORD_LABELS[18:26]
 SHORT_REFRAIN_VOICE_MEASURES: list[list[PitchToken]] = [
-    [("a'4", "Because that goal will serve"), "b'4", "a'4", "fs'4"],
-    [("e'4", "to organize and measure"), "fs'4", "a'4", "b'4"],
-    [("b'4", "the best of our energies and skills"), "a'4", "fs'4", "e'4"],
-    ["fs'4", "a'4", "b'4", "a'4"],
-    [("a'4", "one we are willing to accept,"), "a'4", "b'4", "a'4"],
-    [("e'4", "one we are unwilling to postpone,"), "fs'4", "a'4", "b'4"],
-    [("a'4", "and one we intend"), "fs'4", "e'4", "fs'4"],
-    [("d''2", "to win."), "r2"],
+    [
+        ("a'8", "Because that goal will serve", "Be-"),
+        ("a'8", "", "cause"),
+        ("b'4", "", "that"),
+        ("a'8", "", "goal"),
+        ("a'8", "", "will"),
+        ("fs'4", "", "serve"),
+    ],
+    [
+        ("e'8", "to organize and measure", "to"),
+        ("e'8", "", "or-"),
+        ("fs'4", "", "gan-"),
+        ("a'8", "", "ize"),
+        ("a'8", "", "and"),
+        ("b'8", "", "meas-"),
+        ("b'8", "", "ure"),
+    ],
+    [
+        ("b'8", "the best of our energies and skills", "the"),
+        ("b'8", "", "best"),
+        ("a'8", "", "of"),
+        ("a'8", "", "our"),
+        ("fs'8", "", "en-"),
+        ("fs'8", "", "er-"),
+        ("e'8", "", "gies"),
+        ("e'8", "", "and"),
+    ],
+    [
+        ("fs'8", "", "skills"),
+        ("fs'8", "", "one"),
+        ("a'4", "", "we"),
+        ("b'4", "", "are"),
+        ("a'8", "", "will-"),
+        ("a'8", "", "ing"),
+    ],
+    [
+        ("a'8", "one we are willing to accept,", "to"),
+        ("a'8", "", "ac-"),
+        ("b'4", "", "cept"),
+        ("a'8", "", "one"),
+        ("a'8", "", "we"),
+        ("a'8", "", "are"),
+        ("a'8", "", "un-"),
+    ],
+    [
+        ("e'8", "one we are unwilling to postpone,", "will-"),
+        ("e'8", "", "ing"),
+        ("fs'4", "", "to"),
+        ("a'8", "", "post-"),
+        ("a'8", "", "pone"),
+        ("b'8", "", "and"),
+        ("b'8", "", "one"),
+    ],
+    [
+        ("a'8", "and one we intend", "we"),
+        ("a'8", "", "in-"),
+        ("fs'4", "", "tend"),
+        ("e'4", "", "to"),
+        ("fs'4", "", "win."),
+    ],
+    ["d''2", "r2"],
 ]
 SHORT_REFRAIN_VIOLIN_MEASURES = VIOLIN_MEASURES[18:26]
 SHORT_REFRAIN_VIOLA_MEASURES = VIOLA_MEASURES[18:26]
@@ -507,17 +675,52 @@ BRIDGE_CHORD_LABELS: list[list[tuple[str, str]]] = [
 ]
 
 BRIDGE_VOICE_MEASURES: list[list[PitchToken]] = [
-    [("fs'4", "With this burn to the moon,"), "a'4", "b'4", "a'4"],
-    [("e'4", "we do not leave Earth."), "fs'4", "a'2"],
-    [("d'2", "We choose it."), "r2"],
-    [("e'4", "We choose Earth."), "fs'4", "a'2"],
-    [("g'4", "We will always choose Earth."), "fs'4", "e'4", "d'4"],
-    [("a'4", "We will always choose each other."), "b'4", "a'4", "fs'4"],
+    [
+        ("fs'8", "With this burn to the moon,", "With"),
+        ("fs'8", "", "this"),
+        ("a'8", "", "burn"),
+        ("a'8", "", "to"),
+        ("b'4", "", "the"),
+        ("a'4", "", "moon,"),
+    ],
+    [
+        ("e'8", "we do not leave Earth.", "we"),
+        ("e'8", "", "do"),
+        ("fs'8", "", "not"),
+        ("fs'8", "", "leave"),
+        ("a'2", "", "Earth."),
+    ],
+    [("d'4", "We choose it.", "We"), ("d'8", "", "choose"), ("d'8", "", "it."), "r2"],
+    [("e'4", "We choose Earth.", "We"), ("fs'4", "", "choose"), ("a'2", "", "Earth.")],
+    [
+        ("g'8", "We will always choose Earth.", "We"),
+        ("g'8", "", "will"),
+        ("fs'8", "", "al-"),
+        ("fs'8", "", "ways"),
+        ("e'4", "", "choose"),
+        ("d'4", "", "Earth."),
+    ],
+    [
+        ("a'8", "We will always choose each other.", "We"),
+        ("a'8", "", "will"),
+        ("b'8", "", "al-"),
+        ("b'8", "", "ways"),
+        ("a'8", "", "choose"),
+        ("a'8", "", "each"),
+        ("fs'8", "", "oth-"),
+        ("fs'8", "", "er."),
+    ],
     ["e'2", "fs'2"],
     ["a'1"],
-    [("b'4", "We choose Earth."), "a'4", "fs'4", "e'4"],
-    [("e'4", "We choose each other."), "fs'4", "a'2"],
-    [("d''2", "We choose Earth."), "a'2"],
+    [("b'4", "We choose Earth.", "We"), ("a'4", "", "choose"), ("fs'4", "", "Earth."), ("e'4", "", "")],
+    [
+        ("e'8", "We choose each other.", "We"),
+        ("e'8", "", "choose"),
+        ("fs'8", "", "each"),
+        ("fs'8", "", "oth-"),
+        ("a'2", "", "er."),
+    ],
+    [("d''4", "We choose Earth.", "We"), ("d''4", "", "choose"), ("a'2", "", "Earth.")],
     ["d'1"],
 ]
 
@@ -679,13 +882,36 @@ OUTRO_CHORD_LABELS: list[list[tuple[str, str]]] = [
 ]
 
 OUTRO_VOICE_MEASURES: list[list[PitchToken]] = [
-    [("d'2", "We choose Earth."), "r2"],
-    [("fs'4", "We choose each other."), "a'4", "fs'4", "e'4"],
-    [("g'2", "We choose Earth."), "r2"],
+    [("d'4", "We choose Earth.", "We"), ("d'4", "", "choose"), ("d'2", "", "Earth.")],
+    [
+        ("fs'8", "We choose each other.", "We"),
+        ("fs'8", "", "choose"),
+        ("a'8", "", "each"),
+        ("a'8", "", "oth-"),
+        ("fs'4", "", "er."),
+        ("e'4", "", ""),
+    ],
+    [("g'4", "We choose Earth.", "We"), ("g'4", "", "choose"), ("g'2", "", "Earth.")],
     ["r1"],
-    [("a'4", "We will always choose Earth."), "b'4", "a'4", "fs'4"],
-    [("e'4", "We will always choose each other."), "fs'4", "a'2"],
-    [("d''2", "We choose Earth."), "a'2"],
+    [
+        ("a'8", "We will always choose Earth.", "We"),
+        ("a'8", "", "will"),
+        ("b'8", "", "al-"),
+        ("b'8", "", "ways"),
+        ("a'4", "", "choose"),
+        ("fs'4", "", "Earth."),
+    ],
+    [
+        ("e'8", "We will always choose each other.", "We"),
+        ("e'8", "", "will"),
+        ("fs'8", "", "al-"),
+        ("fs'8", "", "ways"),
+        ("a'8", "", "choose"),
+        ("a'8", "", "each"),
+        ("a'8", "", "oth-"),
+        ("a'8", "", "er."),
+    ],
+    [("d''4", "We choose Earth.", "We"), ("d''4", "", "choose"), ("a'2", "", "Earth.")],
     ["d'1"],
 ]
 
@@ -754,6 +980,15 @@ OUTRO_PIANO_LEFT_MEASURES: list[list[PitchToken]] = [
     ["d,1"],
     ["d,1"],
 ]
+
+VOICE_PERFORMANCE_NOTES = {
+    14: "random space words/sounds",
+    31: "random space words/sounds",
+    45: "random space words/sounds",
+    54: "random space words/sounds",
+    61: "random space words/sounds",
+    66: "random space words/sounds",
+}
 
 CHORD_LABELS.extend(VERSE2_CHORD_LABELS)
 VOICE_MEASURES.extend(VERSE2_VOICE_MEASURES)
@@ -1012,6 +1247,10 @@ def _escape_lyric_text(text: str) -> str:
     return text.replace("\\", "\\\\").replace('"', r"\"")
 
 
+def _escape_header_text(text: str) -> str:
+    return text.replace("\\", "\\\\").replace('"', r"\"")
+
+
 def _lyric_text_from_annotation(text: str | None) -> str | None:
     if text is None:
         return None
@@ -1185,11 +1424,23 @@ def _attach_system_breaks(
     *,
     measures_per_system: int = 4,
 ) -> None:
-    measure_count = len(measures)
-    break_indices = list(range(measures_per_system - 1, measure_count - 1, measures_per_system))
-    if break_indices and measure_count - break_indices[-1] - 1 == 1:
-        break_indices.pop()
-    for measure_index in break_indices:
+    break_indices: set[int] = set()
+    running_total = 0
+    for measure_count in SECTION_LENGTHS.values():
+        section_start = running_total
+        section_stop = running_total + measure_count
+        if section_start > 0:
+            break_indices.add(section_start - 1)
+
+        internal_breaks = list(
+            range(section_start + measures_per_system - 1, section_stop - 1, measures_per_system)
+        )
+        if internal_breaks and section_stop - internal_breaks[-1] - 1 == 1:
+            internal_breaks.pop()
+        break_indices.update(internal_breaks)
+        running_total = section_stop
+
+    for measure_index in sorted(break_indices):
         leaf = _measure_end_leaf(component, measures, measure_index)
         if leaf is not None:
             abjad.attach(abjad.LilyPondLiteral(r"\break", site="after"), leaf)
@@ -1216,6 +1467,13 @@ def _attach_voice_rehearsal_marks(voice: abjad.Component) -> None:
         leaf = _measure_start_leaf(voice, VOICE_MEASURES, measure_index)
         if leaf is not None:
             abjad.attach(abjad.RehearsalMark(markup=rf'\markup \box "{text}"'), leaf)
+
+
+def _attach_voice_performance_notes(voice: abjad.Component) -> None:
+    for measure_index, text in VOICE_PERFORMANCE_NOTES.items():
+        leaf = _measure_start_leaf(voice, VOICE_MEASURES, measure_index)
+        if leaf is not None:
+            abjad.attach(_markup(text, italic=True), leaf, direction=abjad.UP)
 
 
 def _make_chord_context(
@@ -1336,6 +1594,7 @@ def _make_part_voice_staff(*, transpose_interval: str | None = None) -> abjad.St
             abjad.detach(abjad.KeySignature, first_leaf)
             abjad.attach(abjad.KeySignature(abjad.NamedPitchClass("e"), abjad.Mode("major")), first_leaf)
     _attach_voice_rehearsal_marks(staff)
+    _attach_voice_performance_notes(staff)
     abjad.attach(_voice_lyrics_literal(), staff)
     first_leaf = abjad.select.leaf(staff, 0)
     if first_leaf is not None:
@@ -1398,6 +1657,7 @@ def _make_score() -> abjad.Score:
         attach_annotations=False,
     )
     _attach_voice_rehearsal_marks(voice)
+    _attach_voice_performance_notes(voice)
     abjad.attach(_voice_lyrics_literal(), voice)
     first_voice_leaf = abjad.select.leaf(voice, 0)
     if first_voice_leaf is not None:
@@ -1436,12 +1696,22 @@ def _make_paper_block() -> abjad.Block:
     return paper_block
 
 
-def _make_header_block(*, subtitle: str | None = None) -> abjad.Block:
+def _make_header_block(
+    *,
+    subtitle: str | None = None,
+    performance_note: str | None = None,
+) -> abjad.Block:
     header_block = abjad.Block(name="header")
     header_block.items.append(rf'title = "{TITLE}"')
     if subtitle is not None:
         header_block.items.append(rf'subtitle = "{subtitle}"')
     header_block.items.append(rf'composer = "{COMPOSER}"')
+    if performance_note is not None:
+        escaped_note = _escape_header_text(performance_note)
+        header_block.items.append(
+            'piece = \\markup \\fontsize #-2 \\override #\'(line-width . 100) '
+            f'\\italic \\wordwrap-string #"{escaped_note}"'
+        )
     header_block.items.append("tagline = ##f")
     return header_block
 
@@ -1458,7 +1728,7 @@ def build_lilypond_file():
         items=[
             "#(set-global-staff-size 14)",
             _make_paper_block(),
-            _make_header_block(),
+            _make_header_block(performance_note=PERFORMANCE_FOOTNOTE),
             score_block,
         ]
     )
@@ -1516,7 +1786,10 @@ def build_part_lilypond_file(part: str):
         items=[
             "#(set-global-staff-size 16)",
             _make_paper_block(),
-            _make_header_block(subtitle=subtitles[part]),
+            _make_header_block(
+                subtitle=subtitles[part],
+                performance_note=PERFORMANCE_FOOTNOTE if part == "voice" else None,
+            ),
             score_block,
         ]
     )
