@@ -6,6 +6,14 @@ The piece began as a Logic Pro production plan for a space-themed activist art s
 The result is not only a lead sheet and not only a fully fixed concert score.
 It is a hybrid artifact: the score gives the players written material, chord changes, dynamics, vocal text, and formal cues, while still leaving room for piano interpretation and eventual production work.
 
+
+Note
+------
+
+Unlike other works I have been doing recently, this work is *not* algorithmic in nature.
+It is a demonstration of how to use Abjad and Python for writing conventional notated music via code, which is surprisingly accessible if you have clear musical ideas/fragments in mind from the get-go. As this is a song, I had ideas for chord changes and melodic lines and worked one section at a time.
+Most folks will probably prefer to write using WYSIWYG using Dorico but with the help of coding agents, it is possible to translate your musical ideas into Abjad+Python!
+
 Download
 --------
 
