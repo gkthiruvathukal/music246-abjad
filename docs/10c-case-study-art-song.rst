@@ -6,6 +6,70 @@ The piece began as a Logic Pro production plan for a space-themed activist art s
 The result is not only a lead sheet and not only a fully fixed concert score.
 It is a hybrid artifact: the score gives the players written material, chord changes, dynamics, vocal text, and formal cues, while still leaving room for piano interpretation and eventual production work.
 
+Download
+--------
+
+.. list-table::
+   :header-rows: 1
+
+   * - Format
+     - Link
+     - Duration
+   * - Full Score PDF
+     - `art-song.pdf <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/art-song.pdf>`_
+     - n/a
+   * - WAV
+     - `art-song.wav <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/art-song.wav>`_
+     - 4:13
+   * - MIDI
+     - `art-song.midi <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/art-song.midi>`_
+     - 4:13
+
+Part Downloads
+--------------
+
+.. list-table::
+   :header-rows: 1
+
+   * - Part
+     - Link
+   * - Voice
+     - `art-song-voice.pdf <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/art-song-voice.pdf>`_
+   * - Violin
+     - `art-song-violin.pdf <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/art-song-violin.pdf>`_
+   * - Viola
+     - `art-song-viola.pdf <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/art-song-viola.pdf>`_
+   * - Trumpet in C
+     - `art-song-trumpet-c.pdf <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/art-song-trumpet-c.pdf>`_
+   * - Trumpet in B-flat
+     - `art-song-trumpet-bb.pdf <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/art-song-trumpet-bb.pdf>`_
+   * - Piano
+     - `art-song-piano.pdf <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/art-song-piano.pdf>`_
+   * - Chord Voicing Guide
+     - `art-song-chord-voicings.md <https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/art-song-chord-voicings.md>`_
+
+.. only:: html
+
+   Listen
+   ------
+
+   Duration: 4:13
+
+   .. raw:: html
+
+      <audio controls preload="none">
+        <source src="https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/art-song.wav" type="audio/wav">
+        Your browser does not support the audio element.
+      </audio>
+
+Score Preview
+-------------
+
+.. image:: https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/art-song-thumbnail.png
+   :alt: First page preview of We Choose the Moon, We Choose Earth
+   :target: https://github.com/gkthiruvathukal/compositions-abjad/releases/latest/download/art-song.pdf
+   :width: 50%
+
 Personal Background
 -------------------
 
@@ -164,7 +228,7 @@ The art-song command now generates the full score, part scores, MIDI, LilyPond f
 
 .. code-block:: console
 
-   python -m art_song -o build --pdf --midi
+   python -m art_song -o build --pdf --midi --wav
 
 The expected generated files are:
 
@@ -181,6 +245,9 @@ The expected generated files are:
    * - ``build/art-song.midi``
      - Generated
      - MIDI rendering of the current notated score.
+   * - ``build/art-song.wav``
+     - Generated
+     - Layered SoundFont render of the current notated score.
    * - ``build/art-song.ly``
      - Generated
      - LilyPond emitted from the Abjad score model.
