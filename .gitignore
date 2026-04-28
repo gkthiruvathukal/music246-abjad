@@ -10,5 +10,11 @@ dist/
 # Generated documentation figures
 docs/_static/art-song-production-timeline.svg
 
+# Supplemental program notes build artifacts
+supplemental/program-notes/art-song-program-notes.pdf
+supplemental/program-notes/art-song-program-notes.aux
+supplemental/program-notes/art-song-program-notes.log
+supplemental/program-notes/art-song-program-notes.out
+
 # Editor swap files
 *.swp
